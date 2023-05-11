@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="180dp"
+    android:layout_height="220dp"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@android:color/transparent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="170dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="1dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        android:layout_marginStart="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgStall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/stall" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="170dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="Circle K"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/img1"
+        android:layout_width="57dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/stall_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txtNumber"
+        android:layout_width="24dp"
+        android:layout_height="26dp"
+        android:layout_alignBottom="@+id/img1"
+        android:elegantTextHeight="true"
+        android:gravity="center"
+        android:text="1"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#0C29B6"
+        android:textSize="15dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

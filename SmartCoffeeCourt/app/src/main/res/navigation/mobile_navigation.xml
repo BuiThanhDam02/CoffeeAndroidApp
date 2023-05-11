@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.smartcoffeecourt.Fragment.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_food"
+        android:name="com.example.smartcoffeecourt.Fragment.CoffeeFragment"
+        android:label="@string/coffee"
+        tools:layout="@layout/fragment_coffee" />
+
+    <fragment
+        android:id="@+id/nav_order"
+        android:name="com.example.smartcoffeecourt.Fragment.OrderFragment"
+        android:label="@string/orders"
+        tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/nav_sign_out"
+        android:name="com.example.smartcoffeecourt.Fragment.HomeFragment"
+        android:label="@string/sign_out"
+        tools:layout="@layout/fragment_order" />
+</navigation>

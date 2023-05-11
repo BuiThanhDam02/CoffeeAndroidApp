@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CoffeeDetail.CoffeeDetailPage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E5E5E5">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="204dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/ic_star_black_24dp"
+            app:elevation="6dp"
+            app:layout_anchorGravity="bottom|right|start"
+            app:layout_constraintEnd_toEndOf="@+id/txtName"
+            app:layout_constraintHorizontal_bias="0.237"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
+            app:layout_constraintTop_toTopOf="@+id/imgCoffee"
+            app:pressedTranslationZ="12dp"
+            app:useCompatPadding="true"
+            tools:ignore="MissingConstraints,NotSibling" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="204dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/ic_baseline_comment_24"
+            app:elevation="6dp"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_constraintEnd_toEndOf="@+id/img"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/img"
+            app:layout_constraintTop_toTopOf="@+id/imgCoffee"
+            app:pressedTranslationZ="12dp"
+            app:useCompatPadding="true"
+            tools:ignore="MissingConstraints,NotSibling" />
+
+        <ImageView
+            android:id="@+id/imgCart"
+            android:layout_width="32dp"
+            android:layout_height="29dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBack"
+            app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
+
+        <ImageView
+            android:id="@+id/imgCoffee"
+            android:layout_width="260dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgCart"
+            app:srcCompat="@drawable/background"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="215dp"
+            android:layout_height="97dp"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/semibold"
+            android:text="Float Cake Vietnam"
+            android:textColor="#091020"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/txtDes"
+            app:layout_constraintTop_toBottomOf="@+id/imgCoffee"
+            tools:ignore="MissingConstraints" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/txtDes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgCoffee">
+
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:max="5"
+                android:rating="0"
+                android:scaleX="0.9"
+                android:scaleY="0.9" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtDes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/helveticanowtextextmedium"
+            android:lineSpacingExtra="2dp"
+            android:text="Banh troi are small white balls made of brown sugar, wrapped in glutinous rice flour. The name floating cakes came about from the way it is actually cooked."
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <ImageView
+            android:id="@+id/imgDown"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDes"
+            app:srcCompat="@drawable/ic_group_400" />
+
+        <TextView
+            android:id="@+id/txtQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/semibold"
+            android:text="1"
+            android:textColor="#272670"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgDown"
+            app:layout_constraintStart_toEndOf="@+id/imgDown"
+            app:layout_constraintTop_toTopOf="@+id/imgDown" />
+
+        <ImageView
+            android:id="@+id/imgUp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtQuantity"
+            app:layout_constraintStart_toEndOf="@+id/txtQuantity"
+            app:layout_constraintTop_toTopOf="@+id/txtQuantity"
+            app:srcCompat="@drawable/ic_group_401" />
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/semibold"
+            android:text="20.000đ"
+            android:textColor="#272670"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgUp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgUp" />
+
+        <ImageView
+            android:id="@+id/imgAddCart"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgUp"
+            app:srcCompat="@drawable/ic_group_1675" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/ic_arrow_back_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="90dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="-20dp"
+            android:layout_marginEnd="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtName"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/discount" />
+
+        <TextView
+            android:id="@+id/txtDiscount"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="20%"
+            android:textColor="#F6E760"
+            android:textSize="19sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img"
+            app:layout_constraintEnd_toEndOf="@+id/img"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="@+id/img"
+            app:layout_constraintTop_toTopOf="@+id/img"
+            app:layout_constraintVertical_bias="0.586"
+            tools:ignore="MissingConstraints" />
+
+
+        <ImageView
+            android:id="@+id/outOfOrder_image"
+            android:layout_width="70dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="300dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
