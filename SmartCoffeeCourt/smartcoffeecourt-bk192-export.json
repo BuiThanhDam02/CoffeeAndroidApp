@@ -1,0 +1,207 @@
+{
+  "coffee": {
+    "List": {
+      "-MC01bvEYlmtv2uxMqXp": {
+        "description": "PhinDi Kem Sữa - Cà phê Phin thế hệ mới với chất Phin êm hơn, kết hợp cùng Kem Sữa béo ngậy mang đến hương vị mới lạ, không thể hấp dẫn hơn!",
+        "discount": "20",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__PHINDI_KEM_SUA.jpg?alt=media&token=814aabe3-6662-4386-985a-8e4fb3084d22",
+        "name": "PHINDI KEM SỮA",
+        "price": "45000",
+        "star": "4",
+        "status": "1",
+        "supplierID": 1
+      },
+      "-MC02DKAos-PDbd2u61v": {
+        "description": "Nếu Phin Sữa Đá dành cho các bạn đam mê vị đậm đà, thì Bạc Xỉu Đá là một sự lựa chọn nhẹ đô cà phê nhưng vẫn thơm ngon, chất lừ không kém!",
+        "discount": "20",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__BAC_XIU.jpg?alt=media&token=f329bfd0-f3f7-47f0-aa79-82247a6f592d",
+        "name": "BẠC XỈU ĐÁ",
+        "price": "29000",
+        "star": "5",
+        "status": "0",
+        "supplierID": 2
+      },
+      "-MEGv2CeNa2IQcNpjQqZ": {
+        "description": "Thỏa mãn cơn thèm ngọt! Ly cà phê Caramel Macchiato bắt đầu từ dòng sữa tươi và lớp bọt sữa béo ngậy, sau đó hòa quyện cùng cà phê espresso đậm đà và sốt caramel ngọt ngào. Thông qua bàn tay điêu luyện của các chuyên gia pha chế, mọi thứ hoàn toàn được nâng tầm thành nghệ thuật! Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
+        "discount": "10",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__CARAMEL_MACCHIATTO.jpg?alt=media&token=c114bc3f-e67a-45a5-bc82-48bea2a60d62",
+        "name": "CARAMEL MACCHIATO",
+        "price": "69000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 4
+      },
+      "ajkland12": {
+        "description": "Một thức uống yêu thích được kết hợp bởi giữa sốt sô cô la ngọt ngào, sữa tươi và đặc biệt là cà phê espresso đậm đà mang thương hiệu Highlands Coffee. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__MOCHA.jpg?alt=media&token=22008efc-18b5-4a60-9c3d-77356453a8bc",
+        "name": "MOCHA MACCHIATO",
+        "price": "69000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 1
+      },
+      "akjshfar": {
+        "description": "Ly cà phê sữa ngọt ngào đến khó quên! Với một chút nhẹ nhàng hơn so với Cappuccino, Latte của chúng tôi bắt đầu với cà phê espresso, sau đó thêm sữa tươi và bọt sữa một cách đầy nghệ thuật. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__LATTE_1.jpg?alt=media&token=79ad659c-7a84-4746-ac16-8d6184ab1287",
+        "name": "LATTE",
+        "price": "25000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 2
+      },
+      "atjafnamdsnad": {
+        "description": "Ly cà phê sữa đậm đà thời thượng! Một chút đậm đà hơn so với Latte, Cappuccino của chúng tôi bắt đầu với cà phê espresso, sau đó thêm một lượng tương đương giữa sữa tươi và bọt sữa cho thật hấp dẫn. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__CAPPUCINO.jpg?alt=media&token=16187a08-99ba-4acd-a228-cf30607ca205",
+        "name": "CAPPUCCINO",
+        "price": "65000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 6
+      },
+      "axy": {
+        "description": "Americano tại Highlands Coffee là sự kết hợp giữa cà phê espresso thêm vào nước đun sôi. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__AMERICANO_NONG.jpg?alt=media&token=572814e4-2d98-4efd-bbee-88f7e589aee4",
+        "name": "AMERICANO",
+        "price": "45000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 1
+      },
+      "hafhks": {
+        "description": "Đích thực là ly cà phê espresso ngon đậm đà! Được chiết xuất một cách hoàn hảo từ loại cà phê rang được phối trộn độc đáo từ những hạt cà phê Robusta và Arabica chất lượng hảo hạng.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__EXPRESSO.jpg?alt=media&token=20f865b4-6c11-4a44-9c1f-e824e516614d",
+        "name": "ESPRESSO",
+        "price": "45000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 2
+      },
+      "itownakfn2": {
+        "description": "Hương vị cà phê Việt Nam đích thực! Từng hạt cà phê hảo hạng được chọn bằng tay, phối trộn độc đáo giữa hạt Robusta từ cao nguyên Việt Nam, thêm Arabica thơm lừng. Cà phê được pha từ Phin truyền thống, hoà cùng sữa đặc sánh và thêm vào chút đá tạo nên ly Phin Sữa Đá – Đậm Đà Chất Phin.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__PHIN_SUADA.jpg?alt=media&token=76021b70-841f-4e0e-886c-7c87eac48eb4",
+        "name": "PHIN SỮA ĐÁ",
+        "price": "29000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 2
+      },
+      "jahfmam": {
+        "description": "PhinDi Choco - Cà phê Phin thế hệ mới với chất Phin êm hơn, kết hợp cùng Choco ngọt tan mang đến hương vị mới lạ, không thể hấp dẫn hơn!",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__PHINDI_CHOCO.jpg?alt=media&token=cfdfb041-6d96-4416-a418-d747e1918990",
+        "name": "PHINDI CHOCO",
+        "price": "45000",
+        "star": "4.5",
+        "status": "0",
+        "supplierID": 2
+      },
+      "kjsghkwjehtk": {
+        "description": "Với thiết kế lon cao tiện dụng, sang trọng và hương vị đặc trưng từ công thức của Highlands. Hương vị thơm ngon hấp dẫn. Sản xuất trên dây chuyền hiện đại. Dùng trực tiếp và ngon hơn khi ướp lạnh.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_NEW_CAN_CFD_INTERNATIONAL_185ml.jpg?alt=media&token=8e3e5f6c-b429-448b-adbb-b7ee88366710",
+        "name": "CÀ PHÊ ĐEN LON 185ML/ LON (LỐC 6 LON)",
+        "price": "66000",
+        "star": "3.5",
+        "status": "0",
+        "supplierID": 1
+      },
+      "oiuanacajsfn": {
+        "description": "Với thiết kế lon cao tiện dụng, sang trọng và hương vị đặc trưng từ công thức của Highlands đã tạo nên sự ưa chuộng và phổ biến hiện nay. Cà phê sữa đá là sự hòa quyện của cà phê rang đặc trưng, sữa và đá, cùng lớp kem béo ngậy. Highlands Coffee tin tưởng đây sẽ là thức uống ngọt ngào nổi bật trong các loại đồ uống bởi dư âm của nó mang lại. Lon nhỏ 185ml tiện lợi khi mang theo bên mình để có thể sử dụng mọi nơi, mọi lúc. Sản xuất trên dây chuyền hiện đại. Dùng trực tiếp, ngon hơn khi ướp lạnh.",
+        "discount": "2",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_NEW_CAN_CFS_INTERNATIONAL_185ml.jpg?alt=media&token=eafab4c4-31c3-45b7-a36a-2bc7131591da",
+        "name": "CÀ PHÊ SỮA LON 185ML/ LON (LỐC 6 LON)",
+        "price": "69000",
+        "star": "4",
+        "status": "0",
+        "supplierID": 2
+      },
+      "tabaksjflsjf": {
+        "description": "Cà phê truyền thống độc quyền của Highlands! Những hạt cà phê Robusta và Arabica thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_SANH_DIEU2.jpg?alt=media&token=ed77330f-5837-4538-a00e-ab881d1d97df",
+        "name": "TRUYỀN THỐNG 200GR",
+        "price": "59000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 1
+      },
+      "stwydhfdh": {
+        "description": "Hạt cà phê thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands Với nhiều hạt Arabica hơn loại Cà phê Truyền Thống. Hậu vị đặc trưng, cân bằng giữa vị ngọt và hương thơm tự nhiên. 70% Robusta – 30% Arabica. Cà phê Highlands Coffee được đóng gói tiện lợi cho việc sử dụng và bảo quản. Không chỉ dùng trong gia đình, với bao bì lịch sự còn thích hợp làm quà tặng ý nghĩa dành cho người thân, bạn bè và đồng nghiệp.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_SANH_DIEU.jpg?alt=media&token=687d09d2-e927-4da9-8811-a6d6df3bd70d",
+        "name": "SÀNH ĐIỆU 200GR",
+        "price": "55000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 1
+      },
+      "uytityghjgh": {
+        "description": "Sự kết hợp hài hòa giữa Arabica và Robusta. Vị đậm và ngọt đầy.Là sản phẩm đặc sản của của café Sữa Đá, Café Đá của hệ thống Highlands Coffee.80% Robusta – 20% Arabica.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_Traditional_1kg.jpg?alt=media&token=93588d0b-a369-466d-acf5-f507900468ff",
+        "name": "TRUYỀN THỐNG 1KG",
+        "price": "275000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 1
+      },
+      "jghjmvnmfj": {
+        "description": "Với 100% hạt cà phê Moka thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands Moka là loại hạt cà phê cao cấp nhất của Việt Nam, có giá trị dinh dưỡng và chất lượng tốt nhất Cà phê Highlands Coffee được đóng gói tiện lợi cho việc sử dụng và bảo quản. Không chỉ dùng trong gia đình, với bao bì lịch sự còn thích hợp làm quà tặng ý nghĩa dành cho người thân, bạn bè và đồng nghiệp.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_MOKA.jpg?alt=media&token=5e3cc8c7-9f63-4a5d-9926-c0957c9c9284",
+        "name": "MOKA 200GR",
+        "price": "85000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 1
+      }
+    },
+    "number": 16
+  },
+  "Manager": {
+    "phone": "0123456789"
+  },
+  "Order": {
+    "CanceledOrder": {
+      "List": {},
+      "number": 0
+    },
+    "CurrentOrder": {
+      "List": {},
+      "number": 0
+    },
+    "DeliveredOrder": {
+      "List": {},
+      "number": 0
+    }
+  },
+  "Rating": {},
+  "Supplier": {
+    "List": {
+      "0987506443" : {
+      "image" : "",
+      "name" : "HighLand Coffee",
+      "password" : "12345",
+      "supplierID" : 1
+    }
+  },
+    "number": 1
+  },
+  "User": {
+    "List": {
+
+      "IAyQoW5rn3fqMHmCh8mGDqNOkx03" : {
+        "email" : "thanhdamcd@gmail.com",
+        "name" : "dam",
+        "phone" : "0987506443"
+      }
+    },
+    "number": 1
+  }
+}
