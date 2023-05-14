@@ -19,7 +19,7 @@
         "price": "29000",
         "star": "5",
         "status": "0",
-        "supplierID": 2
+        "supplierID": 1
       },
       "-MEGv2CeNa2IQcNpjQqZ": {
         "description": "Thỏa mãn cơn thèm ngọt! Ly cà phê Caramel Macchiato bắt đầu từ dòng sữa tươi và lớp bọt sữa béo ngậy, sau đó hòa quyện cùng cà phê espresso đậm đà và sốt caramel ngọt ngào. Thông qua bàn tay điêu luyện của các chuyên gia pha chế, mọi thứ hoàn toàn được nâng tầm thành nghệ thuật! Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
@@ -29,7 +29,7 @@
         "price": "69000",
         "star": "0",
         "status": "0",
-        "supplierID": 4
+        "supplierID": 1
       },
       "ajkland12": {
         "description": "Một thức uống yêu thích được kết hợp bởi giữa sốt sô cô la ngọt ngào, sữa tươi và đặc biệt là cà phê espresso đậm đà mang thương hiệu Highlands Coffee. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
@@ -49,7 +49,7 @@
         "price": "25000",
         "star": "0",
         "status": "1",
-        "supplierID": 2
+        "supplierID": 1
       },
       "atjafnamdsnad": {
         "description": "Ly cà phê sữa đậm đà thời thượng! Một chút đậm đà hơn so với Latte, Cappuccino của chúng tôi bắt đầu với cà phê espresso, sau đó thêm một lượng tương đương giữa sữa tươi và bọt sữa cho thật hấp dẫn. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
@@ -59,7 +59,7 @@
         "price": "65000",
         "star": "0",
         "status": "0",
-        "supplierID": 6
+        "supplierID": 1
       },
       "axy": {
         "description": "Americano tại Highlands Coffee là sự kết hợp giữa cà phê espresso thêm vào nước đun sôi. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.",
@@ -79,7 +79,7 @@
         "price": "45000",
         "star": "0",
         "status": "0",
-        "supplierID": 2
+        "supplierID": 1
       },
       "itownakfn2": {
         "description": "Hương vị cà phê Việt Nam đích thực! Từng hạt cà phê hảo hạng được chọn bằng tay, phối trộn độc đáo giữa hạt Robusta từ cao nguyên Việt Nam, thêm Arabica thơm lừng. Cà phê được pha từ Phin truyền thống, hoà cùng sữa đặc sánh và thêm vào chút đá tạo nên ly Phin Sữa Đá – Đậm Đà Chất Phin.",
@@ -89,7 +89,7 @@
         "price": "29000",
         "star": "0",
         "status": "1",
-        "supplierID": 2
+        "supplierID": 1
       },
       "jahfmam": {
         "description": "PhinDi Choco - Cà phê Phin thế hệ mới với chất Phin êm hơn, kết hợp cùng Choco ngọt tan mang đến hương vị mới lạ, không thể hấp dẫn hơn!",
@@ -99,7 +99,7 @@
         "price": "45000",
         "star": "4.5",
         "status": "0",
-        "supplierID": 2
+        "supplierID": 1
       },
       "kjsghkwjehtk": {
         "description": "Với thiết kế lon cao tiện dụng, sang trọng và hương vị đặc trưng từ công thức của Highlands. Hương vị thơm ngon hấp dẫn. Sản xuất trên dây chuyền hiện đại. Dùng trực tiếp và ngon hơn khi ướp lạnh.",
@@ -119,7 +119,7 @@
         "price": "69000",
         "star": "4",
         "status": "0",
-        "supplierID": 2
+        "supplierID": 1
       },
       "tabaksjflsjf": {
         "description": "Cà phê truyền thống độc quyền của Highlands! Những hạt cà phê Robusta và Arabica thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands.",
@@ -160,9 +160,29 @@
         "star": "0",
         "status": "1",
         "supplierID": 1
+      },
+      "gtrtdfhdfhdf": {
+        "description": "Cà phê đen nguyên chất.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/phindenda.png?alt=media&token=5ffcf204-ba04-4b9e-aeb2-452e61ab840d",
+        "name": "Phin Đen Đá",
+        "price": "30000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 2
+      },
+      "ryuryfghksgeg": {
+        "description": "Cà phê đen công thêm sữa ngọt",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/phinsuada.png?alt=media&token=adfcb107-a6c2-423c-a041-27eb964e0146",
+        "name": "Phin Sữa Đá",
+        "price": "35000",
+        "star": "0",
+        "status": "1",
+        "supplierID": 2
       }
     },
-    "number": 16
+    "number": 18
   },
   "Manager": {
     "phone": "0123456789"
@@ -184,22 +204,27 @@
   "Rating": {},
   "Supplier": {
     "List": {
-      "0987506443" : {
-      "image" : "",
-      "name" : "HighLand Coffee",
-      "password" : "12345",
-      "supplierID" : 1
-    }
-  },
-    "number": 1
+      "0987506443": {
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/800px-Highlands_Coffee_logo.png?alt=media&token=50a89bf4-a180-405e-8ffb-06bd0bc48442",
+        "name": "HighLand Coffee",
+        "password": "12345",
+        "supplierID": 1
+      },
+      "0890977662": {
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/12144388_LOGO-PHUC-LONG-500x500.jpg?alt=media&token=7f49add7-f2bf-4c89-97e8-188ab583d2c6",
+        "name": "PhucLong Coffee",
+        "password": "12345",
+        "supplierID": 2
+      }
+    },
+    "number": 2
   },
   "User": {
     "List": {
-
-      "IAyQoW5rn3fqMHmCh8mGDqNOkx03" : {
-        "email" : "thanhdamcd@gmail.com",
-        "name" : "dam",
-        "phone" : "0987506443"
+      "IAyQoW5rn3fqMHmCh8mGDqNOkx03": {
+        "email": "thanhdamcd@gmail.com",
+        "name": "dam",
+        "phone": "0987506443"
       }
     },
     "number": 1
