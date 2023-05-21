@@ -22,5 +22,8 @@ public interface CoffeeDetailContract {
         void getCoffeeComment();
         void addCoffeeToCart(String quantity);
         void saveRating(Rating rating);
+        void likeCoffee();
+        void checkLikeCoffee();
+        boolean getIsLikeCoffee();
     }
 }

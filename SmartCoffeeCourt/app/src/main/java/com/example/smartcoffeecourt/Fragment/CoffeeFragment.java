@@ -85,8 +85,8 @@ public class CoffeeFragment extends Fragment {
         coffeeAdapter = new FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull CoffeeViewHolder coffeeViewHolder, int i, @NonNull final Coffee coffee) {
-                if(coffee.getStatus() != null && coffee.getStatus().equals("1"))
-                    coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
+                if(coffee.getStatus() != null && coffee.getStatus().equals("1")){
+                    coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());}
                 coffeeViewHolder.coffee_name.setText(coffee.getName());
                 coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(coffee.getPrice()));
                 coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplierID()));

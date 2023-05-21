@@ -107,12 +107,14 @@ public class SignInPage extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     Common.user = snapshot.getValue(User.class);
+                                    Common.userId = mAuth.getCurrentUser().getUid();
                                     mDialog.dismiss();
                                     if(checkBoxRemember.isChecked()){
                                         Paper.book().write(Common.EMAIL_KEY, email);
                                         Paper.book().write(Common.PASSWORD_KEY, password);
+                                        Paper.book().write(Common.USER_UID,Common.userId);
                                     }
-                                    System.out.println("here");
+
                                     Intent homePageIntent = new Intent(SignInPage.this, HomePage.class);
                                     startActivity(homePageIntent);
                                     finish();

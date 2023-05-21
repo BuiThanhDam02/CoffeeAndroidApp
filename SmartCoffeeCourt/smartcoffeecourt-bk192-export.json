@@ -8,7 +8,7 @@
         "name": "PHINDI KEM SỮA",
         "price": "45000",
         "star": "4",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "-MC02DKAos-PDbd2u61v": {
@@ -38,7 +38,7 @@
         "name": "MOCHA MACCHIATO",
         "price": "69000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "akjshfar": {
@@ -48,7 +48,7 @@
         "name": "LATTE",
         "price": "25000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "atjafnamdsnad": {
@@ -88,7 +88,7 @@
         "name": "PHIN SỮA ĐÁ",
         "price": "29000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "jahfmam": {
@@ -128,7 +128,7 @@
         "name": "TRUYỀN THỐNG 200GR",
         "price": "59000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "stwydhfdh": {
@@ -138,7 +138,7 @@
         "name": "SÀNH ĐIỆU 200GR",
         "price": "55000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "uytityghjgh": {
@@ -148,7 +148,7 @@
         "name": "TRUYỀN THỐNG 1KG",
         "price": "275000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "jghjmvnmfj": {
@@ -158,7 +158,7 @@
         "name": "MOKA 200GR",
         "price": "85000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "gtrtdfhdfhdf": {
@@ -168,7 +168,7 @@
         "name": "Phin Đen Đá",
         "price": "30000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 2
       },
       "ryuryfghksgeg": {
