@@ -84,7 +84,7 @@
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:text="tu.daobku@hcmut.edu.vn"
+        android:hint="email@mail.com"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
@@ -93,7 +93,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:fontFamily="@font/helveticanowtextextmedium"
-        android:hint="Enter Email"
+
         android:inputType="textPersonName"
         android:padding="10dp"
         android:singleLine="true"
@@ -118,7 +118,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <EditText
-        android:text="123456789"
+        android:hint="123456"
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
         android:layout_height="45dp"
@@ -133,7 +133,7 @@
         android:ems="10"
         android:maxLength="15"
         android:fontFamily="@font/helveticanowtextextmedium"
-        android:hint="Enter Password"
+
         android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
