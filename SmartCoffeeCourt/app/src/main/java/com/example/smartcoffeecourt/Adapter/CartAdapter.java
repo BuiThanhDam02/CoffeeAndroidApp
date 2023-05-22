@@ -53,7 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.txtName.setText(String.format("Stall: %s", cartGroupItemList.get(position).getSupplierID()));
         final List<CartItem> cartItemList = cartGroupItemList.get(position).getCartItemList();
         holder.foodList.setLayoutManager(new LinearLayoutManager(listener.getContext()));
-        holder.foodList.setAdapter(new CartGroupItemAdapter(cartItemList, listener.getContext()));
+        holder.foodList.setAdapter(new CartGroupItemAdapter(cartItemList,listener));
         holder.btnChangeType.setText(Common.convertCodeToType(cartGroupItemList.get(position).getType()));
     }
 
@@ -84,7 +84,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             if(view.getId() == R.id.btnChangeType){
                 AlertDialog orderDialog;
                 final String[] list;
-                list = new String[]{"Ăn tại chỗ", "Mang đi"};
+                list = new String[]{"Dùng tại quán", "Mang đi"};
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(listener.getContext());
                 mBuilder.setTitle("Đặt hàng bằng ???");
                 mBuilder.setIcon(R.drawable.ic_baseline_table_chart_24);
@@ -110,6 +110,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public interface CartGroupItemListener{
         void onTypeChangeClick(int position, String newType);
         void onDeleteOrder(int position);
+        void onChangeQuantity(int position, int newQuantity);
         Context getContext();
     }
 }
