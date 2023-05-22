@@ -1,9 +1,12 @@
 package com.example.smartcoffeecourt.Adapter;
 
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,9 +27,12 @@ public class CartGroupItemAdapter extends RecyclerView.Adapter<CartGroupItemAdap
     private List<CartItem> cartItemList;
     private Context context;
 
-    public CartGroupItemAdapter(List<CartItem> cartItemList, Context context) {
+    private CartAdapter.CartGroupItemListener listener;
+
+    public CartGroupItemAdapter(List<CartItem> cartItemList, CartAdapter.CartGroupItemListener listener) {
         this.cartItemList = cartItemList;
-        this.context = context;
+        this.listener = listener;
+        this.context = listener.getContext();
     }
 
     @NonNull
@@ -34,7 +40,7 @@ public class CartGroupItemAdapter extends RecyclerView.Adapter<CartGroupItemAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View itemView = inflater.inflate(R.layout.cart_item_layout, parent, false);
-        return new ViewHolder(itemView);
+        return new ViewHolder(itemView,  listener);
     }
 
     @Override
@@ -55,14 +61,29 @@ public class CartGroupItemAdapter extends RecyclerView.Adapter<CartGroupItemAdap
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
+        CartAdapter.CartGroupItemListener listen;
+        TextView txtName, txtPrice ;
 
-        TextView txtName, txtPrice, txtQuantity;
-        public ViewHolder(@NonNull View itemView) {
+        EditText txtQuantity;
+        public ViewHolder(@NonNull View itemView, CartAdapter.CartGroupItemListener listen) {
             super(itemView);
+            this.listen = listen;
             txtName= (TextView)itemView.findViewById(R.id.cart_item_name);
             txtPrice = (TextView)itemView.findViewById(R.id.cart_item_price);
-            txtQuantity = (TextView)itemView.findViewById(R.id.cart_item_quantity);
-
+            txtQuantity = (EditText) itemView.findViewById(R.id.cart_item_quantity);
+            txtQuantity.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        int newQuantity = 0;
+                        String quantity = txtQuantity.getText().toString();
+                        if(!quantity.equals("")){
+                            newQuantity = Integer.parseInt(quantity);
+                            listen.onChangeQuantity(getAdapterPosition(),newQuantity);
+                            return true;
+                        }
+                    return false;
+                }
+            });
         }
 
     }
