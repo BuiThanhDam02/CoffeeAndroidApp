@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_menu">
+
+    <fragment
+        android:id="@+id/nav_menu"
+        android:name="com.example.managerapp.SupplierSide.Menu.MenuFragment"
+        android:label="Thực đơn"
+        tools:layout="@layout/menu_fragment" />
+    <fragment
+        android:id="@+id/nav_order"
+        android:name="com.example.managerapp.SupplierSide.Order.OrderFragment"
+        android:label="Đơn hàng"
+        tools:layout="@layout/order_fragment" />
+    <fragment
+        android:id="@+id/nav_stall"
+        android:name="com.example.managerapp.SupplierSide.StallFragment"
+        android:label="Stall"
+        tools:layout="@layout/stall_fragment" />
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.managerapp.SupplierSide.StallFragment"
+        android:label="Stall"
+        tools:layout="@layout/stall_fragment" />
+
+</navigation>
