@@ -63,12 +63,15 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     public void likeCoffee() {
 
                 if(isLiked == true) {
+
                     likeReference.child(coffeeRef).removeValue();
+                    isLiked = false;
                     coffeeView.showToast("Bạn đã xóa yêu thích sản phẩm");
+
                 }
                 else {
-
                     likeReference.child(coffeeRef).setValue(coffee);
+                    isLiked = true;
                     coffeeView.showToast("Bạn đã lưu yêu thích sản phẩm");
                 };
 
