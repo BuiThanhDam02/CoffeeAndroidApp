@@ -8,4 +8,5 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     // Các phương thức truy vấn khác nếu cần
+    User findOneById(long id);
 }
