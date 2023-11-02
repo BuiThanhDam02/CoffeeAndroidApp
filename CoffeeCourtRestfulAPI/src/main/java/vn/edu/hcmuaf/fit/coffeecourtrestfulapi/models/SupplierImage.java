@@ -8,12 +8,14 @@ public class SupplierImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long supplierId;
 
+    @Column(name = "imageLink") // Đặt tên cột cụ thể cho trường imageLink
     private String imageLink;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id") // Đặt tên cột cụ thể cho quan hệ và chỉ định cột tham chiếu
     private Supplier supplier;
 
     // Getter và Setter cho các thuộc tính
