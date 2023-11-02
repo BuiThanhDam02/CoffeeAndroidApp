@@ -92,6 +92,16 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
     }
 
     @Override
+    public void onChangeQuantity(int position, int newQuantity) {
+       Database db = new Database(this);
+       db.changeQuantity(cartGroupItemList.get(0).getCartItemList().get(position),
+               cartGroupItemList.get(0).getSupplierID(),
+               newQuantity);
+        cartGroupItemList = db.getCart();
+        loadCart();
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
