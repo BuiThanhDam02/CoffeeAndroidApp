@@ -1,12 +1,12 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Coffee;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Comment;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CoffeeRepository;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CommentRepository;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.LikeRepository;
 
 import java.util.List;
 
@@ -15,6 +15,10 @@ import java.util.List;
 public class CoffeeController {
     @Autowired
     CoffeeRepository coffeeRepository;
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private LikeRepository likeRepository;
 
     @GetMapping("/all")
     public List<Coffee> getAll() {
@@ -30,6 +34,18 @@ public class CoffeeController {
     public List<Coffee> getBySupplierId(@RequestParam("supplierId") int supplierId){
         return coffeeRepository.findBySupplierId(supplierId);
     }
+    @GetMapping("/{id}/comments")
+    public List<Comment> getCommentsByCoffeeId(@PathVariable Long id) {
+        return commentRepository.findByCoffeeId(id);
+    }
 
+    @GetMapping("/{id}/like/{userid}")
+    public List<Comment> likeByCoffeeId(@PathVariable Long id) {
+        return likeRepository.findByCoffeeId(id);
+    }
+//    @GetMapping("/{id}/unlike")
+//    public List<Comment> unlikeByCoffeeId(@PathVariable Long id) {
+//        return likeRepository.findByCoffeeId(id);
+//    }
 
 }
