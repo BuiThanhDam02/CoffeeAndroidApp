@@ -8,4 +8,5 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.OrderDetail;
 @Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
     // Các phương thức truy vấn khác nếu cần
+    OrderDetail findOneById(long id);
 }
