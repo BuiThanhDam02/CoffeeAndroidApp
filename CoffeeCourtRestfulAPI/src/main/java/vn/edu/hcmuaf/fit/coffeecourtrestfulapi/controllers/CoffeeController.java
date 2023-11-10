@@ -39,10 +39,10 @@ public class CoffeeController {
         return commentRepository.findByCoffeeId(id);
     }
 
-    @GetMapping("/{id}/like/{userid}")
-    public List<Comment> likeByCoffeeId(@PathVariable Long id) {
-        return likeRepository.findByCoffeeId(id);
-    }
+//    @GetMapping("/{id}/like/{userid}")
+//    public List<Comment> likeByCoffeeId(@PathVariable Long id) {
+//        return likeRepository.findByCoffeeId(id);
+//    }
 //    @GetMapping("/{id}/unlike")
 //    public List<Comment> unlikeByCoffeeId(@PathVariable Long id) {
 //        return likeRepository.findByCoffeeId(id);
