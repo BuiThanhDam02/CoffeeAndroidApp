@@ -25,7 +25,22 @@ public class Coffee {
 
     private Float price;
 
+    @Transient // Đánh dấu thuộc tính này để không được ánh xạ vào cơ sở dữ liệu
+    private String imageLink;
+
+    public Coffee() {
+
+    }
+
     // Getter và Setter cho các thuộc tính
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
 
     public Long getId() {
         return id;
@@ -76,6 +91,16 @@ public class Coffee {
     }
 
     // Constructor
+
+    public Coffee(Long id, Supplier supplier, String name, String description, Integer status, Float price, String imageLink) {
+        this.id = id;
+        this.supplier = supplier;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.price = price;
+        this.imageLink = imageLink;
+    }
 
     // Các phương thức khác nếu cần
 }
