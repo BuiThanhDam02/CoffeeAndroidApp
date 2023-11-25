@@ -3,7 +3,9 @@ package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Coffee;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.CoffeeImage;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Comment;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CoffeeImageRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CoffeeRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CommentRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.LikeRepository;
@@ -19,21 +21,46 @@ public class CoffeeController {
     private CommentRepository commentRepository;
     @Autowired
     private LikeRepository likeRepository;
+    @Autowired
+    private CoffeeImageRepository coffeeImageRepository;
+
 
     @GetMapping("/all")
     public List<Coffee> getAll() {
-        return coffeeRepository.findAll();
+        List<Coffee> coffees = coffeeRepository.findAll();
+        for (Coffee coffee : coffees) {
+            List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
+            if (!coffeeImages.isEmpty()) {
+                coffee.setImageLink(coffeeImages.get(0).getImageLink());
+            }
+        }
+        return coffees;
     }
 
     @GetMapping("/search")
     public List<Coffee> searchByName(@RequestParam String name) {
-        return coffeeRepository.findByNameContaining(name);
+        List<Coffee> coffees = coffeeRepository.findByNameContaining(name);
+        for (Coffee coffee : coffees) {
+            List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
+            if (!coffeeImages.isEmpty()) {
+                coffee.setImageLink(coffeeImages.get(0).getImageLink());
+            }
+        }
+        return coffees;
     }
 
     @GetMapping("/bySupplierId")
     public List<Coffee> getBySupplierId(@RequestParam("supplierId") int supplierId){
-        return coffeeRepository.findBySupplierId(supplierId);
+        List<Coffee> coffees = coffeeRepository.findBySupplierId(supplierId);
+        for (Coffee coffee : coffees) {
+            List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
+            if (!coffeeImages.isEmpty()) {
+                coffee.setImageLink(coffeeImages.get(0).getImageLink());
+            }
+        }
+        return coffees;
     }
+
     @GetMapping("/{id}/comments")
     public List<Comment> getCommentsByCoffeeId(@PathVariable Long id) {
         return commentRepository.findByCoffeeId(id);
