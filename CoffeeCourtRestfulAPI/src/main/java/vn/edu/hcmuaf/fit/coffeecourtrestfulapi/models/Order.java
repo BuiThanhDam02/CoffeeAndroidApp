@@ -1,5 +1,10 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -12,13 +17,16 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
+
     private String name;
 
     private String phone;
 
     private Integer status;
 
-    private Float totalPrice;
+    private float totalPrice;
 
     private Integer type;
 
@@ -68,11 +76,11 @@ public class Order {
         this.status = status;
     }
 
-    public Float getTotalPrice() {
+    public float getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Float totalPrice) {
+    public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -100,7 +108,22 @@ public class Order {
         this.note = note;
     }
 
-    // Constructor
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+// Constructor
 
     // Các phương thức khác nếu cần
+    public void addOrderDeail(OrderDetail orderDetail) {
+        orderDetails.add(orderDetail);
+        orderDetail.setOrder(this);
+    }
+    public void removeOrderDetail(OrderDetail orderDetail) {
+        orderDetails.remove(orderDetail);
+        orderDetail.setOrder(null);
+    }
 }
