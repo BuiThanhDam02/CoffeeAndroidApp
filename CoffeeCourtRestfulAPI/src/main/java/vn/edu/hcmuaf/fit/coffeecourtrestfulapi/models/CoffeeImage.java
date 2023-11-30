@@ -17,6 +17,10 @@ public class CoffeeImage {
 
     private Integer status;
 
+    public CoffeeImage() {
+
+    }
+
     // Getter và Setter cho các thuộc tính
 
     public Long getId() {
@@ -52,6 +56,13 @@ public class CoffeeImage {
     }
 
     // Constructor
+
+    public CoffeeImage(Long id, Coffee coffee, String imageLink, Integer status) {
+        this.id = id;
+        this.coffee = coffee;
+        this.imageLink = imageLink;
+        this.status = status;
+    }
 
     // Các phương thức khác nếu cần
 }
