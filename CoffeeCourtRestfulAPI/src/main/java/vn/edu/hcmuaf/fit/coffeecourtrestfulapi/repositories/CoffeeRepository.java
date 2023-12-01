@@ -11,5 +11,7 @@ import java.util.List;
 public interface CoffeeRepository extends JpaRepository<Coffee, Long> {
     // Các phương thức truy vấn khác nếu cần
     List<Coffee> findByNameContaining(String name);
-    List<Coffee> findBySupplierId(int id);
+    List<Coffee> findBySupplierId(Long supplier_id);
+    Coffee findByName(String name);
+
 }

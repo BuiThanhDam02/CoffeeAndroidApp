@@ -10,6 +10,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.OrderDetailRepositor
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.OrderRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.UserRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.CartService;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.OrderService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class OrderController {
     UserRepository userRepository;
     @Autowired
     CartService cartService;
+    @Autowired
+    OrderService orderService;
 
     @GetMapping("/getByUser")
     public List<Order> getByUser(@RequestBody User user) {
@@ -40,51 +43,17 @@ public class OrderController {
         return orderDetailRepository.findOneById(order.getId());
     }
 
-    private void calculateTotalPrice(Order order) {
-        float total = 0.0f;
-
-        for (OrderDetail orderDetail : order.getOrderDetails()) {
-            float itemsPrice = orderDetail.getSubtotal();
-            total += itemsPrice;
-        }
-        order.setTotalPrice(total);
-    }
 
     @PostMapping("/checkout")
-    public ResponseEntity<Order> checkout(@RequestBody Order order) {
-//        if(principal == null) {
-//            return ResponseEntity.badRequest().body("Inavalid");
-//        }
-//        String username = principal.getName();
-//
-
+    public ResponseEntity<Order> checkout(@RequestParam("idUser") Long idUser) {
         Cart cart = cartService.getCart();
-        order.setTotalPrice(cart.getTotalPrice());
-        order.setOrderDetails(converCartItemsToOrderDetails(cart.getItems()));
-        calculateTotalPrice(order);
-
-        Order savedOrder = orderRepository.save(order);
-
-        cartService.clearCart();
-        return new ResponseEntity<>(savedOrder, HttpStatus.OK);
+        User user = userRepository.findOneById(idUser);
+        Order order = orderService.processPayment(cart, user);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    private List<OrderDetail> converCartItemsToOrderDetails(Map<Coffee, Integer> cartItems) {
-        List<OrderDetail> orderDetails = new ArrayList<>();
-
-        for (Map.Entry<Coffee, Integer> entry : cartItems.entrySet()) {
-            Coffee coffee = entry.getKey();
-            int quantity = entry.getValue();
-
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setCoffee(coffee);
-            orderDetail.setQuantity(quantity);
-            orderDetail.setPrice(coffee.getPrice());
-            orderDetail.setDiscount(0.0f);
-            orderDetail.setName(coffee.getName());
-
-            orderDetails.add(orderDetail);
-        }
-        return orderDetails;
+    @GetMapping("/all")
+    public List<Order> getAllOrder() {
+        return orderRepository.findAll();
     }
 }
