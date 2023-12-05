@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.response;
 
+/*
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -59,3 +60,4 @@ public class JwtResponse {
         this.roles = roles;
     }
 }
+*/

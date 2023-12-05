@@ -1,6 +1,7 @@
 package com.example.smartcoffeecourt.ApiService;
 
 import com.example.smartcoffeecourt.Model.Coffee;
+import com.example.smartcoffeecourt.Model.Order;
 import com.example.smartcoffeecourt.Model.Stall;
 
 import java.util.List;
@@ -20,5 +21,12 @@ public interface ApiService {
 
     @GET("/coffee/bySupplierId")
     Call<List<Coffee>> getCoffeesBySupplier(@Query("supplierId") int supplierId);
+
+    @GET("/api/supplier/getAll")
+    Call<List<Stall>> getAllStallDung();
+
+    @GET("/api/order/getByUser")
+    Call<List<Order>> getAllOrderByUserIdDung(@Query("idUser") int idUser);
+
 
 }

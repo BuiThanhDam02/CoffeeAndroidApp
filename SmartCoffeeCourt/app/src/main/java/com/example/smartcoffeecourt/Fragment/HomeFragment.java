@@ -13,11 +13,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcoffeecourt.Adapter.StallAdapter;
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.CoffeeDetail.CoffeeDetailPage;
 import com.example.smartcoffeecourt.Interface.ItemClickListener;
 import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Stall;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.GreatCoffeeViewHolder;
 import com.example.smartcoffeecourt.ViewHolder.StallViewHolder;
@@ -27,14 +30,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HomeFragment extends Fragment {
 
     RecyclerView greatFoodRecycler, stallRecycler;
     FirebaseDatabase database;
-    DatabaseReference foodList, supplierList;
+    DatabaseReference foodList;
+
+    List<Stall> stallList;
 
     FirebaseRecyclerAdapter<Coffee, GreatCoffeeViewHolder> adapterGreatFood;
-    FirebaseRecyclerAdapter<Stall, StallViewHolder> adapterStall;
+    StallAdapter adapterStall ;
+
+    static Network network;
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -42,15 +58,14 @@ public class HomeFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference("Food/List");
-        supplierList = database.getReference("Supplier/List");
+        //supplierList = database.getReference("Supplier/List");
         greatFoodRecycler = root.findViewById(R.id.great_food_recycler);
         stallRecycler = root.findViewById(R.id.stall_recycler);
 
-        greatFoodRecycler.setHasFixedSize(true);
-        greatFoodRecycler.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,true));
-        stallRecycler.setHasFixedSize(true);
+        //stallRecycler.setHasFixedSize(true);
         stallRecycler.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
         loadGreatFoodList();
+
         loadStallList();
         return root;
     }
@@ -59,46 +74,42 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapterGreatFood.startListening();
-        adapterStall.startListening();
+        //adapterStall.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         adapterGreatFood.stopListening();
-        adapterStall.stopListening();
+        //adapterStall.stopListening();
     }
 
-    private void loadStallList() {
-        FirebaseRecyclerOptions<Stall> options = new FirebaseRecyclerOptions.Builder<Stall>().setQuery(supplierList.orderByChild("supplierID"), Stall.class).build();
-        adapterStall = new FirebaseRecyclerAdapter<Stall, StallViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull StallViewHolder stallViewHolder, int i, final Stall stall) {
-                stallViewHolder.txtStall.setText(stall.getName());
-                if(!stall.getImage().isEmpty()) Picasso.with(getContext()).load(stall.getImage()).into(stallViewHolder.imgStall);
-                stallViewHolder.txtNumber.setText(stall.getSupplierID().toString());
-                stallViewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        CoffeeFragment coffeeFragment = new CoffeeFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putInt(Common.CHOICE_STALL, stall.getSupplierID());
-                        coffeeFragment.setArguments(bundle);
-                        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.nav_host_fragment, coffeeFragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                    }
-                });
-            }
+    private void loadStallList()  {
 
-            @NonNull
+        Call<List<Stall>> call = Network.getInstance().create(ApiService.class).getAllStallDung();
+        call.enqueue(new Callback<List<Stall>>() {
             @Override
-            public StallViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.stall_item, parent, false);
-                return new StallViewHolder(itemView);
+            public void onResponse(Call<List<Stall>> call, Response<List<Stall>> response) {
+                if (response.isSuccessful()) {
+                   stallList = response.body();
+                    //stallList = response.body();
+                    if (stallList != null) {
+                        for (Stall stall : stallList) {
+                            // Perform action for each coffee item
+                            // For example, print the coffee name
+                            System.out.println(stall.getName());
+                        }
+                    }
+                } else {
+                    // Handle the error response
+                }
             }
-        };
+            @Override
+            public void onFailure(Call<List<Stall>> call, Throwable t) {
+                System.out.println("wrong network");           }
+        });
+        System.out.println("size stall:" + stallList.size());
+        adapterStall = new StallAdapter(getActivity(),stallList,getParentFragmentManager());
         adapterStall.notifyDataSetChanged();
         stallRecycler.setAdapter(adapterStall);
     }
@@ -140,4 +151,92 @@ public class HomeFragment extends Fragment {
         greatFoodRecycler.setAdapter(adapterGreatFood);
     }
 
+   /* private static String getDataFromUrl(String urlAPI,String type) throws IOException {
+        URL url = new URL(urlAPI);
+        String responseData = null;
+        try {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(type);
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                responseData = String.valueOf(response);
+            } else {
+                System.out.println("Error: " + responseCode);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return responseData;
+    }*/
+
+
+   /* private static String getDataFromUrlWithDataRq(String urlAPI,String type, String dataRq) throws IOException {
+        URL url = new URL(urlAPI);
+        StringBuilder dataRp = new StringBuilder();
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod(type);
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setDoOutput(true);
+        OutputStream outputStream = conn.getOutputStream();
+        outputStream.write(dataRq.getBytes("UTF-8"));
+        outputStream.flush();
+        outputStream.close();
+        if (conn.getResponseCode() == 200) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                dataRp.append(inputLine);
+            }
+            in.close();
+            System.out.println("Successfully sent JSON data to API.");
+        } else {
+            System.out.println("Error: Failed to send JSON data to API.");
+        }
+        conn.disconnect();
+        return dataRp.toString();
+    }*/
+   public static void main(String[] args) {
+      /* Retrofit retrofit = new Retrofit.Builder()
+               .baseUrl("http://localhost:8080/")
+               .addConverterFactory(GsonConverterFactory.create())
+               .build();
+
+       ApiService service = retrofit.create(ApiService.class);*/
+       Call<List<Stall>> call = Network.getInstance().create(ApiService.class).getAllStallDung();
+
+
+       //Call<List<Stall>> call = service.getAllStallDung();
+       //Call<List<Coffee>> call = yourRetrofitService.getCoffeesBySupplier(supplierId);
+       call.enqueue(new Callback<List<Stall>>() {
+           @Override
+           public void onResponse(Call<List<Stall>> call, Response<List<Stall>> response) {
+               if (response.isSuccessful()) {
+                   List<Stall> stalls = response.body();
+                   //stallList = response.body();
+                   if (stalls != null) {
+                       for (Stall stall : stalls) {
+                           // Perform action for each coffee item
+                           // For example, print the coffee name
+                           System.out.println(stall.getName());
+                       }
+                   }
+               } else {
+                   // Handle the error response
+               }
+           }
+
+           @Override
+           public void onFailure(Call<List<Stall>> call, Throwable t) {
+               System.out.println("wrong network");           }
+       });
+
+   }
 }

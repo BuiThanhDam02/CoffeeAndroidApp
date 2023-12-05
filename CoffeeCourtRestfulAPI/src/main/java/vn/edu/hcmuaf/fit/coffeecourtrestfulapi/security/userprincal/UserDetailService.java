@@ -1,6 +1,6 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.security.userprincal;
 
-
+/*
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,4 +51,4 @@ public class UserDetailService implements UserDetailsService {
         }
         return user.get();
     }
-}
+}*/

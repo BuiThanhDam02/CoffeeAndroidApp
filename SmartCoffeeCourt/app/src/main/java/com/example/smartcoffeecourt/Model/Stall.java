@@ -1,8 +1,13 @@
 package com.example.smartcoffeecourt.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Stall {
+    @SerializedName("name")
     private String name;
+    @SerializedName("image")
     private String image;
+    @SerializedName("supplierID")
     private Integer supplierID;
 
     public Stall() {

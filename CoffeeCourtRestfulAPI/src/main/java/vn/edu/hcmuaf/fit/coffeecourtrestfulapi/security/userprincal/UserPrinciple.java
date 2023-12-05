@@ -1,6 +1,6 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.security.userprincal;
 
-
+/*
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -87,4 +87,4 @@ public class UserPrinciple implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-}
+}*/

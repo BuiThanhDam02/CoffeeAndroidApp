@@ -961,6 +961,65 @@ export const ordersGrid = [
   },
 ];
 
+
+export const ordersGrids = [
+  /* {
+     headerText: '',
+     template: gridOrderImage,
+     textAlign: 'Center',
+     width: '120',
+   },*/
+  { type: 'checkbox', width: '50' },
+  {
+    field: 'id',
+    headerText: 'Id',
+    width: '150',
+    editType: 'dropdownedit',
+    textAlign: 'Center',
+  },
+  { field: 'name',
+    headerText: 'Tên Khách Hàng',
+    width: '150',
+    textAlign: 'Center',
+  },
+  {
+    field: 'email',
+    headerText: 'Email',
+    format: 'C2',
+    textAlign: 'Center',
+    editType: 'numericedit',
+    width: '150',
+  },
+  { field: 'phone',
+    headerText: 'SĐT',
+    width: '150',
+    textAlign: 'Center',
+  },
+  {
+    headerText: 'Trạng Thái',
+    field: 'status',
+    textAlign: 'Center',
+    width: '120',
+    /*template: customerGridStatus*/
+  },
+  {
+    field: 'totalPrice',
+    headerText: 'Tổng Tiền',
+    width: '120',
+    textAlign: 'Center',
+  },
+
+  { type: 'editor', width: '50' },
+
+  /* {
+     field: 'Location',
+     headerText: 'Location',
+     width: '150',
+     textAlign: 'Center',
+   },*/
+];
+
+
 export const customersData = [
   {
     CustomerID: 1001,

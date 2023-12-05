@@ -1,3 +1,4 @@
+/*
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 
 
@@ -83,3 +84,4 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token, userPrinciple.getName(), userPrinciple.getAuthorities()));
     }
 }
+*/

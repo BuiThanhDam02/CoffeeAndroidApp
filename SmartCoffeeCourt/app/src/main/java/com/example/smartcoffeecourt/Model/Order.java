@@ -3,6 +3,7 @@ package com.example.smartcoffeecourt.Model;
 import java.util.List;
 
 public class Order {
+    private int id;
     private String phone;
     private String total;
     private String status;
@@ -20,6 +21,14 @@ public class Order {
         this.foods = t.getCartItemList();
         this.type = t.getType();
         this.status = "0"; // 0: preparing, 1: completed, 2: received
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPhone() {

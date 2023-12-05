@@ -1,4 +1,5 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.security.jwt;
+/*
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,11 +18,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
-private static final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
-@Autowired
-private JwtProvider jwtProvider;
-@Autowired
-private UserDetailsService userDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
+    @Autowired
+    private JwtProvider jwtProvider;
+    @Autowired
+    private UserDetailsService userDetailsService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -46,4 +47,4 @@ private UserDetailsService userDetailsService;
         }
         return null;
     }
-}
+}*/

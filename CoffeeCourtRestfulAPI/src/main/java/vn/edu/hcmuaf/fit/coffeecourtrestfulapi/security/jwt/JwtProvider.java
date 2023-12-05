@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.security.jwt;
 
+/*
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -44,4 +45,4 @@ public class JwtProvider {
         String userName = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
         return userName;
     }
-}
+}*/

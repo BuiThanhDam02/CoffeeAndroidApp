@@ -1,6 +1,6 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.security.jwt;
 
-import jakarta.servlet.ServletException;
+/*import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -19,4 +19,4 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
         logger.error("Unauthorized error Message {}", authException.getMessage());
         response.sendError(HttpServletResponse.SC_ACCEPTED, "Error -> Unauthorized");
     }
-}
+}*/

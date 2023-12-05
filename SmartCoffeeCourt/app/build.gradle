@@ -80,5 +80,13 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
+
+
+    // dung
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    implementation group: 'javax.json', name: 'javax.json-api', version: '1.1.4'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 }
 apply plugin: 'com.google.gms.google-services'

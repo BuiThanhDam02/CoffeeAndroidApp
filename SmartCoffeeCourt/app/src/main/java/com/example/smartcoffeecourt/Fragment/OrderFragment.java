@@ -10,76 +10,109 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcoffeecourt.Adapter.OrderAdapter;
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Model.Order;
+import com.example.smartcoffeecourt.Model.Stall;
+import com.example.smartcoffeecourt.Model.User;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
-import com.example.smartcoffeecourt.ViewHolder.OrderViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
+
 
 public class OrderFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-
-    FirebaseRecyclerAdapter<Order, OrderViewHolder> adapterOrder;
-    DatabaseReference orderReference;
+    List<Order> orderList;
+    OrderAdapter adapterOrder;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_order, container, false);
 
-        orderReference = FirebaseDatabase.getInstance().getReference("Order/CurrentOrder/List");
+
         recyclerView = root.findViewById(R.id.listOrders);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        loadOrder(Common.user.getPhone());
-
+        try {
+            loadOrder(Common.user.getId());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return root;
     }
 
-    private void loadOrder(String phone) {
 
-        FirebaseRecyclerOptions<Order> options = new FirebaseRecyclerOptions.Builder<Order>().setQuery(orderReference.orderByChild("phone").equalTo(phone), Order.class).build();
-        adapterOrder = new FirebaseRecyclerAdapter<Order, OrderViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull OrderViewHolder orderViewHolder, final int position, @NonNull final Order order) {
-                orderViewHolder.txtOrderId.setText(String.format("Stall: %s", order.getSupplierID()));
-                orderViewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(order.getStatus()));
-                orderViewHolder.txtTotal.setText(String.format("Tổng tiền: %s", Common.convertPriceToVND(order.getTotal())));
-                orderViewHolder.btnReceive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (adapterOrder.getItem(position).getStatus().equals("1"))
-                            adapterOrder.getRef(position).child("status").setValue("2");
-                    }
-                });
-            }
 
-            @NonNull
-            @Override
-            public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_item, parent, false);
-                return new OrderViewHolder(itemView);
-            }
-        };
+    private void loadOrder(Integer userId) throws Exception {
+        //orderList = Network.getInstance().create(ApiService.class).getAllOrderByUserIdDung(userId);
 
+
+       /* String apiUrl = "http://localhost:8080/api/order/getByUser";
+        orderList = new ArrayList<>();
+
+        String dataRq = "{ id:" + userId +"}";
+        String dataRp = getDataFromUrl(apiUrl,"GET",dataRq);
+        ObjectMapper mapper = new ObjectMapper();
+        orderList = mapper.readValue(dataRp, new TypeReference<List<Order>>() {});
+        System.out.println("orderSize:" + orderList.size());
+        adapterOrder = new OrderAdapter(getActivity(),orderList);
         adapterOrder.notifyDataSetChanged();
-        recyclerView.setAdapter(adapterOrder);
+        recyclerView.setAdapter(adapterOrder);*/
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        adapterOrder.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapterOrder.stopListening();
     }
+
+    private static String getDataFromUrl(String urlAPI,String type, String dataRq) throws IOException {
+        URL url = new URL(urlAPI);
+        StringBuilder dataRp = new StringBuilder();
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod(type);
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setDoOutput(true);
+        OutputStream outputStream = conn.getOutputStream();
+        outputStream.write(dataRq.getBytes("UTF-8"));
+        outputStream.flush();
+        outputStream.close();
+        if (conn.getResponseCode() == 200) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                dataRp.append(inputLine);
+            }
+            in.close();
+            System.out.println("Successfully sent JSON data to API.");
+        } else {
+            System.out.println("Error: Failed to send JSON data to API.");
+        }
+        conn.disconnect();
+        return dataRp.toString();
+    }
+
 
 }
