@@ -1,5 +1,6 @@
 package com.example.smartcoffeecourt.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ public class OrderFragment extends Fragment {
         FirebaseRecyclerOptions<Order> options = new FirebaseRecyclerOptions.Builder<Order>().setQuery(orderReference.orderByChild("phone").equalTo(phone), Order.class).build();
         adapterOrder = new FirebaseRecyclerAdapter<Order, OrderViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull OrderViewHolder orderViewHolder, final int position, @NonNull final Order order) {
+            protected void onBindViewHolder(@NonNull OrderViewHolder orderViewHolder, @SuppressLint("RecyclerView") int position, @NonNull final Order order) {
                 orderViewHolder.txtOrderId.setText(String.format("Stall: %s", order.getSupplierID()));
                 orderViewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(order.getStatus()));
                 orderViewHolder.txtTotal.setText(String.format("Tổng tiền: %s", Common.convertPriceToVND(order.getTotal())));
