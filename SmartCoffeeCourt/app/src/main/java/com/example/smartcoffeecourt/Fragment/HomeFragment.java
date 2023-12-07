@@ -113,10 +113,10 @@ public class HomeFragment extends Fragment {
                 if(coffee.getStatus().equals("1"))
                     greatCoffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
                 else greatCoffeeViewHolder.outOfOrder_image.setImageResource(0);
-                greatCoffeeViewHolder.ratingBar.setRating(Float.parseFloat(coffee.getStar()));
+                greatCoffeeViewHolder.ratingBar.setRating(Float.parseFloat("5"));
                 greatCoffeeViewHolder.food_name.setText(coffee.getName());
                 greatCoffeeViewHolder.food_price.setText(Common.convertPriceToVND(coffee.getPrice()));
-                Picasso.with(getContext()).load(coffee.getImage()).into(greatCoffeeViewHolder.food_image);
+                Picasso.with(getContext()).load(coffee.getImageLink()).into(greatCoffeeViewHolder.food_image);
 
                 greatCoffeeViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override

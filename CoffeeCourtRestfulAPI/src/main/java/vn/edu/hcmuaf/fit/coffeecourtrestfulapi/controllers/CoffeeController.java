@@ -98,7 +98,12 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
                 coffee.setDescription(coffeeRequest.getDescription());
                 coffee.setStatus(coffeeRequest.getStatus());
                 coffee.setPrice(coffeeRequest.getPrice());
-                coffee.setImageLink(coffeeRequest.getImageLink());
+                CoffeeImage coffeeImage = coffeeImageRepository.findByCoffeeId(coffee.getId()).get(0);
+                coffeeImage.setCoffee(coffee);
+                coffeeImage.setImageLink(coffeeImage.getImageLink());
+                coffeeImage.setStatus(0);
+                coffeeImageRepository.save(coffeeImage);
+                coffee.setImageLink(coffeeImage.getImageLink());
             } else {
                 coffee = new Coffee();
                 coffee.setSupplier(supplier);
@@ -106,6 +111,12 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
                 coffee.setDescription(coffeeRequest.getDescription());
                 coffee.setStatus(coffeeRequest.getStatus());
                 coffee.setPrice(coffeeRequest.getPrice());
+                CoffeeImage coffeeImage = new CoffeeImage();
+                coffeeImage.setCoffee(coffee);
+                coffeeImage.setImageLink(coffeeImage.getImageLink());
+                coffeeImage.setStatus(0);
+                coffeeImageRepository.save(coffeeImage);
+                coffee.setImageLink(coffeeImage.getImageLink());
             }
         } else {
             coffee = new Coffee();
@@ -114,6 +125,12 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
             coffee.setDescription(coffeeRequest.getDescription());
             coffee.setStatus(coffeeRequest.getStatus());
             coffee.setPrice(coffeeRequest.getPrice());
+            CoffeeImage coffeeImage = new CoffeeImage();
+            coffeeImage.setCoffee(coffee);
+            coffeeImage.setImageLink(coffeeImage.getImageLink());
+            coffeeImage.setStatus(0);
+            coffeeImageRepository.save(coffeeImage);
+            coffee.setImageLink(coffeeImage.getImageLink());
         }
         coffeeRepository.save(coffee);
         return ResponseEntity.ok("Coffee added successfully");
