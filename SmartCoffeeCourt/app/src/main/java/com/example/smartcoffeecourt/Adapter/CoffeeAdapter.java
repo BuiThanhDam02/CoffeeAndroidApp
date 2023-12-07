@@ -46,6 +46,8 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeViewHolder> {
         coffeeViewHolder.coffee_name.setText(coffee.getName());
         coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(Float.parseFloat(coffee.getPrice())));
         coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplier().getSupplierID()));
+        System.out.println("sup: " + coffee.getSupplier());
+        coffee.setImageLink(coffee.getImageLink().replace("localhost", "192.168.1.13"));
         Picasso.with(context).load(coffee.getImageLink()).into(coffeeViewHolder.coffee_image);
         if(coffee.getStatus().equals("1"))
             coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
@@ -54,7 +56,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeViewHolder> {
             @Override
             public void onClick(View view, int position) {
                 Intent coffeeDetail = new Intent(context, CoffeeDetailPage.class);
-                coffeeDetail.putExtra(Common.INTENT_coffee_REF, position); // Hoặc sử dụng coffee.getId() nếu có
+                coffeeDetail.putExtra(Common.INTENT_coffee_REF, position);
                 context.startActivity(coffeeDetail);
 
             }
