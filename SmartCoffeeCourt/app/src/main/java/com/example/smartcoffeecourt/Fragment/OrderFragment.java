@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
@@ -46,36 +48,32 @@ public class OrderFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_order, container, false);
 
-
+        orderList = new ArrayList<>();
         recyclerView = root.findViewById(R.id.listOrders);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        try {
-            loadOrder(Common.user.getId());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        adapterOrder = new OrderAdapter(getContext(),orderList);
+        recyclerView.setAdapter(adapterOrder);
+        //loadOrder(1);
+        loadOrder(Common.user.getId());
         return root;
     }
 
-
-
-    private void loadOrder(Integer userId) throws Exception {
-        //orderList = Network.getInstance().create(ApiService.class).getAllOrderByUserIdDung(userId);
-
-
-       /* String apiUrl = "http://localhost:8080/api/order/getByUser";
-        orderList = new ArrayList<>();
-
-        String dataRq = "{ id:" + userId +"}";
-        String dataRp = getDataFromUrl(apiUrl,"GET",dataRq);
-        ObjectMapper mapper = new ObjectMapper();
-        orderList = mapper.readValue(dataRp, new TypeReference<List<Order>>() {});
-        System.out.println("orderSize:" + orderList.size());
-        adapterOrder = new OrderAdapter(getActivity(),orderList);
-        adapterOrder.notifyDataSetChanged();
-        recyclerView.setAdapter(adapterOrder);*/
+    private void loadOrder(Integer userId){
+        Call<List<Order>> call = Network.getInstance().create(ApiService.class).getAllOrderByUserId(userId);
+        call.enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                if (response.isSuccessful()) {
+                    orderList.addAll(response.body());
+                    adapterOrder.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                System.out.println("wrong network");           }
+        });
     }
 
     @Override
@@ -86,32 +84,6 @@ public class OrderFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-    }
-
-    private static String getDataFromUrl(String urlAPI,String type, String dataRq) throws IOException {
-        URL url = new URL(urlAPI);
-        StringBuilder dataRp = new StringBuilder();
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod(type);
-        conn.setRequestProperty("Content-Type", "application/json");
-        conn.setDoOutput(true);
-        OutputStream outputStream = conn.getOutputStream();
-        outputStream.write(dataRq.getBytes("UTF-8"));
-        outputStream.flush();
-        outputStream.close();
-        if (conn.getResponseCode() == 200) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                dataRp.append(inputLine);
-            }
-            in.close();
-            System.out.println("Successfully sent JSON data to API.");
-        } else {
-            System.out.println("Error: Failed to send JSON data to API.");
-        }
-        conn.disconnect();
-        return dataRp.toString();
     }
 
 

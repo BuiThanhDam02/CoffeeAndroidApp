@@ -1,12 +1,20 @@
 package com.example.smartcoffeecourt.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Order {
+
+    @SerializedName("id")
     private int id;
     private String phone;
+    @SerializedName("totalPrice")
     private String total;
+    @SerializedName("status")
     private String status;
+    @SerializedName("address")
+    private String address;
     private Integer supplierID;
     private String type;
     private List<CartItem> foods;
@@ -77,5 +85,13 @@ public class Order {
 
     public void setFoods(List<CartItem> foods) {
         this.foods = foods;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

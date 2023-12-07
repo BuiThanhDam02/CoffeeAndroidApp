@@ -16,7 +16,8 @@ public class OrderConverter {
         orderDTO.setEmail(order.getUser().getEmail());
         orderDTO.setPhone(order.getUser().getPhone());
         orderDTO.setStatus(order.getStatus() == 1?"Đã Giao":"Đang Giao");
-        orderDTO.setTotalPrice(order.getTotalPrice());
+        orderDTO.setStatusInt(order.getStatus());
+        orderDTO.setTotalPrice(String.valueOf(order.getTotalPrice()));
         return orderDTO;
     }
 
@@ -27,4 +28,5 @@ public class OrderConverter {
         }
         return orderDTOS;
     }
+
 }

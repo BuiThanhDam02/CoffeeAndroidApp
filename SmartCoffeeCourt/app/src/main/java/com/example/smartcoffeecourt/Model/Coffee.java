@@ -1,14 +1,19 @@
 package com.example.smartcoffeecourt.Model;
 
+
 public class Coffee {
-    private String name;
     private String description;
     private String discount;
     private String image;
-    private String price;
     private String star;
     private String status;
+    private Long id;
+    private String name;
+    private String price;
+
     private Integer supplierID;
+
+    private Stall supplier;
 
     public Coffee() {
     }
@@ -85,4 +90,5 @@ public class Coffee {
     public void setSupplierID(Integer supplierID) {
         this.supplierID = supplierID;
     }
+
 }

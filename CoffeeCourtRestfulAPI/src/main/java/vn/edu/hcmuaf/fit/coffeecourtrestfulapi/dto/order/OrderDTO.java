@@ -9,11 +9,15 @@ public class OrderDTO {
 
     private String password;
 
+    private String address;
+
     private String email;
 
     private String status;
 
-    private float totalPrice;
+    private Integer statusInt;
+
+    private String totalPrice;
 
     private String StatusBg;
 
@@ -65,11 +69,19 @@ public class OrderDTO {
         this.status = status;
     }
 
-    public float getTotalPrice() {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -79,5 +91,13 @@ public class OrderDTO {
 
     public void setStatusBg(String statusBg) {
         StatusBg = statusBg;
+    }
+
+    public Integer getStatusInt() {
+        return statusInt;
+    }
+
+    public void setStatusInt(Integer statusInt) {
+        this.statusInt = statusInt;
     }
 }

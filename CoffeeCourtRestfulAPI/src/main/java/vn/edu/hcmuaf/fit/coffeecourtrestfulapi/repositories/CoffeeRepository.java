@@ -13,5 +13,5 @@ public interface CoffeeRepository extends JpaRepository<Coffee, Long> {
     List<Coffee> findByNameContaining(String name);
     List<Coffee> findBySupplierId(Long supplier_id);
     Coffee findByName(String name);
-
+    Coffee findOneById(Long id);
 }

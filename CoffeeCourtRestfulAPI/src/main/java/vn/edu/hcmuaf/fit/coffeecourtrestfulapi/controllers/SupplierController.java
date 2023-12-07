@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.supplier.SupplierDTO;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order.SupplierDTO;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Supplier;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.SupplierImageRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.SupplierRepository;

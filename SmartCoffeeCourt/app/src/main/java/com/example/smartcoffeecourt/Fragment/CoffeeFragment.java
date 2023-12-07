@@ -17,17 +17,31 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcoffeecourt.Adapter.CoffeeAdapter;
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.CoffeeDetail.CoffeeDetailPage;
 import com.example.smartcoffeecourt.Interface.ItemClickListener;
 import com.example.smartcoffeecourt.Model.Coffee;
+import com.example.smartcoffeecourt.Model.Stall;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.CoffeeViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CoffeeFragment extends Fragment {
 
@@ -35,9 +49,11 @@ public class CoffeeFragment extends Fragment {
     RecyclerView recyclerCoffee;
 
     FirebaseDatabase database;
-    DatabaseReference coffeeList;
-    FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder> coffeeAdapter;
+    List<Coffee> coffeeList;
+    CoffeeAdapter coffeeAdapter;
     FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder> searchcoffeeAdapter;
+
+
     Integer supplierID = 0;
     @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,12 +62,11 @@ public class CoffeeFragment extends Fragment {
 
         //Firebase
         database = FirebaseDatabase.getInstance();
-        coffeeList = database.getReference("coffee/List");
-
-        recyclerCoffee = (RecyclerView)root.findViewById(R.id.recycler_coffee);
+        coffeeList = new ArrayList<>();
+        recyclerCoffee = root.findViewById(R.id.recycler_coffee);
         recyclerCoffee.setHasFixedSize(true);
         recyclerCoffee.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        coffeeAdapter = new CoffeeAdapter(coffeeList,getContext());
         loadcoffeeList();
         return root;
     }
@@ -59,7 +74,7 @@ public class CoffeeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        coffeeAdapter.startListening();
+        //coffeeAdapter.startListening();
     }
 
     @Override
@@ -71,46 +86,23 @@ public class CoffeeFragment extends Fragment {
     }
 
     private void loadcoffeeList() {
-        FirebaseRecyclerOptions<Coffee> options;
         Bundle bundle = this.getArguments();
         if(bundle != null) {
              supplierID = bundle.getInt(Common.CHOICE_STALL, 0);
         }
-        if(supplierID == 0){
-            options = new FirebaseRecyclerOptions.Builder<Coffee>().setQuery(coffeeList, Coffee.class).build();
-        }
-        else{
-             options = new FirebaseRecyclerOptions.Builder<Coffee>().setQuery(coffeeList.orderByChild("supplierID").equalTo(supplierID), Coffee.class).build();
-        }
-        coffeeAdapter = new FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder>(options) {
+        Call<List<Coffee>> call = Network.getInstance().create(ApiService.class).getCoffeesBySupplier(supplierID);
+        call.enqueue(new Callback<List<Coffee>>() {
             @Override
-            protected void onBindViewHolder(@NonNull CoffeeViewHolder coffeeViewHolder, int i, @NonNull final Coffee coffee) {
-                if(coffee.getStatus() != null && coffee.getStatus().equals("1")){
-                    coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());}
-                coffeeViewHolder.coffee_name.setText(coffee.getName());
-                coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(coffee.getPrice()));
-                coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplierID()));
-                Picasso.with(getContext()).load(coffee.getImage()).into(coffeeViewHolder.coffee_image);
-
-                coffeeViewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Intent coffeeDetail = new Intent(getContext(), CoffeeDetailPage.class);
-                        coffeeDetail.putExtra(Common.INTENT_coffee_REF, coffeeAdapter.getRef(position).getKey());
-                        startActivity(coffeeDetail);
-                    }
-                });
+            public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
+                if (response.isSuccessful()) {
+                    coffeeList.addAll(response.body());
+                    coffeeAdapter.notifyDataSetChanged();
+                }
             }
-
-            @NonNull
             @Override
-            public CoffeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.coffee_item, parent, false);
-                return new CoffeeViewHolder(itemView);
-            }
-        };
-
-        coffeeAdapter.notifyDataSetChanged();
+            public void onFailure(Call<List<Coffee>> call, Throwable t) {
+                System.out.println("wrong network");           }
+        });
         recyclerCoffee.setAdapter(coffeeAdapter);
     }
 
@@ -131,7 +123,7 @@ public class CoffeeFragment extends Fragment {
                public boolean onQueryTextChange(String s) {
                    if(s.isEmpty()) recyclerCoffee.setAdapter(coffeeAdapter);
                    else {
-                       showSearchcoffeeList(s);
+                       //showSearchcoffeeList(s);
                    }
                    return false;
                }
@@ -141,7 +133,7 @@ public class CoffeeFragment extends Fragment {
     }
 
     private void showSearchcoffeeList(String s) {
-        FirebaseRecyclerOptions<Coffee> options = new FirebaseRecyclerOptions.Builder<Coffee>()
+     /*   FirebaseRecyclerOptions<Coffee> options = new FirebaseRecyclerOptions.Builder<Coffee>()
                 .setQuery(coffeeList.orderByChild("name").startAt(s).endAt(s + "\uf8ff"), Coffee.class).build();
         searchcoffeeAdapter = new FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder>(options) {
             @Override
@@ -172,7 +164,31 @@ public class CoffeeFragment extends Fragment {
         };
         searchcoffeeAdapter.startListening();
         searchcoffeeAdapter.notifyDataSetChanged();
-        recyclerCoffee.setAdapter(searchcoffeeAdapter);
+        recyclerCoffee.setAdapter(searchcoffeeAdapter);*/
     }
+
+   /* public static void main(String[] args) {
+        Call<List<Coffee>> call = Network.getInstance().create(ApiService.class).getCoffeesBySupplier(1);
+        call.enqueue(new Callback<List<Coffee>>() {
+            @Override
+            public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
+
+                if (response.isSuccessful()) {
+                    JSONArray jsonArray = new JSONArray(response.body());
+                    Gson gson = new Gson();
+                    gson.fromJson(response.body(),Coffee.class);
+                    g
+                    List<Coffee> coffees = response.body();
+                    for (Coffee coffee: coffees
+                         ) {
+                        System.out.println(coffee);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Coffee>> call, Throwable t) {
+                System.out.println("wrong network");           }
+        });
+    }*/
 
 }

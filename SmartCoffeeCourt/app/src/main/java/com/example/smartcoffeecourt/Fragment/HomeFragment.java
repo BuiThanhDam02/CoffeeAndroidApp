@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,7 +51,6 @@ public class HomeFragment extends Fragment {
     FirebaseRecyclerAdapter<Coffee, GreatCoffeeViewHolder> adapterGreatFood;
     StallAdapter adapterStall ;
 
-    static Network network;
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -58,14 +58,15 @@ public class HomeFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference("Food/List");
-        //supplierList = database.getReference("Supplier/List");
+        stallList = new ArrayList<>();
         greatFoodRecycler = root.findViewById(R.id.great_food_recycler);
         stallRecycler = root.findViewById(R.id.stall_recycler);
+        adapterStall = new StallAdapter(getActivity(),stallList,getParentFragmentManager());
+        stallRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        stallRecycler.setAdapter(adapterStall);
 
-        //stallRecycler.setHasFixedSize(true);
-        stallRecycler.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+
         loadGreatFoodList();
-
         loadStallList();
         return root;
     }
@@ -74,14 +75,12 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapterGreatFood.startListening();
-        //adapterStall.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         adapterGreatFood.stopListening();
-        //adapterStall.stopListening();
     }
 
     private void loadStallList()  {
@@ -91,27 +90,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Stall>> call, Response<List<Stall>> response) {
                 if (response.isSuccessful()) {
-                   stallList = response.body();
-                    //stallList = response.body();
-                    if (stallList != null) {
-                        for (Stall stall : stallList) {
-                            // Perform action for each coffee item
-                            // For example, print the coffee name
-                            System.out.println(stall.getName());
-                        }
-                    }
-                } else {
-                    // Handle the error response
+                   stallList.addAll(response.body());
+                   adapterStall.notifyDataSetChanged();
                 }
             }
             @Override
             public void onFailure(Call<List<Stall>> call, Throwable t) {
                 System.out.println("wrong network");           }
         });
-        System.out.println("size stall:" + stallList.size());
-        adapterStall = new StallAdapter(getActivity(),stallList,getParentFragmentManager());
-        adapterStall.notifyDataSetChanged();
-        stallRecycler.setAdapter(adapterStall);
     }
 
     private void loadGreatFoodList() {
@@ -151,92 +137,4 @@ public class HomeFragment extends Fragment {
         greatFoodRecycler.setAdapter(adapterGreatFood);
     }
 
-   /* private static String getDataFromUrl(String urlAPI,String type) throws IOException {
-        URL url = new URL(urlAPI);
-        String responseData = null;
-        try {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod(type);
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                responseData = String.valueOf(response);
-            } else {
-                System.out.println("Error: " + responseCode);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return responseData;
-    }*/
-
-
-   /* private static String getDataFromUrlWithDataRq(String urlAPI,String type, String dataRq) throws IOException {
-        URL url = new URL(urlAPI);
-        StringBuilder dataRp = new StringBuilder();
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod(type);
-        conn.setRequestProperty("Content-Type", "application/json");
-        conn.setDoOutput(true);
-        OutputStream outputStream = conn.getOutputStream();
-        outputStream.write(dataRq.getBytes("UTF-8"));
-        outputStream.flush();
-        outputStream.close();
-        if (conn.getResponseCode() == 200) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                dataRp.append(inputLine);
-            }
-            in.close();
-            System.out.println("Successfully sent JSON data to API.");
-        } else {
-            System.out.println("Error: Failed to send JSON data to API.");
-        }
-        conn.disconnect();
-        return dataRp.toString();
-    }*/
-   public static void main(String[] args) {
-      /* Retrofit retrofit = new Retrofit.Builder()
-               .baseUrl("http://localhost:8080/")
-               .addConverterFactory(GsonConverterFactory.create())
-               .build();
-
-       ApiService service = retrofit.create(ApiService.class);*/
-       Call<List<Stall>> call = Network.getInstance().create(ApiService.class).getAllStallDung();
-
-
-       //Call<List<Stall>> call = service.getAllStallDung();
-       //Call<List<Coffee>> call = yourRetrofitService.getCoffeesBySupplier(supplierId);
-       call.enqueue(new Callback<List<Stall>>() {
-           @Override
-           public void onResponse(Call<List<Stall>> call, Response<List<Stall>> response) {
-               if (response.isSuccessful()) {
-                   List<Stall> stalls = response.body();
-                   //stallList = response.body();
-                   if (stalls != null) {
-                       for (Stall stall : stalls) {
-                           // Perform action for each coffee item
-                           // For example, print the coffee name
-                           System.out.println(stall.getName());
-                       }
-                   }
-               } else {
-                   // Handle the error response
-               }
-           }
-
-           @Override
-           public void onFailure(Call<List<Stall>> call, Throwable t) {
-               System.out.println("wrong network");           }
-       });
-
-   }
 }

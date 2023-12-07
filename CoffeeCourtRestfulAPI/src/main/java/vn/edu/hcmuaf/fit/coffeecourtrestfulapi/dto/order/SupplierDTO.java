@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.supplier;
+package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order;
 
 public class SupplierDTO {
     private long supplierID;

@@ -46,10 +46,10 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeView
         }
 
         holder.coffeeName.setText(coffee.getName());
-        holder.coffeePrice.setText(Common.convertPriceToVND(coffee.getPrice()));
+        holder.coffeePrice.setText(Common.convertPriceToVND(coffee.getPrice().substring(0,coffee.getPrice().indexOf("."))));
         holder.coffeeSupplier.setText(String.format("Stall %s", coffee.getSupplierID()));
 
-        Picasso.with(context).load(coffee.getImage()).into(holder.coffeeImage);
+        /*Picasso.with(context).load(coffee.getImage()).into(holder.coffeeImage);*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

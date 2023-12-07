@@ -9,7 +9,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
+/*@Component
 public class CorsFilter extends OncePerRequestFilter {
 
     @Override
@@ -25,4 +25,4 @@ public class CorsFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }
     }
-}
+}*/
