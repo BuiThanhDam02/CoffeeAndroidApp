@@ -3,15 +3,15 @@ package com.example.smartcoffeecourt.Model;
 public class Stall {
     private String name;
     private String image;
-    private Integer id;
+    private Integer supplierID;
 
     public Stall() {
     }
 
-    public Stall(String image, String name, Integer id) {
+    public Stall(String image, String name, Integer supplierID) {
         this.image = image;
         this.name = name;
-        this.id = id;
+        this.supplierID = supplierID;
     }
 
     public String getName() {
@@ -31,20 +31,11 @@ public class Stall {
     }
 
     public Integer getSupplierID() {
-        return id;
+        return supplierID;
     }
 
     public void setSupplierID(Integer supplierID) {
-        this.id = supplierID;
-    }
-
-    @Override
-    public String toString() {
-        return "Stall{" +
-                "name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", supplierID=" + id +
-                '}';
+        this.supplierID = supplierID;
     }
 
 }

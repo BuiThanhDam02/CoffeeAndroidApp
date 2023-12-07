@@ -69,19 +69,6 @@ public class Coffee {
         this.imageLink = imageLink;
     }
 
-    @Override
-    public String toString() {
-        return "Coffee{" +
-                "id=" + id +
-                ", supplier=" + supplier +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
-                ", price='" + price + '\'' +
-                ", imageLink='" + imageLink + '\'' +
-                '}';
-    }
-
     //    private String name;
 //    private String description;
 //    private String discount;

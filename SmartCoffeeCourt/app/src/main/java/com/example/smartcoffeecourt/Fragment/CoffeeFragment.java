@@ -160,7 +160,6 @@ public class CoffeeFragment extends Fragment {
                if(response.body() != null) {
                    coffees = response.body();
                    CoffeeAdapter coffeeAdapter1 = new CoffeeAdapter(coffees, getContext());
-                   coffeeAdapter1.notifyDataSetChanged();
                    recyclerCoffee.setAdapter(coffeeAdapter1);
                }
             }
