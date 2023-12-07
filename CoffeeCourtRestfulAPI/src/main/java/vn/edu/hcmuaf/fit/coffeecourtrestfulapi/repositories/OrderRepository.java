@@ -13,4 +13,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     // Các phương thức truy vấn khác nếu cần
 
     List<Order> findByUser(User user);
+
+    Order findOneById(Long supplierId);
 }

@@ -1,6 +1,8 @@
 package com.example.smartcoffeecourt.Model;
 
 public class User {
+
+    private Integer id;
     private String name;
     private String email;
     private String phone;
@@ -11,6 +13,14 @@ public class User {
         this.email = email;
         this.name = name;
         this.phone = phone;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

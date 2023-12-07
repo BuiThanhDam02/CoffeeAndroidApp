@@ -1,4 +1,5 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "order_details")
@@ -8,7 +9,8 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
     @JoinColumn(name = "order_id")
     private Order order;
 

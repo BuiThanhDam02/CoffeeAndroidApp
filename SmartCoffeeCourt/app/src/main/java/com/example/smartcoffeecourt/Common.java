@@ -48,4 +48,6 @@ public class Common {
         if (type.equals("0")) return "Ăn tại chỗ";
         else return "Mang đi";
     }
+
+
 }

@@ -1,9 +1,14 @@
 package com.example.smartcoffeecourt.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Stall {
+    @SerializedName("name")
     private String name;
+    @SerializedName("image")
     private String image;
-    private Integer id;
+    @SerializedName("supplierID")
+    private Integer supplierID;
 
     public Stall() {
     }
@@ -11,7 +16,7 @@ public class Stall {
     public Stall(String image, String name, Integer supplierID) {
         this.image = image;
         this.name = name;
-        this.id = supplierID;
+        this.supplierID = supplierID;
     }
 
     public String getName() {
@@ -31,11 +36,11 @@ public class Stall {
     }
 
     public Integer getSupplierID() {
-        return id;
+        return supplierID;
     }
 
     public void setSupplierID(Integer supplierID) {
-        this.id = supplierID;
+        this.supplierID = supplierID;
     }
 
 }
