@@ -155,11 +155,13 @@ public class CoffeeFragment extends Fragment {
     private void showSearchcoffeeList(String s) {
         ApiService apiService = Network.getInstance().create(ApiService.class);
         apiService.searchByName(s).enqueue(new Callback<List<Coffee>>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
                if(response.body() != null) {
                    coffees = response.body();
                    CoffeeAdapter coffeeAdapter1 = new CoffeeAdapter(coffees, getContext());
+                   coffeeAdapter1.notifyDataSetChanged();
                    recyclerCoffee.setAdapter(coffeeAdapter1);
                }
             }

@@ -46,7 +46,8 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeViewHolder> {
         coffeeViewHolder.coffee_name.setText(coffee.getName());
         coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(Float.parseFloat(coffee.getPrice())));
         coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplier().getSupplierID()));
-        Picasso.with(context).load(coffee.getImageLink()).into(coffeeViewHolder.coffee_image);
+        String imageCoffee = coffee.getImageLink().replace("localhost", "192.168.1.13");
+        Picasso.with(context).load(imageCoffee).into(coffeeViewHolder.coffee_image);
         if(coffee.getStatus().equals("1"))
             coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
 

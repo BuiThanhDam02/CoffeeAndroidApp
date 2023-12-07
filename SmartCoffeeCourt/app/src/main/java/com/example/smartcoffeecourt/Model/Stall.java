@@ -3,7 +3,7 @@ package com.example.smartcoffeecourt.Model;
 public class Stall {
     private String name;
     private String image;
-    private Integer supplierID;
+    private Integer id;
 
     public Stall() {
     }
@@ -11,7 +11,7 @@ public class Stall {
     public Stall(String image, String name, Integer supplierID) {
         this.image = image;
         this.name = name;
-        this.supplierID = supplierID;
+        this.id = supplierID;
     }
 
     public String getName() {
@@ -31,11 +31,11 @@ public class Stall {
     }
 
     public Integer getSupplierID() {
-        return supplierID;
+        return id;
     }
 
     public void setSupplierID(Integer supplierID) {
-        this.supplierID = supplierID;
+        this.id = supplierID;
     }
 
 }
