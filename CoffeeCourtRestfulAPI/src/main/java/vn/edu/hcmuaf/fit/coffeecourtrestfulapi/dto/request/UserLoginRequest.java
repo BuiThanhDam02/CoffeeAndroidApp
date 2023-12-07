@@ -1,16 +1,16 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request;
 
-public class SignInForm {
+public class UserLoginRequest {
     private String username;
     private String password;
+    private String email;
 
-    public SignInForm() {
-    }
-
-    public SignInForm(String username, String password) {
+    public UserLoginRequest(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
+    public  UserLoginRequest(){}
 
     public String getUsername() {
         return username;
@@ -26,5 +26,13 @@ public class SignInForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
