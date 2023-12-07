@@ -54,18 +54,6 @@ export const gridOrderImage = (props) => (
   </div>
 );
 
-export const gridCoffeeImage = (props) => (
-  <div>
-    <img
-      className="rounded-xl h-20 md:ml-3"
-      src={props.imageLink}
-      alt="coffee-item"
-    />
-  </div>
-);
-
-export const gridSupplierName = (props) => <div>{props.supplier.name}</div>;
-
 export const gridOrderStatus = (props) => (
   <button
     type="button"
@@ -485,39 +473,51 @@ export const customersGrid = [
 export const coffeesGrid = [
   { type: "checkbox", width: "50" },
   {
-    field: "id",
-    headerText: "Id",
-    width: "70",
+    headerText: "id",
+    width: "150",
+    template: customerGridImage,
     textAlign: "Center",
   },
   {
-    headerText: "Image",
-    template: gridCoffeeImage,
-    textAlign: "Center",
-    width: "120",
-  },
-  {
-    // field: "id",
-    headerText: "supplier",
-    template: gridSupplierName,
-    width: "100",
+    field: "supplier_id",
+    headerText: "Supplier Id",
+    width: "150",
     textAlign: "Center",
   },
-  { field: "name", headerText: "Name", width: "150", textAlign: "Center" },
   {
-    field: "description",
-    headerText: "Description",
-    width: "500",
-    // format: "yMd",
+    field: "status",
+    headerText: "Status",
+    width: "130",
+    format: "yMd",
     textAlign: "Center",
+    template: customerGridStatus,
   },
   {
     field: "price",
     headerText: "Price",
-    width: "160",
-    format: "C0",
+    width: "100",
+    format: "C2",
     textAlign: "Center",
   },
+  {
+    field: "description",
+    headerText: "Description",
+    width: "100",
+    format: "yMd",
+    textAlign: "Center",
+  },
+
+  // { field: 'Location',
+  //   headerText: 'Location',
+  //   width: '150',
+  //   textAlign: 'Center' },
+
+  // { field: 'CustomerID',
+  //   headerText: 'Customer ID',
+  //   width: '120',
+  //   textAlign: 'Center',
+  //   isPrimaryKey: true,
+  // },
 ];
 
 export const employeesGrid = [

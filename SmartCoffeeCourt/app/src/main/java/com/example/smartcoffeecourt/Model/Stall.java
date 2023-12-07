@@ -8,10 +8,10 @@ public class Stall {
     public Stall() {
     }
 
-    public Stall(String image, String name, Integer id) {
+    public Stall(String image, String name, Integer supplierID) {
         this.image = image;
         this.name = name;
-        this.id = id;
+        this.id = supplierID;
     }
 
     public String getName() {
@@ -36,15 +36,6 @@ public class Stall {
 
     public void setSupplierID(Integer supplierID) {
         this.id = supplierID;
-    }
-
-    @Override
-    public String toString() {
-        return "Stall{" +
-                "name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", supplierID=" + id +
-                '}';
     }
 
 }
