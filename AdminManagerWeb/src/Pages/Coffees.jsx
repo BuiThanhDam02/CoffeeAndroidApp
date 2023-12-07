@@ -1,24 +1,50 @@
-import React, { useState } from 'react';
-import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
+import React, { useState } from "react";
+import {
+  GridComponent,
+  ColumnsDirective,
+  ColumnDirective,
+  Resize,
+  Sort,
+  ContextMenu,
+  Filter,
+  Page,
+  ExcelExport,
+  PdfExport,
+  Edit,
+  Inject,
+} from "@syncfusion/ej2-react-grids";
 
-import { ordersData, contextMenuItems, ordersGrid } from '../Data/dummy';
-import {Header} from '../Components'
+import { ordersData, contextMenuItems, ordersGrid } from "../Data/dummy";
+import { Header } from "../Components";
 const Coffees = () => {
-    [coffeesData,setCoffeesData] = useState([])
+  // [coffeesData,setCoffeesData] = useState([])
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="Coffees" />
       <GridComponent
         id="gridcomp"
-        dataSource={ordersData}
+        // dataSource={}
         allowPaging
         allowSorting
       >
         <ColumnsDirective>
-          {ordersGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
+          {ordersGrid.map((item, index) => (
+            <ColumnDirective key={index} {...item} />
+          ))}
         </ColumnsDirective>
-        <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, Edit, PdfExport]} />
+        <Inject
+          services={[
+            Resize,
+            Sort,
+            ContextMenu,
+            Filter,
+            Page,
+            ExcelExport,
+            Edit,
+            PdfExport,
+          ]}
+        />
       </GridComponent>
     </div>
   );
@@ -26,67 +52,65 @@ const Coffees = () => {
 export default Coffees;
 
 // coffees data {
-  //   id: 10248,
-  //   supplier_id: 122,
-  //   name: "cafe ks",
-  //   description: 'USA',
-  //   status: 1,
-  //   price: 45999,
-  //   imagelink:"..."
+//   id: 10248,
+//   supplier_id: 122,
+//   name: "cafe ks",
+//   description: 'USA',
+//   status: 1,
+//   price: 45999,
+//   imagelink:"..."
 
-  // },
+// },
 
+// [
+//   {
+//     headerText: 'Image',
+//     template: gridOrderImage,
+//     textAlign: 'Center',
+//     width: '120',
+//   },
+//   {
+//     field: 'id',
+//     headerText: 'Id',
+//     width: '150',
+//     editType: 'dropdownedit',
+//     textAlign: 'Center',
+//   },
+//   { field: 'name',
+//     headerText: 'Name',
+//     width: '150',
+//     textAlign: 'Center',
+//   },
+//   {
+//     field: 'price',
+//     headerText: 'Price',
+//     format: 'C2',
+//     textAlign: 'Center',
+//     editType: 'numericedit',
+//     width: '150',
+//   },
+//   {
+//     headerText: 'Status',
+//     template: gridOrderStatus,
+//     field: 'status',
+//     textAlign: 'Center',
+//     width: '120',
+//   },
+//   {
+//     field: 'supplier_id',
+//     headerText: 'Supplier ID',
+//     width: '120',
+//     textAlign: 'Center',
+//   },
 
-  // [
-  //   {
-  //     headerText: 'Image',
-  //     template: gridOrderImage,
-  //     textAlign: 'Center',
-  //     width: '120',
-  //   },
-  //   {
-  //     field: 'id',
-  //     headerText: 'Id',
-  //     width: '150',
-  //     editType: 'dropdownedit',
-  //     textAlign: 'Center',
-  //   },
-  //   { field: 'name',
-  //     headerText: 'Name',
-  //     width: '150',
-  //     textAlign: 'Center',
-  //   },
-  //   {
-  //     field: 'price',
-  //     headerText: 'Price',
-  //     format: 'C2',
-  //     textAlign: 'Center',
-  //     editType: 'numericedit',
-  //     width: '150',
-  //   },
-  //   {
-  //     headerText: 'Status',
-  //     template: gridOrderStatus,
-  //     field: 'status',
-  //     textAlign: 'Center',
-  //     width: '120',
-  //   },
-  //   {
-  //     field: 'supplier_id',
-  //     headerText: 'Supplier ID',
-  //     width: '120',
-  //     textAlign: 'Center',
-  //   },
-  
-  //   {
-  //     field: 'description',
-  //     headerText: 'Description',
-  //     width: '150',
-  //     textAlign: 'Center',
-  //   },
-  // ];
+//   {
+//     field: 'description',
+//     headerText: 'Description',
+//     width: '150',
+//     textAlign: 'Center',
+//   },
+// ];
 
-  
 // export const gridCoffeeImage = (props) => (
 //   <div>
 //     <img
@@ -106,4 +130,3 @@ export default Coffees;
 //     {props.status}
 //   </button>
 // );
-

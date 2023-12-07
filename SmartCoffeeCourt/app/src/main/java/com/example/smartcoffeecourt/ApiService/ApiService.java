@@ -12,13 +12,15 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("/coffee/all")
+    @GET("coffee/all")
     Call<List<Coffee>> getCoffee();
 
-    @GET("/api/supplier/all")
+    @GET("supplier/all")
     Call<List<Stall>> getAllStall();
 
-    @GET("/coffee/bySupplierId")
+    @GET("coffee/bySupplierId")
     Call<List<Coffee>> getCoffeesBySupplier(@Query("supplierId") int supplierId);
 
+    @GET("coffee/search")
+    Call<List<Coffee>> searchByName(@Query("name") String name);
 }

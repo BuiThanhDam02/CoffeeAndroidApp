@@ -151,12 +151,12 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
 
     @Override
     public void showCoffeeDetail(Coffee coffee) {
-        Picasso.with(getBaseContext()).load(coffee.getImage()).into(imgcoffee);
+        Picasso.with(getBaseContext()).load(coffee.getImageLink()).into(imgcoffee);
         txtPrice.setText(Common.convertPriceToVND(coffee.getPrice()));
         txtName.setText(coffee.getName());
         txtDes.setText(coffee.getDescription());
-        txtDiscount.setText(String.format("%s%%", coffee.getDiscount()));
-        ratingBar.setRating(Float.parseFloat(coffee.getStar()));
+        txtDiscount.setText(String.format("%s%%", 0));
+        ratingBar.setRating(Float.parseFloat("5"));
         if(coffee.getStatus().equals("1")){
             imgOutOfOrder.setImageResource(Common.convertOutOfOrderToImage());
         }

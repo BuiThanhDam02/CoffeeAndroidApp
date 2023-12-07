@@ -48,7 +48,9 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
         if(coffee.getStatus().equals("0")) {
             new Database(coffeeView.getContext()).addToCart(new CartItem(coffee.getName(),
                     coffee.getPrice(), quantity,
-                    coffee.getDiscount()), coffee.getSupplierID());
+//                    coffee.getDiscount()
+                    ""
+            ), coffee.getSupplier().getSupplierID());
             coffeeView.showToast("Món ăn đã được thêm vào giỏ hàng");
         }
         else coffeeView.showToast("Món ăn đã hết hàng");
