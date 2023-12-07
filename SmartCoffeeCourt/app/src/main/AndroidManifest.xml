@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PaymentPage"></activity>
+        <activity android:name=".OrderDetail"></activity>
         <activity android:name=".CoffeeDetail.CommentPage" />
         <activity android:name=".Cart" />
         <activity android:name=".CoffeeDetail.CoffeeDetailPage" />
