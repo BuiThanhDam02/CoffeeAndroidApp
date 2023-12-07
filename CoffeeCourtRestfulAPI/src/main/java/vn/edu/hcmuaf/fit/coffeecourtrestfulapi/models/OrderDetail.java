@@ -85,4 +85,8 @@ public class OrderDetail {
     // Constructor
 
     // Các phương thức khác nếu cần
+    public float getSubtotal() {
+        float discountedPrice = price - (discount != null ? discount : 0);
+        return discountedPrice * quantity;
+    }
 }
