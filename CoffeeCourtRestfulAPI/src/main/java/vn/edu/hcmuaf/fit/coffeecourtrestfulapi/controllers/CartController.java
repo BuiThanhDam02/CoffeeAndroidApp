@@ -10,7 +10,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CoffeeRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.CartService;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/api/cart")
 public class CartController {
     @Autowired
     private CartService cartService;

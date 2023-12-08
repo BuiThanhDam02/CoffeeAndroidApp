@@ -8,7 +8,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CommentRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/api/comments")
 public class CommentController {
 
     @Autowired

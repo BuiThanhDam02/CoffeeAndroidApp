@@ -28,11 +28,23 @@ public class Coffee {
     @Transient // Đánh dấu thuộc tính này để không được ánh xạ vào cơ sở dữ liệu
     private String imageLink;
 
+
+    @Transient
+    private int star;
     public Coffee() {
 
     }
 
     // Getter và Setter cho các thuộc tính
+
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
 
     public String getImageLink() {
         return imageLink;

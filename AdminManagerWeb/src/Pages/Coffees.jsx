@@ -16,22 +16,35 @@ import {
 } from "@syncfusion/ej2-react-grids";
 
 import { coffeesGrid } from "../Data/dummy";
-import { getAllCoffee, deleteCoffee } from "../Api/CoffeeRequest";
+import { getAllCoffee, deleteCoffee, editCoffee } from "../Api/CoffeeRequest";
 import { Header } from "../Components";
 const Coffees = () => {
   const [coffees, setCoffees] = useState([]);
 
   useEffect(() => {
-    getAllCoffee().then((data) => {
-      setCoffees(data.data);
-    });
-    console.log(coffees);
+    const fetchData = async () => {
+      try {
+        const response = await getAllCoffee();
+        setCoffees(response);
+      } catch (error) {
+        console.error("Error fetching coffee data: ", error);
+      }
+    };
+    fetchData();
   }, []);
 
-  const handleDelete = () => {
+  const handleDelete = async (args) => {
     // Lấy các dòng đã chọn
-    const selectedRecords = GridComponent.console.log(selectedRecords);
+    // const selectedRecords = GridComponent.console.log(selectedRecords);
 
+    if (args.requestType === "delete") {
+      const deletedData = args.data;
+      await Promise.all(deletedData.map((elememt) => deleteCoffee(elememt.id)));
+    }
+    if (args.requestType === "save" && args.action == "edit") {
+      const coffeeData = args.data;
+      await editCoffee(coffeeData);
+    }
     // Gọi API để xóa dữ liệu từ backend
     // Sử dụng thư viện như axios để thực hiện yêu cầu HTTP
     // Ví dụ: axios.delete('/api/data', { data: selectedRecords });
@@ -52,18 +65,7 @@ const Coffees = () => {
         dataSource={coffees}
         allowPaging
         allowSorting
-        actionComplete={(args) => {
-          if (args.requestType === "delete") {
-            const deletedData = args.data;
-            console.log("Deleted Data:", deletedData);
-            deletedData.forEach((element) => {
-              // deleteCoffee(element.id);
-            });
-          }
-          if (args.requestType === "add") {
-            console.log("a");
-          }
-        }}
+        actionComplete={handleDelete}
       >
         <ColumnsDirective>
           {coffeesGrid.map((item, index) => (

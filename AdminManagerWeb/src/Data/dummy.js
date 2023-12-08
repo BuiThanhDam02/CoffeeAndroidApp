@@ -489,34 +489,40 @@ export const coffeesGrid = [
     headerText: "Id",
     width: "70",
     textAlign: "Center",
+    isPrimaryKey: true,
   },
   {
+    field: "imageLink",
     headerText: "Image",
     template: gridCoffeeImage,
     textAlign: "Center",
     width: "120",
   },
   {
-    // field: "id",
-    headerText: "supplier",
+    headerText: "Supplier",
     template: gridSupplierName,
     width: "100",
     textAlign: "Center",
   },
-  { field: "name", headerText: "Name", width: "150", textAlign: "Center" },
+  { field: "name", headerText: "Name", width: "150", textAlign: "left" },
   {
     field: "description",
     headerText: "Description",
     width: "500",
-    // format: "yMd",
-    textAlign: "Center",
+    textAlign: "left",
   },
   {
     field: "price",
     headerText: "Price",
     width: "160",
-    format: "C0",
     textAlign: "Center",
+    template: (data) => {
+      const formattedPrice = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(data.price);
+      return `${formattedPrice}`;
+    },
   },
 ];
 
@@ -1002,7 +1008,6 @@ export const ordersGrid = [
   },
 ];
 
-
 export const ordersGrids = [
   /* {
      headerText: '',
@@ -1010,47 +1015,44 @@ export const ordersGrids = [
      textAlign: 'Center',
      width: '120',
    },*/
-  { type: 'checkbox', width: '50' },
+  { type: "checkbox", width: "50" },
   {
-    field: 'id',
-    headerText: 'Id',
-    width: '150',
-    editType: 'dropdownedit',
-    textAlign: 'Center',
-  },
-  { field: 'name',
-    headerText: 'Tên Khách Hàng',
-    width: '150',
-    textAlign: 'Center',
+    field: "id",
+    headerText: "Id",
+    width: "150",
+    editType: "dropdownedit",
+    textAlign: "Center",
   },
   {
-    field: 'email',
-    headerText: 'Email',
-    format: 'C2',
-    textAlign: 'Center',
-    editType: 'numericedit',
-    width: '150',
-  },
-  { field: 'phone',
-    headerText: 'SĐT',
-    width: '150',
-    textAlign: 'Center',
+    field: "name",
+    headerText: "Tên Khách Hàng",
+    width: "150",
+    textAlign: "Center",
   },
   {
-    headerText: 'Trạng Thái',
-    field: 'status',
-    textAlign: 'Center',
-    width: '120',
+    field: "email",
+    headerText: "Email",
+    format: "C2",
+    textAlign: "Center",
+    editType: "numericedit",
+    width: "150",
+  },
+  { field: "phone", headerText: "SĐT", width: "150", textAlign: "Center" },
+  {
+    headerText: "Trạng Thái",
+    field: "status",
+    textAlign: "Center",
+    width: "120",
     /*template: customerGridStatus*/
   },
   {
-    field: 'totalPrice',
-    headerText: 'Tổng Tiền',
-    width: '120',
-    textAlign: 'Center',
+    field: "totalPrice",
+    headerText: "Tổng Tiền",
+    width: "120",
+    textAlign: "Center",
   },
 
-  { type: 'editor', width: '50' },
+  { type: "editor", width: "50" },
 
   /* {
      field: 'Location',
@@ -1059,7 +1061,6 @@ export const ordersGrids = [
      textAlign: 'Center',
    },*/
 ];
-
 
 export const customersData = [
   {

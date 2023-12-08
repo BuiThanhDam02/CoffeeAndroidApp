@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.request;
 
 public class CoffeeRequest {
+    private Long id;
     private Long supplierId;
 
     private String name;
@@ -71,5 +72,26 @@ public class CoffeeRequest {
         this.status = status;
         this.price = price;
         this.imageLink = imageLink;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "CoffeeRequest{" +
+                "id=" + id +
+                ", supplierId=" + supplierId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", price=" + price +
+                ", imageLink='" + imageLink + '\'' +
+                '}';
     }
 }
