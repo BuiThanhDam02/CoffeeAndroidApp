@@ -1,3 +1,4 @@
+/*
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 
 
@@ -81,3 +82,4 @@ public class AuthController {
         return new BCryptPasswordEncoder();
     }
 }
+*/
