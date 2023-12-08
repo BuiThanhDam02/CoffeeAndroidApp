@@ -11,4 +11,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     // Các phương thức truy vấn khác nếu cần
     List<Comment> findByCoffeeId(Long coffeeId);
+
+    void deleteByCoffeeId(Long id);
 }

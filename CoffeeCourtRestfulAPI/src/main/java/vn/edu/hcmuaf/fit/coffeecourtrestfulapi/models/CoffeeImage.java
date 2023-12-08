@@ -12,6 +12,7 @@ public class CoffeeImage {
     @ManyToOne
     @JoinColumn(name = "coffee_id")
     private Coffee coffee;
+    @Column(name = "imagelink")
 
     private String imageLink;
 
@@ -65,4 +66,14 @@ public class CoffeeImage {
     }
 
     // Các phương thức khác nếu cần
+
+    @Override
+    public String toString() {
+        return "CoffeeImage{" +
+                "id=" + id +
+                ", coffee=" + coffee +
+                ", imageLink='" + imageLink + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

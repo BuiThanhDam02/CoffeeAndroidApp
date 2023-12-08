@@ -1,6 +1,8 @@
 package com.example.smartcoffeecourt.ApiService;
 
 import com.example.smartcoffeecourt.Model.Coffee;
+import com.example.smartcoffeecourt.Model.Order;
+import com.example.smartcoffeecourt.Model.OrderDetailModel;
 import com.example.smartcoffeecourt.Model.Stall;
 
 import java.util.List;

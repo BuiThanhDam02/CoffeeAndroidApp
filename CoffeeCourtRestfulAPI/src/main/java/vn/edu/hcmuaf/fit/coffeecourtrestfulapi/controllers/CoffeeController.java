@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 
+import jakarta.transaction.Transactional;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Coffee;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.CoffeeImage;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Comment;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Supplier;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.request.CoffeeRequest;
 
@@ -22,7 +21,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/coffee")
+@RequestMapping("/api/coffee")
 public class CoffeeController {
     @Autowired
     CoffeeRepository coffeeRepository;
@@ -34,15 +33,28 @@ public class CoffeeController {
     private CoffeeImageRepository coffeeImageRepository;
     @Autowired
     private SupplierRepository supplierRepository;
+    @Autowired
+    private CoffeeStarRepository coffeeStarRepository;
 
 
     @GetMapping("/all")
     public List<Coffee> getAll() {
         List<Coffee> coffees = coffeeRepository.findAll();
         for (Coffee coffee : coffees) {
+            // Image
             List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
             if (!coffeeImages.isEmpty()) {
                 coffee.setImageLink(coffeeImages.get(0).getImageLink());
+            }
+
+            // Star
+            List<CoffeeStar> coffeeStars = coffeeStarRepository.findByCoffeeId(coffee.getId());
+            int totalStar = 0;
+            for (CoffeeStar star: coffeeStars) {
+                totalStar += star.getStar();
+            }
+            if(coffeeStars.size() != 0) {
+                coffee.setStar(totalStar/coffeeStars.size());
             }
         }
         return coffees;
@@ -52,9 +64,20 @@ public class CoffeeController {
     public List<Coffee> searchByName(@RequestParam String name) {
         List<Coffee> coffees = coffeeRepository.findByNameContaining(name);
         for (Coffee coffee : coffees) {
+            // Image
             List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
             if (!coffeeImages.isEmpty()) {
                 coffee.setImageLink(coffeeImages.get(0).getImageLink());
+            }
+
+            // Star
+            List<CoffeeStar> coffeeStars = coffeeStarRepository.findByCoffeeId(coffee.getId());
+            int totalStar = 0;
+            for (CoffeeStar star: coffeeStars) {
+                totalStar += star.getStar();
+            }
+            if(coffeeStars.size() != 0) {
+                coffee.setStar(totalStar/coffeeStars.size());
             }
         }
         return coffees;
@@ -64,9 +87,20 @@ public class CoffeeController {
     public List<Coffee> getBySupplierId(@RequestParam("supplierId") Long supplierId){
         List<Coffee> coffees = coffeeRepository.findBySupplierId(supplierId);
         for (Coffee coffee : coffees) {
+            // Image
             List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
             if (!coffeeImages.isEmpty()) {
                 coffee.setImageLink(coffeeImages.get(0).getImageLink());
+            }
+
+            // Star
+            List<CoffeeStar> coffeeStars = coffeeStarRepository.findByCoffeeId(coffee.getId());
+            int totalStar = 0;
+            for (CoffeeStar star: coffeeStars) {
+                totalStar += star.getStar();
+            }
+            if(coffeeStars.size() != 0) {
+                coffee.setStar(totalStar/coffeeStars.size());
             }
         }
         return coffees;
@@ -115,8 +149,8 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
                 coffeeImage.setCoffee(coffee);
                 coffeeImage.setImageLink(coffeeImage.getImageLink());
                 coffeeImage.setStatus(0);
-                coffeeImageRepository.save(coffeeImage);
                 coffee.setImageLink(coffeeImage.getImageLink());
+                coffeeImageRepository.save(coffeeImage);
             }
         } else {
             coffee = new Coffee();
@@ -173,19 +207,55 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error importing coffee from file: " + e.getMessage());
         }
     }
-
-    @DeleteMapping("/delete/{coffeeId}")
-    public ResponseEntity<String> deleteCoffee(@PathVariable Long coffeeId) {
+    @DeleteMapping("/delete/{id}")
+    @Transactional
+    public ResponseEntity<String> deleteCoffee(@PathVariable Long id) {
         try {
-            Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow(
-                    ()-> new RuntimeException("Coffee not found")
-            );
+            coffeeStarRepository.deleteByCoffeeId(id);
+            coffeeImageRepository.deleteByCoffeeId(id);
+            commentRepository.deleteByCoffeeId(id);
 
-            coffeeRepository.delete(coffee);
-            return ResponseEntity.ok("Coffee deleted successfully");
+            coffeeRepository.deleteById(id);
+            return new ResponseEntity<>("Coffee deleted successfully", HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error deleting coffee: " + e.getMessage());
+            return new ResponseEntity<>("Error deleting coffee: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<String> editCoffee(@PathVariable Long id, @RequestBody CoffeeRequest coffeeRequest) {
+        try {
+            // Kiểm tra tính hợp lệ của ID
+            if (id == null || id <= 0) {
+                return ResponseEntity.badRequest().body("Invalid coffee ID");
+            }
+
+            System.out.println(coffeeRequest);
+            Optional<Coffee> existingCoffee = coffeeRepository.findById(id);
+            if (existingCoffee.isPresent()) {
+                Coffee coffee = existingCoffee.get();
+                coffee.setName(coffeeRequest.getName());
+                coffee.setDescription(coffeeRequest.getDescription());
+                coffee.setStatus(coffeeRequest.getStatus());
+                coffee.setPrice(coffeeRequest.getPrice());
+
+                CoffeeImage coffeeImage = new CoffeeImage();
+                coffeeImage.setCoffee(coffee);
+                coffeeImage.setStatus(0);
+                coffeeImage.setImageLink(coffeeRequest.getImageLink());
+                System.out.println(coffeeImage.toString());
+                coffeeImageRepository.save(coffeeImage);
+                coffee.setImageLink(coffeeImage.getImageLink());
+                coffeeRepository.save(coffee);
+                return ResponseEntity.ok("Coffee edited successfully");
+            } else {
+                return new ResponseEntity<>("Coffee not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error editing coffee: " + e.getMessage());
+        }
+    }
+
+
+
 }
