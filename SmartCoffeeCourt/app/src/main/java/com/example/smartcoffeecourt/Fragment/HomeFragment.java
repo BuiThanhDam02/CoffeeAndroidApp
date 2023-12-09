@@ -13,11 +13,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcoffeecourt.Adapter.StallAdapter;
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.CoffeeDetail.CoffeeDetailPage;
 import com.example.smartcoffeecourt.Interface.ItemClickListener;
 import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Stall;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.GreatCoffeeViewHolder;
 import com.example.smartcoffeecourt.ViewHolder.StallViewHolder;
@@ -27,14 +30,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HomeFragment extends Fragment {
 
     RecyclerView greatFoodRecycler, stallRecycler;
     FirebaseDatabase database;
-    DatabaseReference foodList, supplierList;
+    DatabaseReference foodList;
+
+    List<Stall> stallList;
 
     FirebaseRecyclerAdapter<Coffee, GreatCoffeeViewHolder> adapterGreatFood;
-    FirebaseRecyclerAdapter<Stall, StallViewHolder> adapterStall;
+    StallAdapter adapterStall ;
+
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -42,14 +58,14 @@ public class HomeFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference("Food/List");
-        supplierList = database.getReference("Supplier/List");
+        stallList = new ArrayList<>();
         greatFoodRecycler = root.findViewById(R.id.great_food_recycler);
         stallRecycler = root.findViewById(R.id.stall_recycler);
+        adapterStall = new StallAdapter(getActivity(),stallList,getParentFragmentManager());
+        stallRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        stallRecycler.setAdapter(adapterStall);
 
-        greatFoodRecycler.setHasFixedSize(true);
-        greatFoodRecycler.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,true));
-        stallRecycler.setHasFixedSize(true);
-        stallRecycler.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+
         loadGreatFoodList();
         loadStallList();
         return root;
@@ -59,48 +75,29 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapterGreatFood.startListening();
-        adapterStall.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         adapterGreatFood.stopListening();
-        adapterStall.stopListening();
     }
 
-    private void loadStallList() {
-        FirebaseRecyclerOptions<Stall> options = new FirebaseRecyclerOptions.Builder<Stall>().setQuery(supplierList.orderByChild("supplierID"), Stall.class).build();
-        adapterStall = new FirebaseRecyclerAdapter<Stall, StallViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull StallViewHolder stallViewHolder, int i, final Stall stall) {
-                stallViewHolder.txtStall.setText(stall.getName());
-                if(!stall.getImage().isEmpty()) Picasso.with(getContext()).load(stall.getImage()).into(stallViewHolder.imgStall);
-                stallViewHolder.txtNumber.setText(stall.getSupplierID().toString());
-                stallViewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        CoffeeFragment coffeeFragment = new CoffeeFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putInt(Common.CHOICE_STALL, stall.getSupplierID());
-                        coffeeFragment.setArguments(bundle);
-                        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.nav_host_fragment, coffeeFragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                    }
-                });
-            }
+    private void loadStallList()  {
 
-            @NonNull
+        Call<List<Stall>> call = Network.getInstance().create(ApiService.class).getAllStallDung();
+        call.enqueue(new Callback<List<Stall>>() {
             @Override
-            public StallViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.stall_item, parent, false);
-                return new StallViewHolder(itemView);
+            public void onResponse(Call<List<Stall>> call, Response<List<Stall>> response) {
+                if (response.isSuccessful()) {
+                   stallList.addAll(response.body());
+                   adapterStall.notifyDataSetChanged();
+                }
             }
-        };
-        adapterStall.notifyDataSetChanged();
-        stallRecycler.setAdapter(adapterStall);
+            @Override
+            public void onFailure(Call<List<Stall>> call, Throwable t) {
+                System.out.println("wrong network");           }
+        });
     }
 
     private void loadGreatFoodList() {

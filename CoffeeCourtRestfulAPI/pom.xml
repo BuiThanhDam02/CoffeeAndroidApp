@@ -46,16 +46,14 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.28</version> <!-- Sử dụng phiên bản tương ứng -->
         </dependency>
+
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.5.4</version>
-        </dependency>
+
+        <!--        Apache POI-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -66,6 +64,22 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-jexcel</artifactId>
+            <version>1.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dhatim</groupId>
+            <artifactId>fastexcel-reader</artifactId>
+            <version>0.15.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dhatim</groupId>
+            <artifactId>fastexcel</artifactId>
+            <version>0.15.3</version>
+        </dependency>
+
     </dependencies>
 
 

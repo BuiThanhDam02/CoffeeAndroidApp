@@ -54,6 +54,18 @@ export const gridOrderImage = (props) => (
   </div>
 );
 
+export const gridCoffeeImage = (props) => (
+  <div>
+    <img
+      className="rounded-xl h-20 md:ml-3"
+      src={props.imageLink}
+      alt="coffee-item"
+    />
+  </div>
+);
+
+export const gridSupplierName = (props) => <div>{props.supplier.name}</div>;
+
 export const gridOrderStatus = (props) => (
   <button
     type="button"
@@ -473,51 +485,45 @@ export const customersGrid = [
 export const coffeesGrid = [
   { type: "checkbox", width: "50" },
   {
-    headerText: "id",
-    width: "150",
-    template: customerGridImage,
+    field: "id",
+    headerText: "Id",
+    width: "70",
     textAlign: "Center",
+    isPrimaryKey: true,
   },
   {
-    field: "supplier_id",
-    headerText: "Supplier Id",
-    width: "150",
+    field: "imageLink",
+    headerText: "Image",
+    template: gridCoffeeImage,
     textAlign: "Center",
+    width: "120",
   },
   {
-    field: "status",
-    headerText: "Status",
-    width: "130",
-    format: "yMd",
+    headerText: "Supplier",
+    template: gridSupplierName,
+    width: "100",
     textAlign: "Center",
-    template: customerGridStatus,
+  },
+  { field: "name", headerText: "Name", width: "150", textAlign: "left" },
+  {
+    field: "description",
+    headerText: "Description",
+    width: "500",
+    textAlign: "left",
   },
   {
     field: "price",
     headerText: "Price",
-    width: "100",
-    format: "C2",
+    width: "160",
     textAlign: "Center",
+    template: (data) => {
+      const formattedPrice = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(data.price);
+      return `${formattedPrice}`;
+    },
   },
-  {
-    field: "description",
-    headerText: "Description",
-    width: "100",
-    format: "yMd",
-    textAlign: "Center",
-  },
-
-  // { field: 'Location',
-  //   headerText: 'Location',
-  //   width: '150',
-  //   textAlign: 'Center' },
-
-  // { field: 'CustomerID',
-  //   headerText: 'Customer ID',
-  //   width: '120',
-  //   textAlign: 'Center',
-  //   isPrimaryKey: true,
-  // },
 ];
 
 export const employeesGrid = [
@@ -1000,6 +1006,60 @@ export const ordersGrid = [
     width: "150",
     textAlign: "Center",
   },
+];
+
+export const ordersGrids = [
+  /* {
+     headerText: '',
+     template: gridOrderImage,
+     textAlign: 'Center',
+     width: '120',
+   },*/
+  { type: "checkbox", width: "50" },
+  {
+    field: "id",
+    headerText: "Id",
+    width: "150",
+    editType: "dropdownedit",
+    textAlign: "Center",
+  },
+  {
+    field: "name",
+    headerText: "Tên Khách Hàng",
+    width: "150",
+    textAlign: "Center",
+  },
+  {
+    field: "email",
+    headerText: "Email",
+    format: "C2",
+    textAlign: "Center",
+    editType: "numericedit",
+    width: "150",
+  },
+  { field: "phone", headerText: "SĐT", width: "150", textAlign: "Center" },
+  {
+    headerText: "Trạng Thái",
+    field: "status",
+    textAlign: "Center",
+    width: "120",
+    /*template: customerGridStatus*/
+  },
+  {
+    field: "totalPrice",
+    headerText: "Tổng Tiền",
+    width: "120",
+    textAlign: "Center",
+  },
+
+  { type: "editor", width: "50" },
+
+  /* {
+     field: 'Location',
+     headerText: 'Location',
+     width: '150',
+     textAlign: 'Center',
+   },*/
 ];
 
 export const customersData = [

@@ -9,6 +9,8 @@ public class Coffee {
     private String price;
     private String imageLink;
 
+    private int star;
+
 
     public Coffee() {
     }
@@ -67,6 +69,14 @@ public class Coffee {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
     }
 
     //    private String name;

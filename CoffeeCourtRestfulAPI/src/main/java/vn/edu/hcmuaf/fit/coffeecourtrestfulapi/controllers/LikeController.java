@@ -7,7 +7,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.LikeRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/likes")
+@RequestMapping("/api/likes")
 public class LikeController {
     // Code xử lý yêu thích tại đây
     @Autowired

@@ -11,4 +11,5 @@ import java.util.List;
 public interface CoffeeImageRepository extends JpaRepository<CoffeeImage, Long> {
     // Các phương thức truy vấn khác nếu cần
     List<CoffeeImage> findByCoffeeId(Long coffeeId);
+    void deleteByCoffeeId(Long id);
 }

@@ -1,4 +1,5 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
     private String name;
