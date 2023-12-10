@@ -21,6 +21,7 @@ public class Database extends SQLiteAssetHelper {
         super(context, DB_NAME,null, DB_VER);
     }
 
+    @SuppressLint("Range")
     public List<CartGroupItem> getCart() {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
@@ -101,5 +102,15 @@ public class Database extends SQLiteAssetHelper {
 
         }
         return count;
+    }
+
+    public void changeQuantity(CartItem cartItem, int supplierID, int newQuantity) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("UPDATE CartItem SET Quantity = %d WHERE SupplierID = %d AND Name = '%s';",
+                newQuantity,
+                supplierID,
+                cartItem.getName());
+                db.execSQL(query);
+
     }
 }

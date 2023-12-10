@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -17,10 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcoffeecourt.Adapter.CoffeeAdapter;
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.CoffeeDetail.CoffeeDetailPage;
 import com.example.smartcoffeecourt.Interface.ItemClickListener;
 import com.example.smartcoffeecourt.Model.Coffee;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.CoffeeViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -29,6 +33,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CoffeeFragment extends Fragment {
 
 
@@ -36,6 +46,8 @@ public class CoffeeFragment extends Fragment {
 
     FirebaseDatabase database;
     DatabaseReference coffeeList;
+
+    List<Coffee> coffees;
     FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder> coffeeAdapter;
     FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder> searchcoffeeAdapter;
     Integer supplierID = 0;
@@ -85,12 +97,12 @@ public class CoffeeFragment extends Fragment {
         coffeeAdapter = new FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull CoffeeViewHolder coffeeViewHolder, int i, @NonNull final Coffee coffee) {
-                if(coffee.getStatus() != null && coffee.getStatus().equals("1"))
-                    coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
+                if(coffee.getStatus() != null && coffee.getStatus().equals("1")){
+                    coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());}
                 coffeeViewHolder.coffee_name.setText(coffee.getName());
                 coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(coffee.getPrice()));
-                coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplierID()));
-                Picasso.with(getContext()).load(coffee.getImage()).into(coffeeViewHolder.coffee_image);
+                coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", 0));
+                Picasso.with(getContext()).load(coffee.getImageLink()).into(coffeeViewHolder.coffee_image);
 
                 coffeeViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -141,38 +153,28 @@ public class CoffeeFragment extends Fragment {
     }
 
     private void showSearchcoffeeList(String s) {
-        FirebaseRecyclerOptions<Coffee> options = new FirebaseRecyclerOptions.Builder<Coffee>()
-                .setQuery(coffeeList.orderByChild("name").startAt(s).endAt(s + "\uf8ff"), Coffee.class).build();
-        searchcoffeeAdapter = new FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder>(options) {
+        ApiService apiService = Network.getInstance().create(ApiService.class);
+        apiService.searchByName(s).enqueue(new Callback<List<Coffee>>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            protected void onBindViewHolder(@NonNull CoffeeViewHolder coffeeViewHolder, int i, @NonNull final Coffee coffee) {
-                coffeeViewHolder.coffee_name.setText(coffee.getName());
-                coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(coffee.getPrice()));
-                coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplierID()));
-                Picasso.with(getContext()).load(coffee.getImage()).into(coffeeViewHolder.coffee_image);
-                if(coffee.getStatus().equals("1"))
-                    coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
-
-                coffeeViewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Intent coffeeDetail = new Intent(getContext(), CoffeeDetailPage.class);
-                        coffeeDetail.putExtra(Common.INTENT_coffee_REF, searchcoffeeAdapter.getRef(position).getKey());
-                        startActivity(coffeeDetail);
-                    }
-                });
+            public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
+               if(response.body() != null) {
+                   coffees = response.body();
+                   CoffeeAdapter coffeeAdapter1 = new CoffeeAdapter(coffees, getContext());
+                   coffeeAdapter1.notifyDataSetChanged();
+                   recyclerCoffee.setAdapter(coffeeAdapter1);
+               }
             }
 
-            @NonNull
             @Override
-            public CoffeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.coffee_item, parent, false);
-                return new CoffeeViewHolder(itemView);
+            public void onFailure(Call<List<Coffee>> call, Throwable t) {
+                System.out.println(t.fillInStackTrace());
+                Toast.makeText(getContext(), "Call Error!", Toast.LENGTH_SHORT).show();
             }
-        };
-        searchcoffeeAdapter.startListening();
-        searchcoffeeAdapter.notifyDataSetChanged();
-        recyclerCoffee.setAdapter(searchcoffeeAdapter);
+        });
+//        searchcoffeeAdapter.startListening();
+//        searchcoffeeAdapter.notifyDataSetChanged();
+//        recyclerCoffee.setAdapter(searchcoffeeAdapter);
     }
 
 }

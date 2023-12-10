@@ -8,8 +8,11 @@ import java.util.Locale;
 
 public class Common {
     public static User user;
+    public static String userId;
     public static final String INTENT_coffee_REF = "coffeeRef";
     public static final String EMAIL_KEY = "Email";
+
+    public static final String USER_UID = "UID";
     public static final String PASSWORD_KEY = "Password";
     public static final String CHOICE_STALL = "supplierID";
     public static String convertCodeToStatus(String status) {
@@ -45,4 +48,6 @@ public class Common {
         if (type.equals("0")) return "Ăn tại chỗ";
         else return "Mang đi";
     }
+
+
 }

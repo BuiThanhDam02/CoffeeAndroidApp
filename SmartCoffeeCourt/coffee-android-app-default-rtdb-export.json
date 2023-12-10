@@ -1,4 +1,61 @@
 {
+  "Like": {
+    "IAyQoW5rn3fqMHmCh8mGDqNOkx03": {
+      "List": {
+        "-MC01bvEYlmtv2uxMqXp": {
+          "description": "PhinDi Kem Sữa - Cà phê Phin thế hệ mới với chất Phin êm hơn, kết hợp cùng Kem Sữa béo ngậy mang đến hương vị mới lạ, không thể hấp dẫn hơn!",
+          "discount": "20",
+          "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_5.1_Products__PHINDI_KEM_SUA.jpg?alt=media&token=814aabe3-6662-4386-985a-8e4fb3084d22",
+          "name": "PHINDI KEM SỮA",
+          "price": "45000",
+          "star": "4",
+          "status": "0",
+          "supplierID": 1
+        }
+      }
+    }
+  },
+  "Manager": {
+    "phone": "0123456789"
+  },
+  "Order": {
+    "CanceledOrder": {
+      "number": 0
+    },
+    "CurrentOrder": {
+      "number": 0
+    },
+    "DeliveredOrder": {
+      "number": 0
+    }
+  },
+  "Supplier": {
+    "List": {
+      "0890977662": {
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/12144388_LOGO-PHUC-LONG-500x500.jpg?alt=media&token=7f49add7-f2bf-4c89-97e8-188ab583d2c6",
+        "name": "PhucLong Coffee",
+        "password": "12345",
+        "supplierID": 2
+      },
+      "0987506443": {
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/800px-Highlands_Coffee_logo.png?alt=media&token=50a89bf4-a180-405e-8ffb-06bd0bc48442",
+        "name": "HighLand Coffee",
+        "password": "12345",
+        "supplierID": 1
+      }
+    },
+    "number": 2
+  },
+  "User": {
+    "List": {
+      "IAyQoW5rn3fqMHmCh8mGDqNOkx03": {
+        "email": "thanhdamcd@gmail.com",
+        "name": "dam",
+        "phone": "0987506443"
+      }
+    },
+    "number": 1
+  },
   "coffee": {
     "List": {
       "-MC01bvEYlmtv2uxMqXp": {
@@ -8,7 +65,7 @@
         "name": "PHINDI KEM SỮA",
         "price": "45000",
         "star": "4",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "-MC02DKAos-PDbd2u61v": {
@@ -38,7 +95,7 @@
         "name": "MOCHA MACCHIATO",
         "price": "69000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "akjshfar": {
@@ -48,7 +105,7 @@
         "name": "LATTE",
         "price": "25000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "atjafnamdsnad": {
@@ -71,6 +128,16 @@
         "status": "0",
         "supplierID": 1
       },
+      "gtrtdfhdfhdf": {
+        "description": "Cà phê đen nguyên chất.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/phindenda.png?alt=media&token=5ffcf204-ba04-4b9e-aeb2-452e61ab840d",
+        "name": "Phin Đen Đá",
+        "price": "30000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 2
+      },
       "hafhks": {
         "description": "Đích thực là ly cà phê espresso ngon đậm đà! Được chiết xuất một cách hoàn hảo từ loại cà phê rang được phối trộn độc đáo từ những hạt cà phê Robusta và Arabica chất lượng hảo hạng.",
         "discount": "0",
@@ -88,7 +155,7 @@
         "name": "PHIN SỮA ĐÁ",
         "price": "29000",
         "star": "0",
-        "status": "1",
+        "status": "0",
         "supplierID": 1
       },
       "jahfmam": {
@@ -98,6 +165,16 @@
         "name": "PHINDI CHOCO",
         "price": "45000",
         "star": "4.5",
+        "status": "0",
+        "supplierID": 1
+      },
+      "jghjmvnmfj": {
+        "description": "Với 100% hạt cà phê Moka thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands Moka là loại hạt cà phê cao cấp nhất của Việt Nam, có giá trị dinh dưỡng và chất lượng tốt nhất Cà phê Highlands Coffee được đóng gói tiện lợi cho việc sử dụng và bảo quản. Không chỉ dùng trong gia đình, với bao bì lịch sự còn thích hợp làm quà tặng ý nghĩa dành cho người thân, bạn bè và đồng nghiệp.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_MOKA.jpg?alt=media&token=5e3cc8c7-9f63-4a5d-9926-c0957c9c9284",
+        "name": "MOKA 200GR",
+        "price": "85000",
+        "star": "0",
         "status": "0",
         "supplierID": 1
       },
@@ -121,56 +198,6 @@
         "status": "0",
         "supplierID": 1
       },
-      "tabaksjflsjf": {
-        "description": "Cà phê truyền thống độc quyền của Highlands! Những hạt cà phê Robusta và Arabica thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands.",
-        "discount": "0",
-        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_SANH_DIEU2.jpg?alt=media&token=ed77330f-5837-4538-a00e-ab881d1d97df",
-        "name": "TRUYỀN THỐNG 200GR",
-        "price": "59000",
-        "star": "0",
-        "status": "1",
-        "supplierID": 1
-      },
-      "stwydhfdh": {
-        "description": "Hạt cà phê thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands Với nhiều hạt Arabica hơn loại Cà phê Truyền Thống. Hậu vị đặc trưng, cân bằng giữa vị ngọt và hương thơm tự nhiên. 70% Robusta – 30% Arabica. Cà phê Highlands Coffee được đóng gói tiện lợi cho việc sử dụng và bảo quản. Không chỉ dùng trong gia đình, với bao bì lịch sự còn thích hợp làm quà tặng ý nghĩa dành cho người thân, bạn bè và đồng nghiệp.",
-        "discount": "0",
-        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_SANH_DIEU.jpg?alt=media&token=687d09d2-e927-4da9-8811-a6d6df3bd70d",
-        "name": "SÀNH ĐIỆU 200GR",
-        "price": "55000",
-        "star": "0",
-        "status": "1",
-        "supplierID": 1
-      },
-      "uytityghjgh": {
-        "description": "Sự kết hợp hài hòa giữa Arabica và Robusta. Vị đậm và ngọt đầy.Là sản phẩm đặc sản của của café Sữa Đá, Café Đá của hệ thống Highlands Coffee.80% Robusta – 20% Arabica.",
-        "discount": "0",
-        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_Traditional_1kg.jpg?alt=media&token=93588d0b-a369-466d-acf5-f507900468ff",
-        "name": "TRUYỀN THỐNG 1KG",
-        "price": "275000",
-        "star": "0",
-        "status": "1",
-        "supplierID": 1
-      },
-      "jghjmvnmfj": {
-        "description": "Với 100% hạt cà phê Moka thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands Moka là loại hạt cà phê cao cấp nhất của Việt Nam, có giá trị dinh dưỡng và chất lượng tốt nhất Cà phê Highlands Coffee được đóng gói tiện lợi cho việc sử dụng và bảo quản. Không chỉ dùng trong gia đình, với bao bì lịch sự còn thích hợp làm quà tặng ý nghĩa dành cho người thân, bạn bè và đồng nghiệp.",
-        "discount": "0",
-        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_MOKA.jpg?alt=media&token=5e3cc8c7-9f63-4a5d-9926-c0957c9c9284",
-        "name": "MOKA 200GR",
-        "price": "85000",
-        "star": "0",
-        "status": "1",
-        "supplierID": 1
-      },
-      "gtrtdfhdfhdf": {
-        "description": "Cà phê đen nguyên chất.",
-        "discount": "0",
-        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/phindenda.png?alt=media&token=5ffcf204-ba04-4b9e-aeb2-452e61ab840d",
-        "name": "Phin Đen Đá",
-        "price": "30000",
-        "star": "0",
-        "status": "1",
-        "supplierID": 2
-      },
       "ryuryfghksgeg": {
         "description": "Cà phê đen công thêm sữa ngọt",
         "discount": "0",
@@ -180,53 +207,38 @@
         "star": "0",
         "status": "1",
         "supplierID": 2
+      },
+      "stwydhfdh": {
+        "description": "Hạt cà phê thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands Với nhiều hạt Arabica hơn loại Cà phê Truyền Thống. Hậu vị đặc trưng, cân bằng giữa vị ngọt và hương thơm tự nhiên. 70% Robusta – 30% Arabica. Cà phê Highlands Coffee được đóng gói tiện lợi cho việc sử dụng và bảo quản. Không chỉ dùng trong gia đình, với bao bì lịch sự còn thích hợp làm quà tặng ý nghĩa dành cho người thân, bạn bè và đồng nghiệp.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_SANH_DIEU.jpg?alt=media&token=687d09d2-e927-4da9-8811-a6d6df3bd70d",
+        "name": "SÀNH ĐIỆU 200GR",
+        "price": "55000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 1
+      },
+      "tabaksjflsjf": {
+        "description": "Cà phê truyền thống độc quyền của Highlands! Những hạt cà phê Robusta và Arabica thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại Highlands.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_SANH_DIEU2.jpg?alt=media&token=ed77330f-5837-4538-a00e-ab881d1d97df",
+        "name": "TRUYỀN THỐNG 200GR",
+        "price": "59000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 1
+      },
+      "uytityghjgh": {
+        "description": "Sự kết hợp hài hòa giữa Arabica và Robusta. Vị đậm và ngọt đầy.Là sản phẩm đặc sản của của café Sữa Đá, Café Đá của hệ thống Highlands Coffee.80% Robusta – 20% Arabica.",
+        "discount": "0",
+        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/HLC_New_logo_Products_R_G_Traditional_1kg.jpg?alt=media&token=93588d0b-a369-466d-acf5-f507900468ff",
+        "name": "TRUYỀN THỐNG 1KG",
+        "price": "275000",
+        "star": "0",
+        "status": "0",
+        "supplierID": 1
       }
     },
     "number": 18
-  },
-  "Manager": {
-    "phone": "0123456789"
-  },
-  "Order": {
-    "CanceledOrder": {
-      "List": {},
-      "number": 0
-    },
-    "CurrentOrder": {
-      "List": {},
-      "number": 0
-    },
-    "DeliveredOrder": {
-      "List": {},
-      "number": 0
-    }
-  },
-  "Rating": {},
-  "Supplier": {
-    "List": {
-      "0987506443": {
-        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/800px-Highlands_Coffee_logo.png?alt=media&token=50a89bf4-a180-405e-8ffb-06bd0bc48442",
-        "name": "HighLand Coffee",
-        "password": "12345",
-        "supplierID": 1
-      },
-      "0890977662": {
-        "image": "https://firebasestorage.googleapis.com/v0/b/coffee-android-app.appspot.com/o/12144388_LOGO-PHUC-LONG-500x500.jpg?alt=media&token=7f49add7-f2bf-4c89-97e8-188ab583d2c6",
-        "name": "PhucLong Coffee",
-        "password": "12345",
-        "supplierID": 2
-      }
-    },
-    "number": 2
-  },
-  "User": {
-    "List": {
-      "IAyQoW5rn3fqMHmCh8mGDqNOkx03": {
-        "email": "thanhdamcd@gmail.com",
-        "name": "dam",
-        "phone": "0987506443"
-      }
-    },
-    "number": 1
   }
 }

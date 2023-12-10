@@ -32,7 +32,7 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
     TextView txtName, txtPrice, txtDes, txtDiscount, txtQuantity;
     ImageView imgcoffee, imgAddCart, btnUp, btnDown, imgCart, imgOutOfOrder;
     Button btnBackDetail;
-    FloatingActionButton btnStar, btnComment;
+    FloatingActionButton btnStar, btnComment,btnLike;
     RatingBar ratingBar;
 
     CoffeeDetailContract.Presenter presenter;
@@ -56,6 +56,7 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
         btnDown = findViewById(R.id.imgDown);
         btnUp = findViewById(R.id.imgUp);
         btnStar = findViewById(R.id.btnStar);
+        btnLike = findViewById(R.id.btnLike);
         btnComment = findViewById(R.id.btnComment);
         ratingBar = findViewById(R.id.ratingBar);
 
@@ -64,9 +65,18 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
             assert coffeeRef != null;
             if (!coffeeRef.isEmpty()) {
                 presenter = new CoffeeDetailPresenter(this, coffeeRef);
+                presenter.checkLikeCoffee();
                 presenter.loadCoffee();
             }
         }
+        if (presenter.getIsLikeCoffee()==true){
+            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_red_24));
+
+        }else{
+            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_24));
+
+        }
+
 
         btnBackDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +124,12 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
                presenter.getCoffeeComment();
             }
         });
-
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.likeCoffee();
+            }
+        });
         imgAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,12 +151,12 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
 
     @Override
     public void showCoffeeDetail(Coffee coffee) {
-        Picasso.with(getBaseContext()).load(coffee.getImage()).into(imgcoffee);
+        Picasso.with(getBaseContext()).load(coffee.getImageLink()).into(imgcoffee);
         txtPrice.setText(Common.convertPriceToVND(coffee.getPrice()));
         txtName.setText(coffee.getName());
         txtDes.setText(coffee.getDescription());
-        txtDiscount.setText(String.format("%s%%", coffee.getDiscount()));
-        ratingBar.setRating(Float.parseFloat(coffee.getStar()));
+        txtDiscount.setText(String.format("%s%%", 0));
+        ratingBar.setRating(Float.parseFloat("5"));
         if(coffee.getStatus().equals("1")){
             imgOutOfOrder.setImageResource(Common.convertOutOfOrderToImage());
         }

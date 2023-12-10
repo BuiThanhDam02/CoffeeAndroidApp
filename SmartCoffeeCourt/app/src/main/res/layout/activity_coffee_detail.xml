@@ -30,6 +30,23 @@
             tools:ignore="MissingConstraints,NotSibling" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/baseline_favorite_red_24"
+            app:elevation="6dp"
+            app:layout_anchorGravity="bottom|right|start"
+            app:layout_constraintEnd_toEndOf="@+id/imgCart"
+            app:layout_constraintHorizontal_bias="0.584"
+            app:layout_constraintStart_toStartOf="@+id/imgCoffee"
+            app:pressedTranslationZ="12dp"
+            app:useCompatPadding="true"
+            tools:ignore="MissingConstraints,NotSibling"
+            tools:layout_editor_absoluteY="29dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
