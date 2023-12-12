@@ -5,10 +5,13 @@ public class UserRegistrationRequest {
     private String password;
     private  String username;
 
-    public UserRegistrationRequest(String email, String password, String username) {
+    private String phone;
+
+    public UserRegistrationRequest(String email, String password, String username, String phone) {
         this.email = email;
         this.password = password;
         this.username = username;
+        this.phone = phone;
     }
     public UserRegistrationRequest(){}
 
@@ -36,6 +39,13 @@ public class UserRegistrationRequest {
         this.username = username;
     }
 
-    // Constructors, getters, and setters
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+// Constructors, getters, and setters
     // ...
 }
