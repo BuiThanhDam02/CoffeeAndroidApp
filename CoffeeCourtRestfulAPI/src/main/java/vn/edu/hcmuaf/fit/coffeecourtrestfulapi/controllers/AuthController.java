@@ -30,7 +30,7 @@ public class AuthController {
     private SHATokenProvider shaTokenProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
+    public ResponseEntity<User> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
         // Validate registration request
         String hashPassword = userService.hashPassword(registrationRequest.getPassword());
 
@@ -43,9 +43,9 @@ public class AuthController {
         // Set other user properties
 
         // Save the user in the database
-        userService.saveUser(user);
+        User u = userService.saveUser(user);
 
-        return ResponseEntity.ok("User registered successfully");
+        return  ResponseEntity.ok(u);
     }
 
     @PostMapping("/login")
