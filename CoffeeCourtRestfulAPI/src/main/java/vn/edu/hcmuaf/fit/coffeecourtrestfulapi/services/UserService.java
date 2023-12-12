@@ -14,9 +14,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         // Thực hiện đăng ký người dùng
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public User findByUsername(String username) {

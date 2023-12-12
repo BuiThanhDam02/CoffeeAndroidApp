@@ -4,16 +4,21 @@ import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Order;
 import com.example.smartcoffeecourt.Model.OrderDetailModel;
 import com.example.smartcoffeecourt.Model.Stall;
+import com.example.smartcoffeecourt.Model.User;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
+    @POST("/auth/register")
+    Call<User> signUp(@Body UserRegistrationRequest user);
     @GET("coffee/all")
     Call<List<Coffee>> getCoffee();
 
