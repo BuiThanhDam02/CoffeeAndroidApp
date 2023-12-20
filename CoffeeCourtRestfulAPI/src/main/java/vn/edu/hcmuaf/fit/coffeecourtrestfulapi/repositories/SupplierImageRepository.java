@@ -10,4 +10,6 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.SupplierImage;
 public interface SupplierImageRepository extends JpaRepository<SupplierImage, Long> {
     // Các phương thức truy vấn khác nếu cần
     SupplierImage findBySupplier(Supplier supplier);
+
+    SupplierImage findBySupplierId(Long id);
 }

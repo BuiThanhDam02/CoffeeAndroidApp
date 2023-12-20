@@ -59,7 +59,10 @@ public class CoffeeController {
         }
         return coffees;
     }
-
+    @GetMapping("/get/{id}")
+    public Coffee searchById(@PathVariable Long id) {
+        return coffeeRepository.findOneById(id);
+    }
     @GetMapping("/search")
     public List<Coffee> searchByName(@RequestParam String name) {
         List<Coffee> coffees = coffeeRepository.findByNameContaining(name);
