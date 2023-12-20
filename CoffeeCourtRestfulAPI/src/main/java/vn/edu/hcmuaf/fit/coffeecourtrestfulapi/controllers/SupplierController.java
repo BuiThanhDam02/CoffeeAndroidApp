@@ -31,7 +31,7 @@ public class SupplierController {
         List<SupplierDTO> suppliers = new ArrayList<>();
         for(Supplier supp : supplier){
 
-            String image = supplierImageRepository.findBySupplier(supp).getImageLink();
+            String image = supplierImageRepository.findBySupplierId(supp.getId()).getImageLink();
             SupplierDTO model = new SupplierDTO();
             model.setSupplierID(supp.getId());
             model.setImage(image);
