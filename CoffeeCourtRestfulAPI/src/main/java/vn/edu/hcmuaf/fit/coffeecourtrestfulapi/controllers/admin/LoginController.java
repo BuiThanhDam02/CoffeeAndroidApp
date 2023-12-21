@@ -17,6 +17,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.AdminService;
 @RequestMapping("/api/admin/auth")
 @RestController
 //@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LoginController {
     @Autowired
     private AdminService adminService;

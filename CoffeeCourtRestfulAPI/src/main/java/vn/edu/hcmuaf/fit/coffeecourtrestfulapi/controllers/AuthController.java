@@ -20,6 +20,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.UserService;
 
 @RequestMapping("/api/auth")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 //@CrossOrigin(origins = "*")
 public class AuthController {
     @Autowired
