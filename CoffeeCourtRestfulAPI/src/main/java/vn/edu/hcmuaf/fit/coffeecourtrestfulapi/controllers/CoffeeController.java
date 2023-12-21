@@ -22,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/coffee")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CoffeeController {
     @Autowired
     CoffeeRepository coffeeRepository;
@@ -61,7 +62,12 @@ public class CoffeeController {
     }
     @GetMapping("/get/{id}")
     public Coffee searchById(@PathVariable Long id) {
-        return coffeeRepository.findOneById(id);
+        Coffee c = coffeeRepository.findOneById(id);
+        List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(c.getId());
+        if (!coffeeImages.isEmpty()) {
+            c.setImageLink(coffeeImages.get(0).getImageLink());
+        }
+        return c;
     }
     @GetMapping("/search")
     public List<Coffee> searchByName(@RequestParam String name) {
@@ -214,11 +220,11 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
     @Transactional
     public ResponseEntity<String> deleteCoffee(@PathVariable Long id) {
         try {
-            coffeeStarRepository.deleteByCoffeeId(id);
-            coffeeImageRepository.deleteByCoffeeId(id);
-            commentRepository.deleteByCoffeeId(id);
+//            coffeeStarRepository.deleteByCoffeeId(id);
+//            coffeeImageRepository.deleteByCoffeeId(id);
+//            commentRepository.deleteByCoffeeId(id);
 
-            coffeeRepository.deleteById(id);
+//            coffeeRepository.deleteById(id);
             return new ResponseEntity<>("Coffee deleted successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error deleting coffee: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
