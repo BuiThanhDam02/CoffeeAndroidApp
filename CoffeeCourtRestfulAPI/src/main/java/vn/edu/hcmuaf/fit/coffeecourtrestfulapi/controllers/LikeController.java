@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/likes")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LikeController {
     // Code xử lý yêu thích tại đây
     @Autowired

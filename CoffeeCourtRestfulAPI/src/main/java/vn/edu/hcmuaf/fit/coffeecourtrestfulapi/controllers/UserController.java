@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     @Autowired
     UserRepository userRepository;

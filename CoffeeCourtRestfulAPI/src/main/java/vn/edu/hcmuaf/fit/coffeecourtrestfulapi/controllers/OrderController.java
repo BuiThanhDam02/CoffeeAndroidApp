@@ -24,6 +24,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/order")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
     @Autowired
     OrderRepository orderRepository;

@@ -1,5 +1,6 @@
 package com.example.smartcoffeecourt.Authentication;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,17 +11,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.smartcoffeecourt.ApiService.ApiService;
+
+import com.example.smartcoffeecourt.ApiService.UserRegistrationRequest;
 import com.example.smartcoffeecourt.Model.User;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpPage extends AppCompatActivity {
 
@@ -28,15 +34,15 @@ public class SignUpPage extends AppCompatActivity {
     TextView textSignIn;
     Button btnSignUp;
 
-    FirebaseAuth mAuth;
-    DatabaseReference userReference;
+//    FirebaseAuth mAuth;
+//    DatabaseReference userReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        mAuth = FirebaseAuth.getInstance();
-        userReference = FirebaseDatabase.getInstance().getReference("User/List");
+//        mAuth = FirebaseAuth.getInstance();
+//        userReference = FirebaseDatabase.getInstance().getReference("User/List");
         editUserName = (EditText)findViewById(R.id.editTextUserName);
         editPhone = (EditText)findViewById(R.id.editTextPhone);
         editEmail = (EditText)findViewById(R.id.editTextEmail);
@@ -96,30 +102,33 @@ public class SignUpPage extends AppCompatActivity {
             final ProgressDialog mDialog = new ProgressDialog(SignUpPage.this);
             mDialog.setMessage("Xin vui lòng đợi...");
             mDialog.show();
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            ApiService apiService = Network.getInstance().create(ApiService.class);
+            UserRegistrationRequest u  = new UserRegistrationRequest();
+            u.setEmail(email);
+            u.setUsername(username);
+            u.setPassword(password);
+            u.setPhone(phone);
+            apiService.signUp(u).enqueue(new Callback<User>() {
+                @SuppressLint("NotifyDataSetChanged")
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        User user = new User(email, username, phone);
-                        userReference.child(mAuth.getCurrentUser().getUid())
-                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            mDialog.dismiss();
-                                            Toast.makeText(SignUpPage.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                            finish();
-                                        }
-                                    }
-                                });
+                public void onResponse(Call<User> call, Response<User> response) {
 
-                    }
-                    else {
+
                         mDialog.dismiss();
-                        Toast.makeText(SignUpPage.this, "Email đã tồn tại hoặc không hợp lệ. Đăng ký không thành công.", Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText(SignUpPage.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
+                        finish();
+
+
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    mDialog.dismiss();
+                    Toast.makeText(SignUpPage.this, "Email đã tồn tại hoặc không hợp lệ. Đăng ký không thành công.", Toast.LENGTH_SHORT).show();
+
                 }
             });
+
         }
     }
 }

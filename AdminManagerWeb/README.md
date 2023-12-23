@@ -1,78 +1,92 @@
-# Admin-Dashboard Front End clone made with React JS
-H! This a Admin-Dashboard front end clone that i´ve built using ReactJS.  
-__You can visit the website clicking [here!](https://react-admin-dashboard01.netlify.app/)__
 
-![dashboard](https://user-images.githubusercontent.com/97960285/173236612-ef63c5d8-173b-4f7d-a345-6d82bac560ec.jpg)
+## Quick Start
 
-  
+Get code & install. Then `dev` or `build`
 
-# Getting Started with Create React App
+* [Get code & install](#get-code--install)
+* [Builds](#builds)
+* [Linting and formatting](#linting-and-formatting)
 
-This project was bootstrapped with [Create React App](https://cryptobase-01.netlify.app/).
+### Get code & install
 
-## Available Scripts
+#### Get the repo
 
-In the project directory, you can run:
+* [Create new repo](https://github.com/justboil/admin-one-react-tailwind/generate) with this template
+* &hellip; or clone this repo on GitHub
+* &hellip; or [download .zip](https://github.com/justboil/admin-one-react-tailwind/archive/master.zip) from GitHub
 
-### `npm start`
+#### Install
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+`cd` to project's dir and run `npm install`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Builds
 
-### `npm test`
+Build are handled by Next.js CLI &mdash; [Info](https://nextjs.org/docs/api-reference/cli)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Builds and minifies for production
 
-### `npm run build`
+```
+npm run build
+```
+#### Hot-reloads for development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm run dev
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Exports build for static hosts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm run export
+```
 
-### `npm run eject`
+### Linting & Formatting
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Lint
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm run lint
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Format with prettier
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+npm run format
+```
 
-## Learn More
+## Docs
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Docs are coming soon
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Browser Support
 
-### Code Splitting
+We try to make sure Dashboard works well in the latest versions of all major browsers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<img src="https://justboil.me/images/browsers-svg/chrome.svg" width="64" height="64" alt="Chrome"> <img src="https://justboil.me/images/browsers-svg/firefox.svg" width="64" height="64" alt="Firefox"> <img src="https://justboil.me/images/browsers-svg/edge.svg" width="64" height="64" alt="Edge"> <img src="https://justboil.me/images/browsers-svg/safari.svg" width="64" height="64" alt="Safari"> <img src="https://justboil.me/images/browsers-svg/opera.svg" width="64" height="64" alt="Opera">
 
-### Analyzing the Bundle Size
+## Reporting Issues
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+JustBoil's free items are limited to community support on GitHub.
 
-### Making a Progressive Web App
+The issue list is reserved exclusively for bug reports and feature requests. That means we do not accept usage questions. If you open an issue that does not conform to the requirements, it will be closed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Make sure that you are using the latest version of the Dashboard. Issues for outdated versions are irrelevant
+2. Provide steps to reproduce
+3. Provide an expected behavior
+4. Describe what is actually happening
+5. Platform, Browser & version as some issues may be browser specific
 
-### Advanced Configuration
+## Licensing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Copyright &copy; 2019-2022 JustBoil.me (https://justboil.me)
+- Licensed under MIT
 
-### Deployment
+## Useful Links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [JustBoil.me](https://justboil.me/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Next.js Docs](https://nextjs.org/docs/getting-started)
+- [React.js Docs](https://reactjs.org/docs/getting-started.html)
+- [Redux Docs](https://redux.js.org/introduction/getting-started) & [React-Redux Docs](https://react-redux.js.org/introduction/getting-started)
+- [TypeScript Docs](https://www.typescriptlang.org/docs/)
+- [TypeScript ESLint Docs](https://typescript-eslint.io/docs/)

@@ -133,5 +133,19 @@ public class User {
     }
     // Constructor
 
-    // Các phương thức khác nếu cần
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", token='" + token + '\'' +
+                ", username='" + username + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }
