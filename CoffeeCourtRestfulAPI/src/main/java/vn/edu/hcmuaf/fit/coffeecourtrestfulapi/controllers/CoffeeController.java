@@ -220,11 +220,11 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
     @Transactional
     public ResponseEntity<String> deleteCoffee(@PathVariable Long id) {
         try {
-//            coffeeStarRepository.deleteByCoffeeId(id);
-//            coffeeImageRepository.deleteByCoffeeId(id);
-//            commentRepository.deleteByCoffeeId(id);
+            coffeeStarRepository.deleteByCoffeeId(id);
+            coffeeImageRepository.deleteByCoffeeId(id);
+            commentRepository.deleteByCoffeeId(id);
 
-//            coffeeRepository.deleteById(id);
+            coffeeRepository.deleteCoffeeById(id);
             return new ResponseEntity<>("Coffee deleted successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error deleting coffee: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
