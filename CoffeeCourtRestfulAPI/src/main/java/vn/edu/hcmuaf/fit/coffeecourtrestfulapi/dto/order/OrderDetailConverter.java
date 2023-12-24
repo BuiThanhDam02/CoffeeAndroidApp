@@ -6,6 +6,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Coffee;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.CoffeeImage;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Order;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.OrderDetail;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CoffeeImageRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CoffeeRepository;
 
 import javax.persistence.Access;
@@ -17,25 +18,19 @@ import java.util.Map;
 
 @Component
 public class OrderDetailConverter {
-
+    @Autowired
+    private CoffeeImageRepository coffeeImageRepository;
     @Autowired
     private CoffeeRepository coffeeRepository;
-
-    public OrderDetailDTO toDto(OrderDetail order){
-        OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
-        orderDetailDTO.setId(order.getId());
-        coffeeRepository.findOneById(order.getCoffee().getId());
-        //List<CoffeeDTO> coffeeDTOS =
-
-        return orderDetailDTO;
-    }
+    @Autowired
+    OrderConverter orderConverter;
 
     public OrderDetailDTO toDto(List<OrderDetail> orders){
         //List<OrderDetailDTO> orderDTOS = new ArrayList<>();
         OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
         if(orders.isEmpty()) return orderDetailDTO;
-        orderDetailDTO.setStatus(orders.get(0).getOrder().getStatus());
-        orderDetailDTO.setAddress(orders.get(0).getOrder().getAddress());
+        orderDetailDTO.setOrderDTO(orderConverter.toDto(orders.get(0).getOrder()));
+
         List<CoffeeDTO> coffeeDTOS = new ArrayList<>();
         //Map<Long,List<CoffeeDTO>> map = new HashMap<>();
         for(OrderDetail orderDetail : orders){
@@ -60,7 +55,10 @@ public class OrderDetailConverter {
     public CoffeeDTO toCoffeeDTO(Coffee coffee, Integer quantity){
         CoffeeDTO coffeeDTO = new CoffeeDTO();
         coffeeDTO.setName(coffee.getName());
-        coffeeDTO.setImageLink(coffee.getImageLink());
+        List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
+        if (!coffeeImages.isEmpty()) {
+            coffeeDTO.setImageLink(coffeeImages.get(0).getImageLink());
+        }
         coffeeDTO.setPrice(String.valueOf(coffee.getPrice()));
         coffeeDTO.setSupplierName(coffee.getSupplier().getName());
         coffeeDTO.setId(coffee.getId());
