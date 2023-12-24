@@ -24,6 +24,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/order")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
     @Autowired
     OrderRepository orderRepository;
@@ -47,8 +48,8 @@ public class OrderController {
         return orderConverter.orderDTOList(orderRepository.findByUser(userRepository.findOneById(idUser)));
     }
 
-    @GetMapping("/detail/getByOrderId")
-    public OrderDetailDTO getById(@RequestParam("id") Long id) {
+    @GetMapping("/detail/{id}")
+    public OrderDetailDTO getById(@PathVariable Long id) {
         List<OrderDetail> orderDetails = orderDetailRepository.findOneOrderId(id);
         return orderDetailConverter.toDto(orderDetails);
     }

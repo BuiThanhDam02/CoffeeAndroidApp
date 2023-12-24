@@ -1,24 +1,18 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request;
 
 public class UserLoginRequest {
-    private String username;
+
     private String password;
     private String email;
 
-    public UserLoginRequest(String username, String password, String email) {
-        this.username = username;
+    public UserLoginRequest( String password, String email) {
+
         this.password = password;
         this.email = email;
     }
     public  UserLoginRequest(){}
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

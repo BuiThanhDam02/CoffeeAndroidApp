@@ -22,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/coffee")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CoffeeController {
     @Autowired
     CoffeeRepository coffeeRepository;
@@ -40,6 +41,7 @@ public class CoffeeController {
     @GetMapping("/all")
     public List<Coffee> getAll() {
         List<Coffee> coffees = coffeeRepository.findAll();
+        List<Coffee>  result = new ArrayList<>();
         for (Coffee coffee : coffees) {
             // Image
             List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
@@ -55,11 +57,22 @@ public class CoffeeController {
             }
             if(coffeeStars.size() != 0) {
                 coffee.setStar(totalStar/coffeeStars.size());
-            }
-        }
-        return coffees;
-    }
 
+            }
+            if (coffee.getStatus()>=0) result.add(coffee);
+        }
+
+        return result;
+    }
+    @GetMapping("/get/{id}")
+    public Coffee searchById(@PathVariable Long id) {
+        Coffee c = coffeeRepository.findOneById(id);
+        List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(c.getId());
+        if (!coffeeImages.isEmpty()) {
+            c.setImageLink(coffeeImages.get(0).getImageLink());
+        }
+        return c;
+    }
     @GetMapping("/search")
     public List<Coffee> searchByName(@RequestParam String name) {
         List<Coffee> coffees = coffeeRepository.findByNameContaining(name);
@@ -211,11 +224,11 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
     @Transactional
     public ResponseEntity<String> deleteCoffee(@PathVariable Long id) {
         try {
-            coffeeStarRepository.deleteByCoffeeId(id);
-            coffeeImageRepository.deleteByCoffeeId(id);
-            commentRepository.deleteByCoffeeId(id);
+//            coffeeStarRepository.deleteByCoffeeId(id);
+//            coffeeImageRepository.deleteByCoffeeId(id);
+//            commentRepository.deleteByCoffeeId(id);
 
-            coffeeRepository.deleteById(id);
+            coffeeRepository.deleteCoffeeById(id);
             return new ResponseEntity<>("Coffee deleted successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error deleting coffee: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

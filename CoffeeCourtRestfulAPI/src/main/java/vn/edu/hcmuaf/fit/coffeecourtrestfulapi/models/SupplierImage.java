@@ -11,7 +11,7 @@ public class SupplierImage {
     @Column(name = "id")
     private Long supplierId;
 
-    @Column(name = "imageLink") // Đặt tên cột cụ thể cho trường imageLink
+    @Column(name = "imagelink") // Đặt tên cột cụ thể cho trường imageLink
     private String imageLink;
 
     @ManyToOne

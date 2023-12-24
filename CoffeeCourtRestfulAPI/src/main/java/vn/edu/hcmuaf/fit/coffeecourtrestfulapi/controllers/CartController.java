@@ -11,6 +11,7 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.CartService;
 
 @RestController
 @RequestMapping("/api/cart")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CartController {
     @Autowired
     private CartService cartService;
