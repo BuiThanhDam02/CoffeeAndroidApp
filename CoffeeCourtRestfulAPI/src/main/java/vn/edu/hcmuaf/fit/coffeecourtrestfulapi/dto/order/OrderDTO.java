@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order;
 
+import java.sql.Timestamp;
+
 public class OrderDTO {
     private Long id;
 
@@ -20,6 +22,17 @@ public class OrderDTO {
     private String totalPrice;
 
     private String StatusBg;
+
+    private String type;
+    private Timestamp created_at;
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
 
     public Long getId() {
         return id;
@@ -95,6 +108,14 @@ public class OrderDTO {
 
     public Integer getStatusInt() {
         return statusInt;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setStatusInt(Integer statusInt) {

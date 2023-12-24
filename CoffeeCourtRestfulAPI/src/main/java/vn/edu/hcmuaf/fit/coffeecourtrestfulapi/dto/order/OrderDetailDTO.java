@@ -4,34 +4,16 @@ import java.util.List;
 
 public class OrderDetailDTO {
 
-    private Long id;
-    private int status;
-    private String address;
+    private OrderDTO orderDTO;
     private List<CoffeeDTO> coffeeDTOS;
 
 
-    public Long getId() {
-        return id;
+    public OrderDTO getOrderDTO() {
+        return orderDTO;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setOrderDTO(OrderDTO orderDTO) {
+        this.orderDTO = orderDTO;
     }
 
     public List<CoffeeDTO> getCoffeeDTOS() {

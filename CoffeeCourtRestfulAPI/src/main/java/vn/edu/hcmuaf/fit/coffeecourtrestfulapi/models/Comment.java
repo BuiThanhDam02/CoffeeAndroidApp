@@ -1,5 +1,8 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models;
 import jakarta.persistence.*;
+
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -23,7 +26,15 @@ public class Comment {
     private Integer star;
 
     private Integer status;
+    private Timestamp created_at;
 
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
     // Getter và Setter cho các thuộc tính
 
     public Long getId() {

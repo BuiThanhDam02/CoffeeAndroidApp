@@ -3,6 +3,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,16 @@ public class Order {
 
     private String note;
 
-    // Getter và Setter cho các thuộc tính
+    private Timestamp created_at;
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+// Getter và Setter cho các thuộc tính
 
     public Long getId() {
         return id;

@@ -41,6 +41,7 @@ public class CoffeeController {
     @GetMapping("/all")
     public List<Coffee> getAll() {
         List<Coffee> coffees = coffeeRepository.findAll();
+        List<Coffee>  result = new ArrayList<>();
         for (Coffee coffee : coffees) {
             // Image
             List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getId());
@@ -56,9 +57,12 @@ public class CoffeeController {
             }
             if(coffeeStars.size() != 0) {
                 coffee.setStar(totalStar/coffeeStars.size());
+
             }
+            if (coffee.getStatus()>=0) result.add(coffee);
         }
-        return coffees;
+
+        return result;
     }
     @GetMapping("/get/{id}")
     public Coffee searchById(@PathVariable Long id) {
@@ -220,9 +224,9 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
     @Transactional
     public ResponseEntity<String> deleteCoffee(@PathVariable Long id) {
         try {
-            coffeeStarRepository.deleteByCoffeeId(id);
-            coffeeImageRepository.deleteByCoffeeId(id);
-            commentRepository.deleteByCoffeeId(id);
+//            coffeeStarRepository.deleteByCoffeeId(id);
+//            coffeeImageRepository.deleteByCoffeeId(id);
+//            commentRepository.deleteByCoffeeId(id);
 
             coffeeRepository.deleteCoffeeById(id);
             return new ResponseEntity<>("Coffee deleted successfully", HttpStatus.OK);
