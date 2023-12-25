@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 24/12/2023 10:33:12
+ Date: 25/12/2023 10:24:26
 */
 
 SET NAMES utf8mb4;
@@ -66,7 +66,7 @@ CREATE TABLE `coffee_discounts`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `coffee_discounts_ibfk_1` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of coffee_discounts
@@ -134,10 +134,7 @@ INSERT INTO `coffee_images` VALUES (42, 42, 'http://localhost:8080/images/coffee
 INSERT INTO `coffee_images` VALUES (43, 43, 'http://localhost:8080/images/coffee/bac_xiu_success_2.jpg', 0);
 INSERT INTO `coffee_images` VALUES (44, 44, 'http://localhost:8080/images/coffee/ca_phe_sua_success.jpg', 0);
 INSERT INTO `coffee_images` VALUES (45, 45, 'http://localhost:8080/images/coffee/ca_phe_den_success_2.jpg', 0);
-INSERT INTO `coffee_images` VALUES (46, 1, 'http://localhost:8080/images/coffee/latte.jpg', 0);
-INSERT INTO `coffee_images` VALUES (47, 1, 'http://localhost:8080/images/coffee/latte.jpg', 0);
-INSERT INTO `coffee_images` VALUES (48, 1, 'http://localhost:8080/images/coffee/latte.jpg', 0);
-INSERT INTO `coffee_images` VALUES (49, 1, 'http://localhost:8080/images/coffee/latte.jpg', 0);
+INSERT INTO `coffee_images` VALUES (54, 48, 'http://localhost:8080/images/coffee/4bab552f7ed0a6-trasuaberryberry60000839.png', 0);
 
 -- ----------------------------
 -- Table structure for coffee_stars
@@ -151,7 +148,7 @@ CREATE TABLE `coffee_stars`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `coffee_stars_ibfk_1` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of coffee_stars
@@ -168,60 +165,61 @@ CREATE TABLE `coffees`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
   `price` float NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `supplier_id`(`supplier_id` ASC) USING BTREE,
   CONSTRAINT `coffees_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of coffees
 -- ----------------------------
-INSERT INTO `coffees` VALUES (1, 1, 'LATTE', '\"Ly cà phê sữa ngọt ngào đến khó quên! Với một chút nhẹ nhàng hơn so với Cappuccino', 0, 65000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (2, 1, 'CAPPUCCINO HighLand', '\"Ly cà phê sữa đậm đà thời thượng! Một chút đậm đà hơn so với Latte', 0, 65000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (3, 1, 'AMERICANO', 'Americano tại Highlands Coffee là sự kết hợp giữa cà phê espresso thêm vào nước đun sôi. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (4, 1, 'ESPRESSO', 'Đích thực là ly cà phê espresso ngon đậm đà! Được chiết xuất một cách hoàn hảo từ loại cà phê rang được phối trộn độc đáo từ những hạt cà phê Robusta và Arabica chất lượng hảo hạng.', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (5, 1, 'PHINDI HẠT DẺ CƯỜI', '\"PhinDi Hạt Dẻ Cười - Cà phê Phin thế hệ mới với chất Phin êm hơn', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (6, 1, 'PHINDI CHOCO', '\"PhinDi Choco - Cà phê Phin thế hệ mới với chất Phin êm hơn', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (7, 1, 'PHINDI KEM SỮA', '\"PhinDi Kem Sữa - Cà phê Phin thế hệ mới với chất Phin êm hơn', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (8, 1, 'BẠC XỈU ĐÁ', '\"Nếu Phin Sữa Đá dành cho các bạn đam mê vị đậm đà', 0, 25000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (9, 1, 'CARAMEL MACCHIATO', '\"Thỏa mãn cơn thèm ngọt! Ly cà phê Caramel Macchiato bắt đầu từ dòng sữa tươi và lớp bọt sữa béo ngậy', 0, 69000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (10, 1, 'MOCHA MACCHIATO', 'Một thức uống yêu thích được kết hợp bởi giữa sốt sô cô la ngọt ngào', 0, 69000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (11, 2, 'Cappuccino Phúc Long', 'Cappuccino Phúc Long', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (12, 2, 'Latte Phúc Long', 'Latte Phúc Long', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (13, 2, 'Phin Sữa Đá Phúc Long', 'Phin Sữa Đá Phúc Long', 0, 35000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (14, 2, 'Phin Đen Đá Phúc Long', 'Phin Đen Đá Phúc Long', 0, 30000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (15, 2, 'Vanilla Latte Phúc Long', 'Vanilla Latte Phúc Long', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (16, 3, 'Phin Sữa Tươi Bánh Flan', '\"Tỉnh tức thì cùng cà phê Robusta pha phin đậm đà và bánh flan núng nính. Uống là tỉnh', 0, 49000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (17, 3, 'Đường Đen Sữa Đá', '\"Nếu chuộng vị cà phê đậm đà', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (18, 3, 'The Coffee House Sữa Đá', '\"Thức uống giúp tỉnh táo tức thì để bắt đầu ngày mới thật hứng khởi. Không đắng khét như cà phê truyền thống', 0, 39000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (19, 3, 'Cà Phê Sữa Đá', '\"Cà phê Đắk Lắk nguyên chất được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà', 0, 29000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (20, 3, 'Cà Phê Sữa Nóng', '\"Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà', 0, 29000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (21, 3, 'Bạc Sỉu', '\"Bạc sỉu chính là \"\"Ly sữa trắng kèm một chút cà phê\"\". Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.\"', 0, 29000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (22, 3, 'Bạc Sỉu Nóng', '\"Bạc sỉu chính là \"\"Ly sữa trắng kèm một chút cà phê\"\". Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.\"', 0, 39000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (23, 3, 'Cà Phê Đen Đá', 'Không ngọt ngào như Bạc sỉu hay Cà phê sữa, Cà phê đen mang trong mình phong vị trầm lắng, thi vị hơn. Người ta thường phải ngồi rất lâu mới cảm nhận được hết hương thơm ngào ngạt, phảng phất mùi cacao và cái đắng mượt mà trôi tuột xuống vòm họng.', 0, 29000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (24, 3, 'Cà Phê Đen Nóng', 'Không ngọt ngào như Bạc sỉu hay Cà phê sữa, Cà phê đen mang trong mình phong vị trầm lắng, thi vị hơn. Người ta thường phải ngồi rất lâu mới cảm nhận được hết hương thơm ngào ngạt, phảng phất mùi cacao và cái đắng mượt mà trôi tuột xuống vòm họng.', 0, 39000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (25, 3, 'Cà Phê Sữa Đá Chai Fresh 250ML', '\"Vẫn là hương vị cà phê sữa đậm đà quen thuộc của The Coffee House nhưng khoác lên mình một chiếc áo mới tiện lợi hơn', 0, 75000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (26, 3, 'Đường Đen Marble Latte', 'Đường Đen Marble Latte êm dịu cực hấp dẫn bởi vị cà phê đắng nhẹ hoà quyện cùng vị đường đen ngọt thơm và sữa tươi béo mịn. Sự kết hợp đầy mới mẻ của cà phê và đường đen cũng tạo nên diện mạo phân tầng đẹp mắt. Đây là lựa chọn đáng thử để bạn khởi đầu ngà', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (27, 3, 'Caramel Macchiato Đá', '\"Khuấy đều trước khi sử dụng Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (28, 3, 'Caramel Macchiato Nóng', '\"Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (29, 3, 'Latte Đá', '\"Một sự kết hợp tinh tế giữa vị đắng cà phê Espresso nguyên chất hòa quyện cùng vị sữa nóng ngọt ngào', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (30, 3, 'Latte Nóng', '\"Một sự kết hợp tinh tế giữa vị đắng cà phê Espresso nguyên chất hòa quyện cùng vị sữa nóng ngọt ngào', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (31, 3, 'Americano Đá', '\"Americano được pha chế bằng cách pha thêm nước với tỷ lệ nhất định vào tách cà phê Espresso', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (32, 3, 'Americano Nóng', '\"Americano được pha chế bằng cách pha thêm nước với tỷ lệ nhất định vào tách cà phê Espresso', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (33, 3, 'Cappuccino Đá', '\"Thanh mát và cân bằng với hương vị cà phê nguyên bản 100% Arabica Cầu Đất cùng sữa tươi thơm béo cho từng ngụm tròn vị', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (34, 3, 'Cappuccino Nóng', '\"Capuchino là thức uống hòa quyện giữa hương thơm của sữa', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (35, 3, 'Espresso Đá', '\"Một tách Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng', 0, 49000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (36, 3, 'Espresso Nóng', '\"Một tách Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (37, 3, 'Cold Brew Phúc Bồn Tử', 'Vị chua ngọt của trái phúc bồn tử, làm dậy lên hương vị trái cây tự nhiên vốn sẵn có trong hạt cà phê, hòa quyện thêm vị đăng đắng, ngọt dịu nhẹ nhàng của Cold Brew 100% hạt Arabica Cầu Đất để mang đến một cách thưởng thức cà phê hoàn toàn mới, vừa thơm l', 0, 49000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (38, 3, 'Cold Brew Sữa Tươi', '\"Thanh mát và cân bằng với hương vị cà phê nguyên bản 100% Arabica Cầu Đất cùng sữa tươi thơm béo cho từng ngụm tròn vị', 0, 49000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (39, 3, 'Cold Brew Truyền Thống', '\"Tại The Coffee House, Cold Brew được ủ và phục vụ mỗi ngày từ 100% hạt Arabica Cầu Đất với hương gỗ thông, hạt dẻ, nốt sô-cô-la đặc trưng, thoang thoảng hương khói nhẹ giúp Cold Brew giữ nguyên vị tươi mới.\n\"', 0, 45000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (40, 4, 'Cà Phê Sữa Success – 100ml', 'Mùi thơm dịu, vị béo của sữa hòa quyện với cà phê mang đến sự cân bằng, khơi nguồn năng lượng cho sự sáng tạo, thích hợp với khách hàng có gu cà phê sữa đá truyền thống.', 0, 29000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (41, 4, 'Cà Phê Đen Success – 100ml', 'Mùi thơm nồng, đậm đà đầy lôi cuốn, thích hợp với khách hàng có gu cà phê mạnh.', 0, 25000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (42, 4, 'Bạc Xỉu – 100ml', 'Mùi thơm êm dịu, vị béo hòa quyện vị ngọt, thêm vị đắng nhẹ của cà phê tạo nguồn năng lượng sảng khoái khi thưởng thức, thích hợp với khách hàng có gu cà phê nhẹ.', 0, 29000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (43, 4, 'Bạc Xỉu', 'Mùi thơm êm dịu, vị béo hòa quyện vị ngọt, thêm vị đắng nhẹ của cà phê tạo nguồn năng lượng sảng khoái khi thưởng thức, thích hợp với khách hàng có gu cà phê nhẹ.', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (44, 4, 'Cà Phê Sữa Success', 'Mùi thơm dịu, vị béo của sữa hòa quyện với cà phê mang đến sự cân bằng, khơi nguồn năng lượng cho sự sáng tạo, thích hợp với khách hàng có gu cà phê sữa đá truyền thống.', 0, 55000, '2023-10-01 09:48:22');
-INSERT INTO `coffees` VALUES (45, 4, 'Cà Phê Đen Success', '\"Mùi thơm nồng, đậm đà đầy lôi cuốn, thích hợp với khách hàng có gu cà phê mạnh.\"', 0, 55000, '2023-10-01 09:48:22');
+INSERT INTO `coffees` VALUES (1, 1, 'LATTE', '\"Ly cà phê sữa ngọt ngào đến khó quên! Với một chút nhẹ nhàng hơn so với Cappuccino', 0, 65000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (2, 1, 'CAPPUCCINO HighLand', '\"Ly cà phê sữa đậm đà thời thượng! Một chút đậm đà hơn so với Latte', 0, 65000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (3, 1, 'AMERICANO', 'Americano tại Highlands Coffee là sự kết hợp giữa cà phê espresso thêm vào nước đun sôi. Bạn có thể tùy thích lựa chọn uống nóng hoặc dùng chung với đá.', 0, 45000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (4, 1, 'ESPRESSO', 'Đích thực là ly cà phê espresso ngon đậm đà! Được chiết xuất một cách hoàn hảo từ loại cà phê rang được phối trộn độc đáo từ những hạt cà phê Robusta và Arabica chất lượng hảo hạng.', 0, 45000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (5, 1, 'PHINDI HẠT DẺ CƯỜI', '\"PhinDi Hạt Dẻ Cười - Cà phê Phin thế hệ mới với chất Phin êm hơn', 0, 55000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (6, 1, 'PHINDI CHOCO', '\"PhinDi Choco - Cà phê Phin thế hệ mới với chất Phin êm hơn', 0, 45000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (7, 1, 'PHINDI KEM SỮA', '\"PhinDi Kem Sữa - Cà phê Phin thế hệ mới với chất Phin êm hơn', 0, 45000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (8, 1, 'BẠC XỈU ĐÁ', '\"Nếu Phin Sữa Đá dành cho các bạn đam mê vị đậm đà', 0, 25000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (9, 1, 'CARAMEL MACCHIATO', '\"Thỏa mãn cơn thèm ngọt! Ly cà phê Caramel Macchiato bắt đầu từ dòng sữa tươi và lớp bọt sữa béo ngậy', 0, 69000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (10, 1, 'MOCHA MACCHIATO', 'Một thức uống yêu thích được kết hợp bởi giữa sốt sô cô la ngọt ngào', 0, 69000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (11, 2, 'Cappuccino Phúc Long', 'Cappuccino Phúc Long', 0, 45000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (12, 2, 'Latte Phúc Long', 'Latte Phúc Long', 0, 45000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (13, 2, 'Phin Sữa Đá Phúc Long', 'Phin Sữa Đá Phúc Long', 0, 35000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (14, 2, 'Phin Đen Đá Phúc Long', 'Phin Đen Đá Phúc Long', 0, 30000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (15, 2, 'Vanilla Latte Phúc Long', 'Vanilla Latte Phúc Long', 0, 45000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (16, 3, 'Phin Sữa Tươi Bánh Flan', '\"Tỉnh tức thì cùng cà phê Robusta pha phin đậm đà và bánh flan núng nính. Uống là tỉnh', 0, 49000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (17, 3, 'Đường Đen Sữa Đá', '\"Nếu chuộng vị cà phê đậm đà', 0, 45000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (18, 3, 'The Coffee House Sữa Đá', '\"Thức uống giúp tỉnh táo tức thì để bắt đầu ngày mới thật hứng khởi. Không đắng khét như cà phê truyền thống', 0, 39000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (19, 3, 'Cà Phê Sữa Đá', '\"Cà phê Đắk Lắk nguyên chất được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà', 0, 29000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (20, 3, 'Cà Phê Sữa Nóng', '\"Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà', 0, 29000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (21, 3, 'Bạc Sỉu', '\"Bạc sỉu chính là \"\"Ly sữa trắng kèm một chút cà phê\"\". Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.\"', 0, 29000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (22, 3, 'Bạc Sỉu Nóng', '\"Bạc sỉu chính là \"\"Ly sữa trắng kèm một chút cà phê\"\". Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.\"', 0, 39000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (23, 3, 'Cà Phê Đen Đá', 'Không ngọt ngào như Bạc sỉu hay Cà phê sữa, Cà phê đen mang trong mình phong vị trầm lắng, thi vị hơn. Người ta thường phải ngồi rất lâu mới cảm nhận được hết hương thơm ngào ngạt, phảng phất mùi cacao và cái đắng mượt mà trôi tuột xuống vòm họng.', 0, 29000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (24, 3, 'Cà Phê Đen Nóng', 'Không ngọt ngào như Bạc sỉu hay Cà phê sữa, Cà phê đen mang trong mình phong vị trầm lắng, thi vị hơn. Người ta thường phải ngồi rất lâu mới cảm nhận được hết hương thơm ngào ngạt, phảng phất mùi cacao và cái đắng mượt mà trôi tuột xuống vòm họng.', 0, 39000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (25, 3, 'Cà Phê Sữa Đá Chai Fresh 250ML', '\"Vẫn là hương vị cà phê sữa đậm đà quen thuộc của The Coffee House nhưng khoác lên mình một chiếc áo mới tiện lợi hơn', 0, 75000, '2023-10-31 09:53:38');
+INSERT INTO `coffees` VALUES (26, 3, 'Đường Đen Marble Latte', 'Đường Đen Marble Latte êm dịu cực hấp dẫn bởi vị cà phê đắng nhẹ hoà quyện cùng vị đường đen ngọt thơm và sữa tươi béo mịn. Sự kết hợp đầy mới mẻ của cà phê và đường đen cũng tạo nên diện mạo phân tầng đẹp mắt. Đây là lựa chọn đáng thử để bạn khởi đầu ngà', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (27, 3, 'Caramel Macchiato Đá', '\"Khuấy đều trước khi sử dụng Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (28, 3, 'Caramel Macchiato Nóng', '\"Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (29, 3, 'Latte Đá', '\"Một sự kết hợp tinh tế giữa vị đắng cà phê Espresso nguyên chất hòa quyện cùng vị sữa nóng ngọt ngào', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (30, 3, 'Latte Nóng', '\"Một sự kết hợp tinh tế giữa vị đắng cà phê Espresso nguyên chất hòa quyện cùng vị sữa nóng ngọt ngào', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (31, 3, 'Americano Đá', '\"Americano được pha chế bằng cách pha thêm nước với tỷ lệ nhất định vào tách cà phê Espresso', 0, 45000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (32, 3, 'Americano Nóng', '\"Americano được pha chế bằng cách pha thêm nước với tỷ lệ nhất định vào tách cà phê Espresso', 0, 45000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (33, 3, 'Cappuccino Đá', '\"Thanh mát và cân bằng với hương vị cà phê nguyên bản 100% Arabica Cầu Đất cùng sữa tươi thơm béo cho từng ngụm tròn vị', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (34, 3, 'Cappuccino Nóng', '\"Capuchino là thức uống hòa quyện giữa hương thơm của sữa', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (35, 3, 'Espresso Đá', '\"Một tách Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng', 0, 49000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (36, 3, 'Espresso Nóng', '\"Một tách Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng', 0, 45000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (37, 3, 'Cold Brew Phúc Bồn Tử', 'Vị chua ngọt của trái phúc bồn tử, làm dậy lên hương vị trái cây tự nhiên vốn sẵn có trong hạt cà phê, hòa quyện thêm vị đăng đắng, ngọt dịu nhẹ nhàng của Cold Brew 100% hạt Arabica Cầu Đất để mang đến một cách thưởng thức cà phê hoàn toàn mới, vừa thơm l', 0, 49000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (38, 3, 'Cold Brew Sữa Tươi', '\"Thanh mát và cân bằng với hương vị cà phê nguyên bản 100% Arabica Cầu Đất cùng sữa tươi thơm béo cho từng ngụm tròn vị', 0, 49000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (39, 3, 'Cold Brew Truyền Thống', '\"Tại The Coffee House, Cold Brew được ủ và phục vụ mỗi ngày từ 100% hạt Arabica Cầu Đất với hương gỗ thông, hạt dẻ, nốt sô-cô-la đặc trưng, thoang thoảng hương khói nhẹ giúp Cold Brew giữ nguyên vị tươi mới.\n\"', 0, 45000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (40, 4, 'Cà Phê Sữa Success – 100ml', 'Mùi thơm dịu, vị béo của sữa hòa quyện với cà phê mang đến sự cân bằng, khơi nguồn năng lượng cho sự sáng tạo, thích hợp với khách hàng có gu cà phê sữa đá truyền thống.', 0, 29000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (41, 4, 'Cà Phê Đen Success – 100ml', 'Mùi thơm nồng, đậm đà đầy lôi cuốn, thích hợp với khách hàng có gu cà phê mạnh.', 0, 25000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (42, 4, 'Bạc Xỉu – 100ml', 'Mùi thơm êm dịu, vị béo hòa quyện vị ngọt, thêm vị đắng nhẹ của cà phê tạo nguồn năng lượng sảng khoái khi thưởng thức, thích hợp với khách hàng có gu cà phê nhẹ.', 0, 29000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (43, 4, 'Bạc Xỉu', 'Mùi thơm êm dịu, vị béo hòa quyện vị ngọt, thêm vị đắng nhẹ của cà phê tạo nguồn năng lượng sảng khoái khi thưởng thức, thích hợp với khách hàng có gu cà phê nhẹ.', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (44, 4, 'Cà Phê Sữa Success', 'Mùi thơm dịu, vị béo của sữa hòa quyện với cà phê mang đến sự cân bằng, khơi nguồn năng lượng cho sự sáng tạo, thích hợp với khách hàng có gu cà phê sữa đá truyền thống.', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (45, 4, 'Cà Phê Đen Success', '\"Mùi thơm nồng, đậm đà đầy lôi cuốn, thích hợp với khách hàng có gu cà phê mạnh.\"', 0, 55000, '2023-12-25 09:53:38');
+INSERT INTO `coffees` VALUES (48, 2, 'Trà sữa Berry Berry', 'Ngon ngon lắm Trà sữa Berry Berry', 0, 60000, '2023-12-25 10:24:09');
 
 -- ----------------------------
 -- Table structure for comments
@@ -235,21 +233,21 @@ CREATE TABLE `comments`  (
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `star` int NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of comments
 -- ----------------------------
-INSERT INTO `comments` VALUES (1, 1, 1, 'Adam', 'Ngon vai Chubin', 4, 0, '2023-12-24 09:48:10');
-INSERT INTO `comments` VALUES (2, 1, 2, 'Adam', 'Ngon qua xung dang 1 jack', 4, 0, '2023-12-24 09:48:10');
-INSERT INTO `comments` VALUES (3, 1, 2, 'Adam', 'ngon hon mie', 4, 0, '2023-12-24 09:48:10');
-INSERT INTO `comments` VALUES (4, 1, 1, 'John Smith', 'Ngon vãi chubin', 4, 0, '2023-12-24 09:48:10');
+INSERT INTO `comments` VALUES (1, 1, 1, 'Adam', 'Ngon vai Chubin', 4, 0, '2023-12-25 09:55:45');
+INSERT INTO `comments` VALUES (2, 1, 2, 'Adam', 'Ngon qua xung dang 1 jack', 4, 0, '2023-12-25 09:55:45');
+INSERT INTO `comments` VALUES (3, 1, 2, 'Adam', 'ngon hon mie', 4, 0, '2023-12-25 09:55:45');
+INSERT INTO `comments` VALUES (4, 1, 1, 'John Smith', 'Ngon vãi chubin', 4, 0, '2023-12-25 09:55:45');
 
 -- ----------------------------
 -- Table structure for likes
@@ -264,7 +262,7 @@ CREATE TABLE `likes`  (
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of likes
@@ -287,7 +285,7 @@ CREATE TABLE `order_details`  (
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of order_details
@@ -309,16 +307,16 @@ CREATE TABLE `orders`  (
   `type` int NULL DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES (1, 1, 'đảm', '0377184642', 0, 90000, 0, NULL, NULL, '2023-12-24 09:47:52');
+INSERT INTO `orders` VALUES (1, 1, 'đảm', '0377184642', 0, 90000, 0, NULL, NULL, '2023-12-25 09:55:57');
 
 -- ----------------------------
 -- Table structure for roles
@@ -348,7 +346,7 @@ CREATE TABLE `supplier_images`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `supplier_id`(`supplier_id` ASC) USING BTREE,
   CONSTRAINT `supplier_images_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of supplier_images
@@ -370,7 +368,7 @@ CREATE TABLE `suppliers`  (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of suppliers
