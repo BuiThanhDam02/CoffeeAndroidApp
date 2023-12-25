@@ -69,14 +69,13 @@ public class OrderController {
 
     @GetMapping("/getAll")
     public List<OrderDTO> getAllOrderDung() {
-        return orderConverter.orderDTOList(orderRepository.findAll());
+        return orderConverter.orderDTOList(orderRepository.findAllByStatus(0));
     }
 
     @Transactional
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id){
-        orderDetailRepository.deleteByOrder(orderRepository.findOneById(id));
-        orderRepository.deleteById(id);
+        orderRepository.updateStatus(id);
     }
 
 }
