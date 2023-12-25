@@ -17,8 +17,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @POST("/auth/register")
+    @POST("api/auth/register")
     Call<User> signUp(@Body UserRegistrationRequest user);
+    @POST("api/auth/login")
+    Call<AuthenticationResponse> signIn(@Body UserLoginRequest user);
+
     @GET("coffee/all")
     Call<List<Coffee>> getCoffee();
 

@@ -1,5 +1,6 @@
 package com.example.smartcoffeecourt.Authentication;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.smartcoffeecourt.ApiService.ApiService;
+import com.example.smartcoffeecourt.ApiService.AuthenticationResponse;
+import com.example.smartcoffeecourt.ApiService.UserLoginRequest;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.HomePage;
 import com.example.smartcoffeecourt.Model.User;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.CheckBox;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignInPage extends AppCompatActivity {
 
@@ -96,49 +104,50 @@ public class SignInPage extends AppCompatActivity {
         mDialog.setMessage("Xin vui lòng đợi...");
         mDialog.show();
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            System.out.println("dang nhap ok");
+        ApiService apiService = Network.getInstance().create(ApiService.class);
+        UserLoginRequest ulr = new UserLoginRequest();
+        ulr.setEmail(email);
+        ulr.setPassword(password);
+        apiService.signIn(ulr).enqueue(new Callback<AuthenticationResponse>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
+                System.out.println("dang nhap ok");
+                Common.user = response.body().getUser();
+                Common.userId = response.body().getUser().getId().toString();
+                mDialog.dismiss();
+                if(checkBoxRemember.isChecked()){
+                    Paper.book().write(Common.TOKEN,response.body().getToken());
+                    Paper.book().write(Common.USER_UID,Common.userId);
+                    Paper.book().write(Common.EMAIL_KEY,email);
+                    Paper.book().write(Common.PASSWORD_KEY,password);
+                }
 
-                            userReference.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    Common.user = snapshot.getValue(User.class);
-                                    Common.userId = mAuth.getCurrentUser().getUid();
-                                    mDialog.dismiss();
-                                    if(checkBoxRemember.isChecked()){
-                                        Paper.book().write(Common.EMAIL_KEY, email);
-                                        Paper.book().write(Common.PASSWORD_KEY, password);
-                                        Paper.book().write(Common.USER_UID,Common.userId);
-                                    }
+                Intent homePageIntent = new Intent(SignInPage.this, HomePage.class);
+                startActivity(homePageIntent);
+                finish();
 
-                                    Intent homePageIntent = new Intent(SignInPage.this, HomePage.class);
-                                    startActivity(homePageIntent);
-                                    finish();
-                                }
+            }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
+                mDialog.dismiss();
+                Toast.makeText(SignInPage.this, "Authentication bị lỗi. Có gì đó không đúng!!!", Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
-                        }
-                        else{
-                            mDialog.dismiss();
-                            Toast.makeText(SignInPage.this, "Authentication bị lỗi. Có gì đó không đúng!!!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+            }
+        });
+
+
     }
+
+
 
     private void checkSavedUser() {
         String email = Paper.book().read(Common.EMAIL_KEY);
         String password = Paper.book().read(Common.PASSWORD_KEY);
-        if(email != null && password != null){
-           signIn(email, password);
+        String token = Paper.book().read(Common.TOKEN);
+        if(token != null && email != null && password != null){
+           signIn(email,password);
         }
     }
 }
