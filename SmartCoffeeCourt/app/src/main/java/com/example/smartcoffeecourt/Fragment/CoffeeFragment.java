@@ -50,7 +50,7 @@ public class CoffeeFragment extends Fragment {
     List<Coffee> coffees;
     FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder> coffeeAdapter;
     FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder> searchcoffeeAdapter;
-    Integer supplierID = 0;
+    Integer supplierID = 1;
     @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -85,45 +85,11 @@ public class CoffeeFragment extends Fragment {
     private void loadcoffeeList() {
         FirebaseRecyclerOptions<Coffee> options;
         Bundle bundle = this.getArguments();
+        //System.out.println("supID: " + bundle.getInt(Common.CHOICE_STALL));
         if(bundle != null) {
-             supplierID = bundle.getInt(Common.CHOICE_STALL, 0);
+             supplierID = bundle.getInt(Common.CHOICE_STALL, 1);
         }
-        if(supplierID == 0){
-            options = new FirebaseRecyclerOptions.Builder<Coffee>().setQuery(coffeeList, Coffee.class).build();
-        }
-        else{
-             options = new FirebaseRecyclerOptions.Builder<Coffee>().setQuery(coffeeList.orderByChild("supplierID").equalTo(supplierID), Coffee.class).build();
-        }
-        coffeeAdapter = new FirebaseRecyclerAdapter<Coffee, CoffeeViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull CoffeeViewHolder coffeeViewHolder, int i, @NonNull final Coffee coffee) {
-                if(coffee.getStatus() != null && coffee.getStatus().equals("1")){
-                    coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());}
-                coffeeViewHolder.coffee_name.setText(coffee.getName());
-                coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(coffee.getPrice()));
-                coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", 0));
-                Picasso.with(getContext()).load(coffee.getImageLink()).into(coffeeViewHolder.coffee_image);
-
-                coffeeViewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Intent coffeeDetail = new Intent(getContext(), CoffeeDetailPage.class);
-                        coffeeDetail.putExtra(Common.INTENT_coffee_REF, coffeeAdapter.getRef(position).getKey());
-                        startActivity(coffeeDetail);
-                    }
-                });
-            }
-
-            @NonNull
-            @Override
-            public CoffeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.coffee_item, parent, false);
-                return new CoffeeViewHolder(itemView);
-            }
-        };
-
-        coffeeAdapter.notifyDataSetChanged();
-        recyclerCoffee.setAdapter(coffeeAdapter);
+        loadCoffeeBySupId(supplierID);
     }
 
     @Override
@@ -177,4 +143,23 @@ public class CoffeeFragment extends Fragment {
 //        recyclerCoffee.setAdapter(searchcoffeeAdapter);
     }
 
+      private void loadCoffeeBySupId(Integer supId){
+        Call<List<Coffee>> call = Network.getInstance().create(ApiService.class).getCoffeesBySupplier(supId);
+        call.enqueue(new Callback<List<Coffee>>() {
+            @Override
+            public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
+                if (response.isSuccessful()) {
+                    coffees = response.body();
+                    System.out.println(response.body());
+                    System.out.println(coffees);
+                    CoffeeAdapter coffeeAdapter = new CoffeeAdapter(coffees, getContext());
+                    coffeeAdapter.notifyDataSetChanged();
+                    recyclerCoffee.setAdapter(coffeeAdapter);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Coffee>> call, Throwable t) {
+                System.out.println("wrong network");           }
+        });
+    }
 }

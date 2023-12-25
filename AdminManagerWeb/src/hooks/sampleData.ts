@@ -40,9 +40,9 @@ export const getAllSupplier = async () => {
 // here order
 export const getAllOrder = async () => { 
   const {data} = await API.get("order/getAll");
- 
   return data
 };
+
 export const getOrderDetailById = async ({id}) =>{
   const {data} = await API.get(`order/detail/${id}`);
   console.log(data);
@@ -50,6 +50,11 @@ export const getOrderDetailById = async ({id}) =>{
 
 }
 
+export const deleteOrder= async ({id}) =>{
+  const {data} = await API.delete(`order/delete/${id}`);
+  console.log(data);
+  return data
+}
 
 ///
 export const useSampleClients = () => {
