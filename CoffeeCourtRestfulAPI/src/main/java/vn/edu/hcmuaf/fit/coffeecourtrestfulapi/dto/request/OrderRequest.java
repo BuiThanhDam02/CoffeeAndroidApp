@@ -1,53 +1,26 @@
-package com.example.smartcoffeecourt.Model;
+package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request;
 
-import com.google.gson.annotations.SerializedName;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.CartItemRequest;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 
 import java.util.List;
 
-public class Order {
-
-    @SerializedName("id")
-    private int id;
-    @SerializedName("user")
+public class OrderRequest {
     private User user;
     private String phone;
-    @SerializedName("total")
     private String total;
-    @SerializedName("status")
     private String status;
-    @SerializedName("address")
     private String address;
     private Integer supplierID;
     private String type;
-    private List<CartItem> foods;
+    private List<CartItemRequest> foods;
 
-    public Order() {
+    public User getUser() {
+        return user;
     }
 
-    public Order(String phone, CartGroupItem t) {
-        this.phone = phone;
-        this.total = t.getTotal().toString();
-        this.supplierID = t.getSupplierID();
-        this.foods = t.getCartItemList();
-        this.type = t.getType();
-        this.status = "0"; // 0: preparing, 1: completed, 2: received
-    }
-
-    public Order(User user, CartGroupItem t) {
+    public void setUser(User user) {
         this.user = user;
-        this.total = t.getTotal().toString();
-        this.supplierID = t.getSupplierID();
-        this.foods = t.getCartItemList();
-        this.type = t.getType();
-        this.status = "0"; // 0: preparing, 1: completed, 2: received
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPhone() {
@@ -74,6 +47,14 @@ public class Order {
         this.status = status;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Integer getSupplierID() {
         return supplierID;
     }
@@ -90,27 +71,18 @@ public class Order {
         this.type = type;
     }
 
-    public List<CartItem> getFoods() {
+    public List<CartItemRequest> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<CartItem> foods) {
+    public void setFoods(List<CartItemRequest> foods) {
         this.foods = foods;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", user=" + user +
+        return "OrderRequest{" +
+                "user=" + user +
                 ", phone='" + phone + '\'' +
                 ", total='" + total + '\'' +
                 ", status='" + status + '\'' +

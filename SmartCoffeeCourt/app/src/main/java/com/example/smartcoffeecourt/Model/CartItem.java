@@ -1,6 +1,7 @@
 package com.example.smartcoffeecourt.Model;
 
 public class CartItem {
+    private Long coffeeId;
     private String name;
     private String price;
     private String quantity;
@@ -14,6 +15,14 @@ public class CartItem {
         this.price = price;
         this.quantity = quantity;
         this.discount = discount;
+    }
+
+    public Long getCoffeeId() {
+        return coffeeId;
+    }
+
+    public void setCoffeeId(Long coffeeId) {
+        this.coffeeId = coffeeId;
     }
 
     public String getName() {
@@ -48,6 +57,14 @@ public class CartItem {
         this.discount = discount;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "coffeeId=" + coffeeId +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", discount='" + discount + '\'' +
+                '}';
+    }
 }
