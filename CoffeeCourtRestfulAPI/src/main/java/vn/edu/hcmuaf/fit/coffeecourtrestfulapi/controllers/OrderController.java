@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order.OrderConverter;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order.OrderDTO;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order.OrderDetailConverter;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order.OrderDetailDTO;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.CoffeeRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.OrderDetailRepository;
@@ -33,6 +30,9 @@ public class OrderController {
     OrderDetailRepository orderDetailRepository;
 
     @Autowired
+    CoffeeRepository coffeeRepository;
+
+    @Autowired
     UserRepository userRepository;
     @Autowired
     CartService cartService;
@@ -53,7 +53,30 @@ public class OrderController {
         List<OrderDetail> orderDetails = orderDetailRepository.findOneOrderId(id);
         return orderDetailConverter.toDto(orderDetails);
     }
+    @PostMapping("/add")
+    public ResponseEntity<String> add(@RequestBody OrderDetailDTO od) {
+        Order o  =  new Order();
+        o.setId(od.getOrderDTO().getId());
+        o.setUser(userRepository.findOneById(od.getOrderDTO().getUser_id()));
+        o.setName(od.getOrderDTO().getName());
+        o.setAddress(od.getOrderDTO().getAddress());
+        o.setCreated_at(od.getOrderDTO().getCreated_at());
+        o.setPhone(od.getOrderDTO().getPhone());
+        o.setStatus(od.getOrderDTO().getStatusInt());
+        o.setTotalPrice(Float.parseFloat(od.getOrderDTO().getTotalPrice()));
+        o.setType(Integer.parseInt(od.getOrderDTO().getType()));
 
+        for(CoffeeDTO cd : od.getCoffeeDTOS()){
+            OrderDetail odd = new OrderDetail();
+            odd.setOrder(o);
+            odd.setCoffee(coffeeRepository.findOneById(cd.getId()));
+            odd.setPrice(odd.getPrice());
+            odd.setQuantity(odd.getQuantity());
+            orderDetailRepository.save(odd);
+        }
+        orderRepository.save(o);
+        return new ResponseEntity<>("Create order successfully",HttpStatus.OK);
+    }
     @PostMapping("/checkout")
     public ResponseEntity<Order> checkout(@RequestParam("idUser") Long idUser) {
         Cart cart = cartService.getCart();
