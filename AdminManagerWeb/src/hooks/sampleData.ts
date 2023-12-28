@@ -2,13 +2,21 @@ import useSWR from 'swr'
 import axios from 'axios'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 const API = axios.create({baseURL: 'http://localhost:8080/api/'});
-
+/// here upload
+export const uploadImage = async ({formdata}) => { 
+  const {data} = await API.post("admin/upload",formdata);
+  console.log(data);
+  return data
+};
 /// here COFFEE
 export const getAllCoffee = async () => { 
   const {data} = await API.get("coffee/all");
   return data
 };
-
+export const addCoffee = async ({coffee}) =>{
+  const {data} = await API.post(`coffee/add`,coffee);
+  return data;
+}
 export const getCoffeeById = async ({id}) =>{
   const {data} = await API.get(`coffee/get/${id}`);
 
@@ -32,9 +40,9 @@ export const getAllSupplier = async () => {
 // here order
 export const getAllOrder = async () => { 
   const {data} = await API.get("order/getAll");
- 
   return data
 };
+
 export const getOrderDetailById = async ({id}) =>{
   const {data} = await API.get(`order/detail/${id}`);
   console.log(data);
@@ -42,6 +50,11 @@ export const getOrderDetailById = async ({id}) =>{
 
 }
 
+export const deleteOrder= async ({id}) =>{
+  const {data} = await API.delete(`order/delete/${id}`);
+  console.log(data);
+  return data
+}
 
 ///
 export const useSampleClients = () => {

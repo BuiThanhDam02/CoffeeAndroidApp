@@ -57,4 +57,14 @@ public class CartGroupItem {
         total += (int) (Float.parseFloat(t.getPrice())*(1 - Float.parseFloat(t.getDiscount())/100)*Float.parseFloat(t.getQuantity()));
     }
 
+
+    @Override
+    public String toString() {
+        return "CartGroupItem{" +
+                "supplierID=" + supplierID +
+                ", total=" + total +
+                ", type='" + type + '\'' +
+                ", cartItemList=" + cartItemList +
+                '}';
+    }
 }

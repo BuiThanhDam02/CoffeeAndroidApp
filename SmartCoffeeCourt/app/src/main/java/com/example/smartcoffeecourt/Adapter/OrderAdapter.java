@@ -1,5 +1,6 @@
 package com.example.smartcoffeecourt.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.idOrder.setText(String.valueOf(orderList.get(position).getId()));
         holder.statusOrder.setText(Common.convertCodeToStatus(orderList.get(position).getStatus()));

@@ -1,6 +1,13 @@
 import { mdiEye, mdiTrashCan } from '@mdi/js'
 import React, { useEffect, useState } from 'react'
-import { deleteCoffee, getAllCoffee, getAllOrder, getCoffeeById, useSampleClients } from '../../hooks/sampleData'
+import {
+  deleteCoffee,
+  deleteOrder,
+  getAllCoffee,
+  getAllOrder,
+  getCoffeeById,
+  useSampleClients
+} from '../../hooks/sampleData'
 import { Client } from '../../interfaces'
 import Button from '../Button'
 import Buttons from '../Buttons'
@@ -41,13 +48,13 @@ const TableSampleOrders = () => {
   }
 
   const delCoffee = ({id}) =>{
-      // deleteCoffee({id:id})
-      // .then((data) =>{
-      //   alert(data)
-      //   window.location.reload
-      // }).catch((error) =>{
-      //   alert(error)
-      // });
+    deleteOrder({id:id})
+      .then((data) =>{
+        alert(data)
+        window.location.reload();
+      }).catch((error) =>{
+        alert(error)
+      });
   }
     useEffect(() => {
       getAllOrder()
