@@ -18,54 +18,90 @@
         android:layout_alignParentBottom="true"
         app:cardBackgroundColor="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="180dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_margin="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
+        <!-- Layout for Tổng tiền -->
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tổng tiền: "
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/total"
-                    android:text="$10,000 "
-                    android:textSize="24sp"
-                    android:textColor="@android:color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnPayment"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/button_shape"
-                android:enabled="true"
-                android:text="Thanh Toán"
-                android:textColor="@android:color/primary_text_light_nodisable"
-                app:cornerRadius="4dp" />
+                android:text="Tổng tiền: "
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/total"
+                android:text="$10,000 "
+                android:textSize="24sp"
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!-- Layout for Địa chỉ -->
+
+        <!-- Button -->
+
+        <LinearLayout
+            android:layout_width="356dp"
+            android:layout_height="79dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="61dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ: "
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="291dp"
+                android:layout_height="wrap_content"
+                android:text="1111/8 "
+                android:textColor="@android:color/white"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <Button
+        android:id="@+id/btnPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
+        android:enabled="true"
+        android:text="Thanh Toán"
+        android:textColor="@android:color/primary_text_light_nodisable"
+        app:cornerRadius="4dp" />
+
+</RelativeLayout>
+
 
     </androidx.cardview.widget.CardView>
 

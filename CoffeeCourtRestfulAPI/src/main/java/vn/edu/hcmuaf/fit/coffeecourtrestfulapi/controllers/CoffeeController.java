@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Comment;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.*;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.request.CoffeeRequest;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.CoffeeRequest;
 
 import java.io.IOException;
 import java.io.InputStream;

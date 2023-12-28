@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.request;
+package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request;
 
 public class CoffeeRequest {
     private Long id;

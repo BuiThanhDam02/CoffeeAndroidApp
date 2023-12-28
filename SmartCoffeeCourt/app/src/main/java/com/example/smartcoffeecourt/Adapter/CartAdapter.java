@@ -2,10 +2,12 @@ package com.example.smartcoffeecourt.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         this.listener = listener;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,6 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.foodList.setLayoutManager(new LinearLayoutManager(listener.getContext()));
         holder.foodList.setAdapter(new CartGroupItemAdapter(cartItemList,listener));
         holder.btnChangeType.setText(Common.convertCodeToType(cartGroupItemList.get(position).getType()));
+
     }
 
     @Override
@@ -62,12 +66,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return cartGroupItemList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtName, txtTotal;
         RecyclerView foodList;
         Button btnChangeType;
         ImageButton btnCancel;
         CartGroupItemListener listener;
+        String deliveryAddress;
         public ViewHolder(@NonNull View itemView, CartGroupItemListener listener) {
             super(itemView);
             this.listener = listener;
@@ -79,6 +84,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             btnCancel = itemView.findViewById(R.id.btnCancel);
             btnCancel.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View view) {
             if(view.getId() == R.id.btnChangeType){
@@ -91,14 +97,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 mBuilder.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        if(i == 1) {
+                            showAddressDialog();
+                        }
                     }
                 });
                 mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int index = ((AlertDialog)dialogInterface).getListView().getCheckedItemPosition();
-                        listener.onTypeChangeClick(getAdapterPosition(), String.valueOf(index));
+                        listener.onTypeChangeClick(getAdapterPosition(), String.valueOf(index), deliveryAddress);
                     }
                 });
                 orderDialog = mBuilder.create();
@@ -106,9 +114,33 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
             if(view.getId() == R.id.btnCancel) listener.onDeleteOrder(getAdapterPosition());
         }
+
+        private void showAddressDialog(){
+            AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+            builder.setTitle("Nhập địa chỉ giao hàng");
+
+            final EditText input = new EditText(itemView.getContext());
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    deliveryAddress = input.getText().toString();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+
+            builder.show();
+        }
     }
     public interface CartGroupItemListener{
-        void onTypeChangeClick(int position, String newType);
+        void onTypeChangeClick(int position, String newType, String address);
         void onDeleteOrder(int position);
         void onChangeQuantity(int position, int newQuantity);
         Context getContext();
