@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 25/12/2023 10:24:26
+ Date: 28/12/2023 10:22:02
 */
 
 SET NAMES utf8mb4;
@@ -66,7 +66,7 @@ CREATE TABLE `coffee_discounts`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `coffee_discounts_ibfk_1` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of coffee_discounts
@@ -84,7 +84,7 @@ CREATE TABLE `coffee_images`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `coffee_images_ibfk_1` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of coffee_images
@@ -148,7 +148,7 @@ CREATE TABLE `coffee_stars`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `coffee_stars_ibfk_1` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of coffee_stars
@@ -169,7 +169,7 @@ CREATE TABLE `coffees`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `supplier_id`(`supplier_id` ASC) USING BTREE,
   CONSTRAINT `coffees_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of coffees
@@ -239,7 +239,7 @@ CREATE TABLE `comments`  (
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of comments
@@ -262,7 +262,7 @@ CREATE TABLE `likes`  (
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of likes
@@ -346,15 +346,15 @@ CREATE TABLE `supplier_images`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `supplier_id`(`supplier_id` ASC) USING BTREE,
   CONSTRAINT `supplier_images_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of supplier_images
 -- ----------------------------
-INSERT INTO `supplier_images` VALUES (1, 1, NULL);
-INSERT INTO `supplier_images` VALUES (2, 2, NULL);
-INSERT INTO `supplier_images` VALUES (3, 3, NULL);
-INSERT INTO `supplier_images` VALUES (4, 4, NULL);
+INSERT INTO `supplier_images` VALUES (1, 1, 'http://localhost:8080/images/sup/highlands.png');
+INSERT INTO `supplier_images` VALUES (2, 2, 'http://localhost:8080/images/sup/phuclong.png');
+INSERT INTO `supplier_images` VALUES (3, 3, 'http://localhost:8080/images/sup/thecoffeehouse.png');
+INSERT INTO `supplier_images` VALUES (4, 4, 'http://localhost:8080/images/sup/trungnguyen.png');
 
 -- ----------------------------
 -- Table structure for suppliers
@@ -368,7 +368,7 @@ CREATE TABLE `suppliers`  (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of suppliers
