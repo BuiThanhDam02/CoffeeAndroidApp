@@ -73,7 +73,7 @@ const UserFormPage = () => {
 
     updateClient({ client: data })
       .then((data) => {
-        alert(data)
+        alert('Cập nhật thành công!')
         router.push(`/userformpage?id=${c.id}`)
       })
       .catch((err) => {
