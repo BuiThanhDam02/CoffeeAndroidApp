@@ -1,5 +1,8 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.order.SupplierDTO;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.SupplierRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.response.SupplierResponse;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Order;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Supplier;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.SupplierImage;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.SupplierImageRepository;
@@ -19,7 +23,8 @@ import java.util.List;
 @RequestMapping("/api/supplier")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SupplierController {
-
+    @PersistenceContext
+    private EntityManager entityManager;
     @Autowired
     private SupplierRepository supplierRepository;
 
@@ -85,19 +90,20 @@ public class SupplierController {
 
 
     }
-    @PutMapping ("/update")
-    public ResponseEntity<String> updateSupplier(@RequestBody SupplierRequest sr) {
+    @Transactional
+    @PutMapping ("/update/{id}")
+    public ResponseEntity<String> updateSupplier(@PathVariable Long id,@RequestBody SupplierRequest sr) {
         try{
 
-            Supplier supp = supplierRepository.findOneById(sr.getId());
+            Supplier supp = supplierRepository.findOneById(id);
             supp.setEmail(sr.getEmail());
             supp.setName(sr.getName());
             supp.setPassword(sr.getPassword());
             supp.setPhone(sr.getPhone());
             supp.setStatus(sr.getStatus());
             supplierRepository.save(supp);
-
-            SupplierImage si  = supplierImageRepository.findBySupplier(supp);
+            Supplier attachedSup = entityManager.merge(supp);
+            SupplierImage si  = supplierImageRepository.findBySupplier(attachedSup);
             si.setImageLink(sr.getImageLink());
             supplierImageRepository.save(si);
             return new ResponseEntity<>("Update supplier successfully", HttpStatus.OK);

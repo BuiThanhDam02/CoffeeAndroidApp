@@ -37,6 +37,10 @@ const menuAside: MenuAsideItem[] = [
     href: '/userpage',
     label: 'User',
     icon: mdiTable,
+  },{
+    href: '/supplierpage',
+    label: 'Supplier',
+    icon: mdiTable,
   },
   // {
   //   href: '/forms',
