@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Comment;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.*;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.request.CoffeeRequest;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.CoffeeRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -145,12 +145,12 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
                 coffee.setDescription(coffeeRequest.getDescription());
                 coffee.setStatus(coffeeRequest.getStatus());
                 coffee.setPrice(coffeeRequest.getPrice());
+                coffeeRepository.save(coffee);
                 CoffeeImage coffeeImage = coffeeImageRepository.findByCoffeeId(coffee.getId()).get(0);
                 coffeeImage.setCoffee(coffee);
-                coffeeImage.setImageLink(coffeeImage.getImageLink());
+                coffeeImage.setImageLink(coffeeRequest.getImageLink());
                 coffeeImage.setStatus(0);
                 coffeeImageRepository.save(coffeeImage);
-                coffee.setImageLink(coffeeImage.getImageLink());
             } else {
                 coffee = new Coffee();
                 coffee.setSupplier(supplier);
@@ -158,11 +158,11 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
                 coffee.setDescription(coffeeRequest.getDescription());
                 coffee.setStatus(coffeeRequest.getStatus());
                 coffee.setPrice(coffeeRequest.getPrice());
+                coffeeRepository.save(coffee);
                 CoffeeImage coffeeImage = new CoffeeImage();
                 coffeeImage.setCoffee(coffee);
-                coffeeImage.setImageLink(coffeeImage.getImageLink());
+                coffeeImage.setImageLink(coffeeRequest.getImageLink());
                 coffeeImage.setStatus(0);
-                coffee.setImageLink(coffeeImage.getImageLink());
                 coffeeImageRepository.save(coffeeImage);
             }
         } else {
@@ -172,14 +172,14 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
             coffee.setDescription(coffeeRequest.getDescription());
             coffee.setStatus(coffeeRequest.getStatus());
             coffee.setPrice(coffeeRequest.getPrice());
+            coffeeRepository.save(coffee);
             CoffeeImage coffeeImage = new CoffeeImage();
             coffeeImage.setCoffee(coffee);
-            coffeeImage.setImageLink(coffeeImage.getImageLink());
+            coffeeImage.setImageLink(coffeeRequest.getImageLink());
             coffeeImage.setStatus(0);
             coffeeImageRepository.save(coffeeImage);
-            coffee.setImageLink(coffeeImage.getImageLink());
         }
-        coffeeRepository.save(coffee);
+
         return ResponseEntity.ok("Coffee added successfully");
     } catch (Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding coffee: " + e.getMessage());

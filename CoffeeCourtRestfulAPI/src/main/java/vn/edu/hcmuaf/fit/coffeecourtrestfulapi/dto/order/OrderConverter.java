@@ -12,6 +12,7 @@ public class OrderConverter {
     public OrderDTO toDto(Order order){
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
+        orderDTO.setUser_id(order.getUser().getId());
         orderDTO.setName(order.getName());
         orderDTO.setEmail(order.getUser().getEmail());
         orderDTO.setPhone(order.getUser().getPhone());
