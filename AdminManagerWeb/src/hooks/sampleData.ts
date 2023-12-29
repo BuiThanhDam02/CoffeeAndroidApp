@@ -37,24 +37,39 @@ export const getAllSupplier = async () => {
   const {data} = await API.get("supplier/getAll");
   return data
 };
-// here order
-export const getAllOrder = async () => { 
-  const {data} = await API.get("order/getAll");
+
+export const getSuppliers = async () => { 
+  const {data} = await API.get("supplier/get");
   return data
 };
 
+export const getSupplierByID = async ({id}) => { 
+  const {data} = await API.get(`supplier/get/${id}`);
+  return data
+};
+
+
+export const updateSupplier = async ({supplier}) => { 
+  const {data} = await API.put(`supplier/update/${supplier.id}`,supplier);
+  return data;
+};
+// here order
+export const getAllOrder = async () => { 
+  const {data} = await API.get("order/getAll");
+ 
+  return data
+};
 export const getOrderDetailById = async ({id}) =>{
   const {data} = await API.get(`order/detail/${id}`);
   console.log(data);
   return data
 
 }
-
-export const deleteOrder= async ({id}) =>{
-  const {data} = await API.delete(`order/delete/${id}`);
-  console.log(data);
+export const addOrder = async ({order}) => { 
+  const {data} = await API.post("order/add",order);
+ 
   return data
-}
+};
 
 ///
 export const useSampleClients = () => {

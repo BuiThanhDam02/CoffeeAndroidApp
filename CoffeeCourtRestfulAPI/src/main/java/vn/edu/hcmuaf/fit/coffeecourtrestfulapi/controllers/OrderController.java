@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +49,8 @@ public class OrderController {
     OrderConverter orderConverter;
     @Autowired
     OrderDetailConverter orderDetailConverter;
-
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @GetMapping("/getByUser")
     public List<OrderDTO> getByUser(@RequestParam("idUser") Long idUser) {
@@ -59,6 +62,7 @@ public class OrderController {
         List<OrderDetail> orderDetails = orderDetailRepository.findOneOrderId(id);
         return orderDetailConverter.toDto(orderDetails);
     }
+    @Transactional
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestBody OrderDetailDTO od) {
         Order o  =  new Order();
@@ -68,19 +72,26 @@ public class OrderController {
         o.setAddress(od.getOrderDTO().getAddress());
         o.setCreated_at(od.getOrderDTO().getCreated_at());
         o.setPhone(od.getOrderDTO().getPhone());
-        o.setStatus(od.getOrderDTO().getStatusInt());
         o.setTotalPrice(Float.parseFloat(od.getOrderDTO().getTotalPrice()));
-        o.setType(Integer.parseInt(od.getOrderDTO().getType()));
+        if(od.getOrderDTO().getType().equals("Đặt hàng")){
+            o.setType(0);
+            o.setStatus(od.getOrderDTO().getStatusInt());
+        }else{
+            o.setType(1);
+            o.setStatus(2);
+        }
+        orderRepository.save(o);
 
         for(CoffeeDTO cd : od.getCoffeeDTOS()){
             OrderDetail odd = new OrderDetail();
-            odd.setOrder(o);
-            odd.setCoffee(coffeeRepository.findOneById(cd.getId()));
-            odd.setPrice(odd.getPrice());
-            odd.setQuantity(odd.getQuantity());
+            Order attachedOrder = entityManager.merge(o);
+            odd.setOrder(attachedOrder);
+            odd.setCoffee(coffeeRepository.findById(cd.getId()).orElse(null));
+
+            odd.setPrice(Float.parseFloat(cd.getPrice()));
+            odd.setQuantity(cd.getQuantity());
             orderDetailRepository.save(odd);
         }
-        orderRepository.save(o);
         return new ResponseEntity<>("Create order successfully",HttpStatus.OK);
     }
     @PostMapping("/checkout")
@@ -120,14 +131,14 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/all")
-    public List<Order> getAllOrder() {
-        return orderRepository.findAll();
-    }
+//    @GetMapping("/all")
+//    public List<Order> getAllOrder() {
+//        return orderRepository.findAll();
+//    }
 
     @GetMapping("/getAll")
-    public List<OrderDTO> getAllOrderDung() {
-        return orderConverter.orderDTOList(orderRepository.findAllByStatus(0));
+    public List<OrderDTO> getAllOrder() {
+        return orderConverter.orderDTOList(orderRepository.findAll());
     }
 
     @Transactional

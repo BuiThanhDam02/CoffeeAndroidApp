@@ -27,6 +27,7 @@ const OrderFormPage = () => {
     "orderDTO": {
         "id": 0,
         "name": null,
+        "user_id":null,
         "phone": null,
         "password": null,
         "address": null,
@@ -97,11 +98,11 @@ useEffect(() => {
   return (
     <>
       <Head>
-        <title>{getPageTitle('Coffee Form')}</title>
+        <title>{getPageTitle('Order Form')}</title>
       </Head>
 
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiBallotOutline} title="Coffee detail forms" main>
+        <SectionTitleLineWithButton icon={mdiBallotOutline} title="Order detail forms" main>
 
         <img
         src={Order.type ==='Đặt hàng'?'http://localhost:3000/admin-one-react-tailwind/delivery.png':'http://localhost:3000/admin-one-react-tailwind/ontable.png'}
