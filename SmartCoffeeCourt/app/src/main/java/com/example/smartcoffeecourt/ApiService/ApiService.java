@@ -12,8 +12,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -23,7 +21,7 @@ public interface ApiService {
     Call<AuthenticationResponse> signIn(@Body UserLoginRequest user);
 
     @GET("/api/coffee/all")
-    Call<List<Coffee>> getCoffee();
+    Call<List<Coffee>> getAllCoffee();
 
     @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();

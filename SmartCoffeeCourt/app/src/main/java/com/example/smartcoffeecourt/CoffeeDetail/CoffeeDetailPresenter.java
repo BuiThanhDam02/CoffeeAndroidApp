@@ -1,13 +1,17 @@
 package com.example.smartcoffeecourt.CoffeeDetail;
 
+import android.telecom.Call;
+
 import androidx.annotation.NonNull;
 
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Database.Database;
 import com.example.smartcoffeecourt.Model.CartItem;
 import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Rating;
 import com.example.smartcoffeecourt.Model.User;
+import com.example.smartcoffeecourt.Network.Network;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -108,22 +112,23 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     }
     @Override
     public void loadCoffee() {
-        coffeeReference.child(coffeeRef).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                coffee = snapshot.getValue(Coffee.class);
-                if(coffee != null){
-
-                    coffeeView.showCoffeeDetail(coffee);
-                }
-                else coffeeView.closeView();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        coffeeReference.child(coffeeRef).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                coffee = snapshot.getValue(Coffee.class);
+//                if(coffee != null){
+//
+//                    coffeeView.showCoffeeDetail(coffee);
+//                }
+//                else coffeeView.closeView();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        System.out.println("Đây là gì nữa: " + coffeeRef);
     }
 
     @Override

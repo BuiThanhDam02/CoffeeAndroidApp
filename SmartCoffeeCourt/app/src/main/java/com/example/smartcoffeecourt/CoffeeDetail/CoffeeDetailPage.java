@@ -41,6 +41,7 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_coffee_detail);
 
         txtName = findViewById(R.id.txtName);
