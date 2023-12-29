@@ -28,7 +28,7 @@ public interface ApiService {
     @GET("coffee/bySupplierId")
     Call<List<Coffee>> getCoffeesBySupplier(@Query("supplierId") int supplierId);
 
-    @GET("/supplier/getAll")
+    @GET("supplier/getAll")
     Call<List<Stall>> getAllStallDung();
 
     @GET("/order/getByUser")
@@ -38,4 +38,7 @@ public interface ApiService {
     Call<OrderDetailModel> getDetailOrder(@Query("id") Long id);
     @GET("coffee/search")
     Call<List<Coffee>> searchByName(@Query("name") String name);
+
+    @GET("coffee/getGreatCoffee")
+    Call<List<Coffee>> getGreatCoffee();
 }

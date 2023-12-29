@@ -269,6 +269,19 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
         }
     }
 
-
-
+    @GetMapping("/getGreatCoffee")
+    public List<Coffee> getGreatCoffee(){
+        List<CoffeeStar> coffees = coffeeStarRepository.getGreatCoffee();
+        List<Coffee>  result = new ArrayList<>();
+        for (CoffeeStar coffee : coffees) {
+            // Image
+            List<CoffeeImage> coffeeImages = coffeeImageRepository.findByCoffeeId(coffee.getCoffee().getId());
+            if (!coffeeImages.isEmpty()) {
+                coffee.getCoffee().setImageLink(coffeeImages.get(0).getImageLink());
+            }
+            coffee.getCoffee().setStar(coffee.getStar());
+            result.add(coffee.getCoffee());
+        }
+        return result;
+    }
 }
