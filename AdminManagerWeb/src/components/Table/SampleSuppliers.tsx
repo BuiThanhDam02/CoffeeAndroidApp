@@ -1,24 +1,24 @@
-import { mdiEye, mdiTrashCan } from '@mdi/js'
+import { mdiEye, mdiTrashCan,mdiPlus } from '@mdi/js'
 import React, { useEffect, useState } from 'react'
-import { deleteCoffee, getAllCoffee, getAllOrder, getCoffeeById, useSampleClients } from '../../hooks/sampleData'
+import { deleteCoffee, getAllCoffee, getCoffeeById, getSuppliers, useSampleClients } from '../../hooks/sampleData'
 import { Client } from '../../interfaces'
 import Button from '../Button'
 import Buttons from '../Buttons'
 import CardBoxModal from '../CardBox/Modal'
 import UserAvatar from '../UserAvatar'
 import { useRouter } from 'next/router';
-const TableSampleOrders = () => {
+const TableSampleSuppliers = () => {
   const router = useRouter();
 
 
-  const [orders,setOrders] = useState([]);
+  const [suppliers,setSuppliers] = useState([]);
   const perPage = 5
 
   const [currentPage, setCurrentPage] = useState(0)
 
-  const ordersPaginated = orders.slice(perPage * currentPage, perPage * (currentPage + 1))
+  const suppliersPaginated = suppliers.slice(perPage * currentPage, perPage * (currentPage + 1))
 
-  const numPages = orders.length / perPage
+  const numPages = suppliers.length / perPage
 
   const pagesList = []
 
@@ -34,9 +34,9 @@ const TableSampleOrders = () => {
     setIsModalTrashActive(false)
   }
 
-  const viewDetailCoffee = (id)=>{
+  const viewDetailSupplier = (id)=>{
  
-    router.push(`/orderformpage?id=${id}`);
+    router.push(`/supplierformpage?id=${id}`);
     
   }
 
@@ -50,17 +50,16 @@ const TableSampleOrders = () => {
       // });
   }
     useEffect(() => {
-      getAllOrder()
+      getSuppliers()
         .then((data) => {
-          setOrders(data);
+          setSuppliers(data);
         })
         .catch((error) => {
           // Handle any errors that occur during data fetching
-          console.error('Error fetching order data:', error);
+          console.error('Error fetching coffee data:', error);
         });
     }, []);
 
-    
 
   return (
     <>
@@ -87,45 +86,43 @@ const TableSampleOrders = () => {
             <th>Name</th>
             <th>Phone</th>
             <th>Status</th>
-            <th>Total Price</th>
+            <th>Email</th>
             <th>Created</th>
             <th />
           </tr>
         </thead>
         <tbody>
-          {ordersPaginated.map((order) => (
-            <tr key={order.id}>
+          {suppliersPaginated.map((supplier) => (
+            <tr key={supplier.id}>
               <td className="border-b-0 lg:w-6 before:hidden">
-        
-                <UserAvatar api={order.type ==='Đặt hàng'?'http://localhost:3000/admin-one-react-tailwind/delivery.png':'http://localhost:3000/admin-one-react-tailwind/ontable.png'} username={"Howell Hand"} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
-                
-               
+                <UserAvatar api={supplier.imageLink} username={"Howell Hand"} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
               </td>
-              <td data-label="Name">{order.name}</td>
-              <td data-label="Phone">{order.phone}</td>
-              <td data-label="Status">{order.status}</td>
-              <td data-label="Total Price">{order.totalPrice}</td>
+              <td data-label="Name">{supplier.name}</td>
+              <td data-label="Phone">{supplier.phone}</td>
+              <td data-label="Status">{supplier.status}</td>
+              <td data-label="Email">{supplier.email}</td>
               <td data-label="Created" className="lg:w-1 whitespace-nowrap">
-                <small className="text-gray-500 dark:text-slate-400">{new Date(order.created_at).toDateString()}</small>
+                <small className="text-gray-500 dark:text-slate-400">{new Date(supplier.created_at).toDateString()}</small>
               </td>
               <td className="before:hidden lg:w-1 whitespace-nowrap">
                 <Buttons type="justify-start lg:justify-end" noWrap>
+                       
                   <Button
                     color="info"
-                    icon={mdiEye}
-                    onClick={() => viewDetailCoffee(order.id)}
+                    icon={ mdiEye}
+                    onClick={() => viewDetailSupplier(supplier.id)}
                     small
                   />
                   <Button
                     color="danger"
                     icon={mdiTrashCan}
-                    onClick={() => delCoffee({id:order.id})}
+                    onClick={() => delCoffee({id:supplier.id})}
                     small
                   />
                 </Buttons>
               </td>
             </tr>
-           ))}
+          ))}
         </tbody>
       </table>
       <div className="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
@@ -151,4 +148,4 @@ const TableSampleOrders = () => {
   )
 }
 
-export default TableSampleOrders
+export default TableSampleSuppliers
