@@ -5,11 +5,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Role;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.RoleName;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.RoleRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.UserRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/user")
@@ -17,14 +22,16 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     @GetMapping("/all")
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/id")
-    public User getUserById(@RequestParam Long id) {
+    @GetMapping("/get/{id}")
+    public User getUserById(@PathVariable Long id) {
         return userRepository.findOneById(id);
     }
 
@@ -46,9 +53,11 @@ public class UserController {
             user.setPhone(Optional.ofNullable(updateUser.getPhone()).orElse(user.getPhone()));
 
             userRepository.save(user);
+
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 }
