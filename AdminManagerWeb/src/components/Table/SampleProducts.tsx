@@ -1,4 +1,4 @@
-import { mdiEye, mdiTrashCan } from '@mdi/js'
+import { mdiEye, mdiTrashCan,mdiPlus } from '@mdi/js'
 import React, { useEffect, useState } from 'react'
 import { deleteCoffee, getAllCoffee, getCoffeeById, useSampleClients } from '../../hooks/sampleData'
 import { Client } from '../../interfaces'
@@ -106,9 +106,10 @@ const TableSampleProducts = () => {
               </td>
               <td className="before:hidden lg:w-1 whitespace-nowrap">
                 <Buttons type="justify-start lg:justify-end" noWrap>
+                       
                   <Button
                     color="info"
-                    icon={mdiEye}
+                    icon={ mdiEye}
                     onClick={() => viewDetailCoffee(coffee.id)}
                     small
                   />

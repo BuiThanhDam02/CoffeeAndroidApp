@@ -1,8 +1,9 @@
-import { mdiCog } from '@mdi/js'
+import { mdiCog, mdiPlus } from '@mdi/js'
 import React, { Children, ReactNode } from 'react'
 import Button from '../Button'
 import Icon from '../Icon'
 import IconRounded from '../Icon/Rounded'
+import { useRouter } from 'next/router'
 
 type Props = {
   icon: string
@@ -13,6 +14,16 @@ type Props = {
 
 export default function SectionTitleLineWithButton({ icon, title, main = false, children }: Props) {
   const hasChildren = !!Children.count(children)
+  const router = useRouter();
+  let path = ''
+  if(title === 'Coffee Tables'){
+    path = '/coffeeadd'
+  }else if(title === 'Order Tables'){
+    path = '/orderadd'
+  }else if(title === 'Supplier Tables'){
+    path = '/supplieradd'
+  }
+
 
   return (
     <section className={`${main ? '' : 'pt-6'} mb-6 flex items-center justify-between`}>
@@ -22,7 +33,7 @@ export default function SectionTitleLineWithButton({ icon, title, main = false, 
         <h1 className={`leading-tight ${main ? 'text-3xl' : 'text-2xl'}`}>{title}</h1>
       </div>
       {children}
-      {!hasChildren && <Button icon={mdiCog} color="whiteDark" />}
+      {!hasChildren && <Button onClick={() => {router.push(path)}} icon={mdiPlus} color="whiteDark" />}
     </section>
   )
 }

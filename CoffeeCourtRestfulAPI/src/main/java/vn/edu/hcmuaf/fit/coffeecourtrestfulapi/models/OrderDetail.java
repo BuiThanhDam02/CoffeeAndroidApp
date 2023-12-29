@@ -9,8 +9,7 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     private Order order;
 
@@ -27,7 +26,9 @@ public class OrderDetail {
     private String name;
 
     // Getter và Setter cho các thuộc tính
-
+    public OrderDetail() {
+        // Default constructor
+    }
     public Long getId() {
         return id;
     }
