@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.UserLoginRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.UserRegistrationRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.response.AuthenticationResponse;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Role;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.RoleName;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.RoleRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.security.sha.SHATokenProvider;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @RequestMapping("/api/auth")
@@ -25,7 +31,8 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.UserService;
 public class AuthController {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private SHATokenProvider shaTokenProvider;
@@ -40,11 +47,20 @@ public class AuthController {
         user.setEmail(registrationRequest.getEmail());
         user.setPassword(hashPassword); // Password encryption
         user.setUsername(registrationRequest.getUsername());
+        user.setName(registrationRequest.getUsername());
         user.setPhone(registrationRequest.getPhone());
+        Set<Role> roles = new HashSet<>();
+        Role role = new Role();
+        role.setId(2L);
+        role.setName(RoleName.USER);
+        roles.add(role);
+        user.setRoles(roles);
         // Set other user properties
 
         // Save the user in the database
+
         User u = userService.saveUser(user);
+        roleRepository.save(role);
 
         return  ResponseEntity.ok(u);
     }
