@@ -17,28 +17,31 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @POST("api/auth/register")
+    @POST("/api/auth/register")
     Call<User> signUp(@Body UserRegistrationRequest user);
-    @POST("api/auth/login")
+    @POST("/api/auth/login")
     Call<AuthenticationResponse> signIn(@Body UserLoginRequest user);
 
-    @GET("coffee/all")
+    @GET("/api/coffee/all")
     Call<List<Coffee>> getCoffee();
 
-    @GET("supplier/all")
+    @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();
 
-    @GET("coffee/bySupplierId")
+    @GET("/api/coffee/bySupplierId")
     Call<List<Coffee>> getCoffeesBySupplier(@Query("supplierId") int supplierId);
 
-    @GET("/supplier/getAll")
+    @GET("/api/supplier/getAll")
     Call<List<Stall>> getAllStallDung();
 
-    @GET("/order/getByUser")
+    @GET("/api/order/getByUser")
     Call<List<Order>> getAllOrderByUserId(@Query("idUser") int idUser);
 
-    @GET("/order/detail/getByOrderId")
+    @GET("/api/order/detail/getByOrderId")
     Call<OrderDetailModel> getDetailOrder(@Query("id") Long id);
-    @GET("coffee/search")
+    @GET("/api/coffee/search")
     Call<List<Coffee>> searchByName(@Query("name") String name);
+
+    @POST("/api/order/checkout")
+    Call<Order> checkout(@Body Order order);
 }
