@@ -23,4 +23,12 @@ public class OrderDetailDTO {
     public void setCoffeeDTOS(List<CoffeeDTO> coffeeDTOS) {
         this.coffeeDTOS = coffeeDTOS;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
