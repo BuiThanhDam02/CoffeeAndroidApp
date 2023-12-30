@@ -77,7 +77,7 @@
                 android:id="@+id/address"
                 android:layout_width="291dp"
                 android:layout_height="wrap_content"
-                android:text="1111/8 "
+                android:text=""
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
 

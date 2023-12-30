@@ -17,6 +17,7 @@ import com.example.smartcoffeecourt.Cart;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Rating;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -66,17 +67,17 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
             assert coffeeRef != null;
             if (!coffeeRef.isEmpty()) {
                 presenter = new CoffeeDetailPresenter(this, coffeeRef);
-                presenter.checkLikeCoffee();
+//                presenter.checkLikeCoffee();
                 presenter.loadCoffee();
             }
         }
-        if (presenter.getIsLikeCoffee()==true){
-            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_red_24));
-
-        }else{
-            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_24));
-
-        }
+//        if (presenter.getIsLikeCoffee()==true){
+//            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_red_24));
+//
+//        }else{
+//            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_24));
+//
+//        }
 
 
         btnBackDetail.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +153,8 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
 
     @Override
     public void showCoffeeDetail(Coffee coffee) {
-        Picasso.with(getBaseContext()).load(coffee.getImageLink()).into(imgcoffee);
-        txtPrice.setText(Common.convertPriceToVND(coffee.getPrice()));
+        Picasso.with(getBaseContext()).load(Network.getImage(coffee.getImageLink())).into(imgcoffee);
+        txtPrice.setText(Common.convertPriceToVND(Float.parseFloat(coffee.getPrice())));
         txtName.setText(coffee.getName());
         txtDes.setText(coffee.getDescription());
         txtDiscount.setText(String.format("%s%%", 0));
