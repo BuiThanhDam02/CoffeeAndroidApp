@@ -6,38 +6,18 @@ import java.util.List;
 
 public class OrderDetailModel {
 
-    @SerializedName("id")
-    private Long id;
-    @SerializedName("status")
-    private int status;
-    @SerializedName("address")
-    private String address;
+    @SerializedName("orderDTO")
+    private Order order;
 
     @SerializedName("coffeeDTOS")
     private List<CoffeeOrderDetail> coffees;
 
-    public Long getId() {
-        return id;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public List<CoffeeOrderDetail> getCoffees() {

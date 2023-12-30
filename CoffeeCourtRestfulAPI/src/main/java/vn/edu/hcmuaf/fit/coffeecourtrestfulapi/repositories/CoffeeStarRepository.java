@@ -19,4 +19,6 @@ public interface CoffeeStarRepository extends JpaRepository<CoffeeStar, Long> {
     @Query("UPDATE CoffeeStar cs SET cs.status = -1 WHERE cs.coffee.id = :id")
     void deleteByCoffeeId(@Param("id") Long id);
 
+    @Query("SELECT cs FROM CoffeeStar cs WHERE cs.status = 0 ORDER BY cs.star DESC")
+    List<CoffeeStar> getGreatCoffee();
 }

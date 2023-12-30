@@ -78,8 +78,9 @@ public class OrderDetail extends AppCompatActivity {
             public void onResponse(Call<OrderDetailModel> call, Response<OrderDetailModel> response) {
                 if (response.isSuccessful()) {
                     orderDetail = response.body();
-                    orderStatus.setText(orderDetail.getStatus() == 1?"Đơn hàng đã hoàn thành \n Cảm ơn bạn đã mua":"Đơn hàng đang được vận chuyển");
-                    orderAddress.setText("Địa chỉ \n" + orderDetail.getAddress());
+
+                    System.out.println(orderDetail);
+                    orderAddress.setText("Địa chỉ \n" + orderDetail.getOrder().getAddress());
                     //coffeeOrderDetails.addAll(orderDetail.getCoffees());
                     //coffeeOrderDetails = orderDetail.getCoffees();
                     coffeeAdapter = new CoffeeOrderDetailAdapter(orderDetail.getCoffees(),getApplication());

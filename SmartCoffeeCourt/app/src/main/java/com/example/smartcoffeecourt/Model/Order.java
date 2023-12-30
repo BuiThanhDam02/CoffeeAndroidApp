@@ -6,14 +6,13 @@ import java.util.List;
 
 public class Order {
 
-    @SerializedName("id")
+
     private int id;
-    @SerializedName("user")
     private User user;
     private String phone;
-    @SerializedName("total")
+    @SerializedName("totalPrice")
     private String total;
-    @SerializedName("status")
+
     private String status;
     @SerializedName("address")
     private String address;

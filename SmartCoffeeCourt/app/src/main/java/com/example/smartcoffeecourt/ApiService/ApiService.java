@@ -42,4 +42,7 @@ public interface ApiService {
 
     @POST("/api/order/checkout")
     Call<Order> checkout(@Body Order order);
+
+    @GET("/api/coffee/getGreatCoffee")
+    Call<List<Coffee>> getGreatCoffee();
 }
