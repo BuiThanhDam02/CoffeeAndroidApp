@@ -1,7 +1,5 @@
 package com.example.smartcoffeecourt.CoffeeDetail;
 
-import android.telecom.Call;
-
 import androidx.annotation.NonNull;
 
 import com.example.smartcoffeecourt.ApiService.ApiService;
@@ -21,6 +19,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     DatabaseReference coffeeReference, ratingReference,likeReference;
@@ -112,6 +113,23 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     }
     @Override
     public void loadCoffee() {
+     Call<Coffee> call = Network.getInstance().create(ApiService.class).getCoffeeById(Long.parseLong(coffeeRef));
+     call.enqueue(new Callback<Coffee>() {
+         @Override
+         public void onResponse(Call<Coffee> call, Response<Coffee> response) {
+             if(response.isSuccessful()) {
+                 coffee = response.body();
+                 System.out.println("Coffee ne: " + coffee.toString());
+                 coffeeView.showCoffeeDetail(coffee);
+             }
+         }
+
+         @Override
+         public void onFailure(Call<Coffee> call, Throwable t) {
+//                coffeeView.closeView();
+             System.out.println("Loi goi api");
+         }
+     });
 //        coffeeReference.child(coffeeRef).addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {

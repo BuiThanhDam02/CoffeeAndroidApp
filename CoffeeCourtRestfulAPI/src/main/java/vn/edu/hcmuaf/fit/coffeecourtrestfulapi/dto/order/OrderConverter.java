@@ -26,6 +26,7 @@ public class OrderConverter {
         orderDTO.setStatusInt(order.getStatus());
         orderDTO.setTotalPrice(String.valueOf(order.getTotalPrice()));
         orderDTO.setCreated_at(order.getCreated_at());
+        orderDTO.setAddress(order.getAddress());
         return orderDTO;
     }
 
