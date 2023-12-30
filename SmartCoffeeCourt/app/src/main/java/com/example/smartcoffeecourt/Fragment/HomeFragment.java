@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
         stallRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         stallRecycler.setAdapter(adapterStall);
 
-
+        greatFoodRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         loadGreatFoodList();
         loadStallList();
         return root;
