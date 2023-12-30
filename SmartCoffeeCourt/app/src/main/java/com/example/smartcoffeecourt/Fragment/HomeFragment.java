@@ -41,15 +41,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment {
 
     RecyclerView greatFoodRecycler, stallRecycler;
-    FirebaseDatabase database;
-    DatabaseReference foodList;
-
     List<Stall> stallList;
     List<Coffee> coffeeList;
     FirebaseRecyclerAdapter<Coffee, GreatCoffeeViewHolder> adapterGreatFood;
@@ -60,8 +55,6 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        database = FirebaseDatabase.getInstance();
-        foodList = database.getReference("Food/List");
         stallList = new ArrayList<>();
         greatFoodRecycler = root.findViewById(R.id.great_food_recycler);
         stallRecycler = root.findViewById(R.id.stall_recycler);
@@ -78,13 +71,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        //adapterGreatFood.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        //adapterGreatFood.stopListening();
     }
 
     private void loadStallList()  {
