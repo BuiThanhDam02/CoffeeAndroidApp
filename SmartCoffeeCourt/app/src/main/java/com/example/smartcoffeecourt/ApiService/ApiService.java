@@ -10,6 +10,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -27,6 +28,9 @@ public interface ApiService {
 
     @GET("/api/coffee/get/{id}")
     Call<Coffee> getCoffeeById(@Path("id") Long id);
+
+    @DELETE("/api/coffee/get/{id}")
+    Call<Coffee> unlikeCoffee(@Path("id") Long id);
 
     @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();
