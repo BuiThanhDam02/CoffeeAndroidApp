@@ -7,6 +7,7 @@ import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Database.Database;
 import com.example.smartcoffeecourt.Model.CartItem;
 import com.example.smartcoffeecourt.Model.Coffee;
+import com.example.smartcoffeecourt.Model.Like;
 import com.example.smartcoffeecourt.Model.Rating;
 import com.example.smartcoffeecourt.Model.User;
 import com.example.smartcoffeecourt.Network.Network;
@@ -100,39 +101,31 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     }
     @Override
     public void likeCoffee() {
-     if(isLiked){
-         Call<Coffee> call = Network.getInstance().create(ApiService.class).unlikeCoffee(Long.parseLong(coffeeRef));
-         call.enqueue(new Callback<Coffee>() {
+        int userId = Common.user.getId();
+        int coffeeId = Integer.parseInt(coffeeRef);
+         Call<String> call = Network.getInstance().create(ApiService.class).toggleLike(userId, coffeeId);
+         call.enqueue(new Callback<String>() {
              @Override
-             public void onResponse(Call<Coffee> call, Response<Coffee> response) {
+             public void onResponse(Call<String> call, Response<String> response) {
                  if(response.isSuccessful()){
-                     isLiked = false;
-                     coffeeView.showToast("Bạn đã xóa yêu thích sản phẩm");
+                     assert response.body() != null;
+                     if(response.body().equals("Like removed successfully")){
+                         isLiked = false;
+                         coffeeView.showToast("Bạn đã xóa yêu thích sản phẩm");
+                     } else if (response.body().equals("Like added successfully")) {
+                         isLiked = true;
+                         coffeeView.showToast("Bạn đã thêm yêu thích sản phẩm");
+                     } else {
+                         coffeeView.showToast("Đã xảy ra lỗi");
+                     }
                  }
              }
 
              @Override
-             public void onFailure(Call<Coffee> call, Throwable t) {
+             public void onFailure(Call<String> call, Throwable t) {
                  System.out.println("Wrong network");
              }
          });
-     } else{
-         Call<Coffee> call = Network.getInstance().create(ApiService.class).getCoffeeById(Long.parseLong(coffeeRef));
-         call.enqueue(new Callback<Coffee>() {
-             @Override
-             public void onResponse(Call<Coffee> call, Response<Coffee> response) {
-                 if(response.isSuccessful()){
-                     isLiked = true;
-                     coffeeView.showToast("Bạn đã lưu yêu thích sản phẩm");
-                 }
-             }
-
-             @Override
-             public void onFailure(Call<Coffee> call, Throwable t) {
-                 System.out.println("Wrong network");
-             }
-         });
-     }
     }
     @Override
     public boolean getIsLikeCoffee(){
@@ -140,13 +133,15 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     }
     @Override
     public void checkLikeCoffee() {
-     Call<Coffee> call = Network.getInstance().create(ApiService.class).getCoffeeById(Long.parseLong(coffeeRef));
-     call.enqueue(new Callback<Coffee>() {
+        int userId = Common.user.getId();
+        int coffeeId = Integer.parseInt(coffeeRef);
+        Call<Like> call = Network.getInstance().create(ApiService.class).checkLike(userId, coffeeId);
+     call.enqueue(new Callback<Like>() {
          @Override
-         public void onResponse(Call<Coffee> call, Response<Coffee> response) {
+         public void onResponse(Call<Like> call, Response<Like> response) {
              if(response.isSuccessful()){
-                 Coffee checkCoffee = response.body();
-                 if(checkCoffee != null){
+                 Like checkLike = response.body();
+                 if(checkLike!=null){
                      isLiked = true;
                  } else{
                      isLiked = false;
@@ -156,7 +151,7 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
          }
 
          @Override
-         public void onFailure(Call<Coffee> call, Throwable t) {
+         public void onFailure(Call<Like> call, Throwable t) {
              System.out.println("Wrong network");
          }
      });
@@ -170,7 +165,7 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
          public void onResponse(Call<Coffee> call, Response<Coffee> response) {
              if(response.isSuccessful()) {
                  coffee = response.body();
-                 System.out.println("Coffee ne: " + coffee.toString());
+                 assert coffee != null;
                  coffeeView.showCoffeeDetail(coffee);
              }
          }

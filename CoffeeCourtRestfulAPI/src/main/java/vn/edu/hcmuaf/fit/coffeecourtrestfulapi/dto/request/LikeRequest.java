@@ -26,4 +26,12 @@ public class LikeRequest {
     public void setCoffee_id(Long coffee_id) {
         this.coffee_id = coffee_id;
     }
+
+    @Override
+    public String toString() {
+        return "LikeRequest{" +
+                "user_id=" + user_id +
+                ", coffee_id=" + coffee_id +
+                '}';
+    }
 }
