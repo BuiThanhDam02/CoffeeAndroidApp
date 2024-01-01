@@ -43,4 +43,12 @@ public class Stall {
         this.supplierID = supplierID;
     }
 
+    @Override
+    public String toString() {
+        return "Stall{" +
+                "name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", supplierID=" + supplierID +
+                '}';
+    }
 }

@@ -48,7 +48,6 @@ public class CoffeeController {
             if (!coffeeImages.isEmpty()) {
                 coffee.setImageLink(coffeeImages.get(0).getImageLink());
             }
-
             // Star
             List<CoffeeStar> coffeeStars = coffeeStarRepository.findByCoffeeId(coffee.getId());
             int totalStar = 0;
@@ -224,10 +223,6 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
     @Transactional
     public ResponseEntity<String> deleteCoffee(@PathVariable Long id) {
         try {
-//            coffeeStarRepository.deleteByCoffeeId(id);
-//            coffeeImageRepository.deleteByCoffeeId(id);
-//            commentRepository.deleteByCoffeeId(id);
-
             coffeeRepository.deleteCoffeeById(id);
             return new ResponseEntity<>("Coffee deleted successfully", HttpStatus.OK);
         } catch (Exception e) {

@@ -1,9 +1,13 @@
 package com.example.smartcoffeecourt;
 
+import com.example.smartcoffeecourt.Model.CartGroupItem;
+import com.example.smartcoffeecourt.Model.CartItem;
 import com.example.smartcoffeecourt.Model.User;
 import com.example.smartcoffeecourt.R;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Common {
@@ -15,6 +19,7 @@ public class Common {
     public static final String USER_UID = "UID";
     public static final String PASSWORD_KEY = "Password";
     public static final String CHOICE_STALL = "supplierID";
+
     public static String convertCodeToStatus(String status) {
         // 0: preparing, 1: ready, 2: received
         if (status.equals("0")) return "Đang chuẩn bị";

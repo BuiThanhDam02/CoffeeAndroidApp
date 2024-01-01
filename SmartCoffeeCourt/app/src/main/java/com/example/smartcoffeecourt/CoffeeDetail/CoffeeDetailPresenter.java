@@ -28,8 +28,8 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     CoffeeDetailContract.View coffeeView;
     String coffeeRef;
     Coffee coffee;
-
     boolean isLiked;
+
  public CoffeeDetailPresenter(CoffeeDetailContract.View coffeeView, String coffeeRef){
         this.coffeeView = coffeeView;
         this.coffeeRef = coffeeRef;
@@ -50,11 +50,12 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
 
     @Override
     public void addCoffeeToCart(String quantity) {
+        System.out.println("Check Coffee: " + coffee);
         if(coffee.getStatus().equals("0")) {
-            new Database(coffeeView.getContext()).addToCart(new CartItem(coffee.getName(),
+            new Database(coffeeView.getContext()).addToCart(new CartItem(Long.parseLong(coffee.getId()+"") ,coffee.getName(),
                     coffee.getPrice(), quantity,
 //                    coffee.getDiscount()
-                    ""
+                    "0"
             ), coffee.getSupplier().getSupplierID());
             coffeeView.showToast("Món ăn đã được thêm vào giỏ hàng");
         }
@@ -68,21 +69,16 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     }
     @Override
     public void likeCoffee() {
-
                 if(isLiked == true) {
-
                     likeReference.child(coffeeRef).removeValue();
                     isLiked = false;
                     coffeeView.showToast("Bạn đã xóa yêu thích sản phẩm");
-
                 }
                 else {
                     likeReference.child(coffeeRef).setValue(coffee);
                     isLiked = true;
                     coffeeView.showToast("Bạn đã lưu yêu thích sản phẩm");
                 };
-
-
     }
     @Override
     public boolean getIsLikeCoffee(){
@@ -90,7 +86,6 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
     }
     @Override
     public void checkLikeCoffee() {
-
         likeReference.child(coffeeRef).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
