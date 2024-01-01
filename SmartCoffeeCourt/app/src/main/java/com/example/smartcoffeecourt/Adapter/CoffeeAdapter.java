@@ -15,6 +15,7 @@ import com.example.smartcoffeecourt.CoffeeDetail.CoffeeDetailPage;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Interface.ItemClickListener;
 import com.example.smartcoffeecourt.Model.Coffee;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.CoffeeViewHolder;
 import com.squareup.picasso.Picasso;
@@ -42,12 +43,10 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CoffeeViewHolder coffeeViewHolder, int position) {
         Coffee coffee = coffeeList.get(position);
-        System.out.println(coffee.toString());
         coffeeViewHolder.coffee_name.setText(coffee.getName());
         coffeeViewHolder.coffee_price.setText(Common.convertPriceToVND(Float.parseFloat(coffee.getPrice())));
-        coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplier().getSupplierID()));
-        String imageCoffee = coffee.getImageLink().replace("localhost", "192.168.1.13");
-        Picasso.with(context).load(imageCoffee).into(coffeeViewHolder.coffee_image);
+        coffeeViewHolder.coffee_supplier.setText(String.format("Stall %s", coffee.getSupplier().getName()));
+        Picasso.with(context).load(Network.getImage(coffee.getImageLink())).into(coffeeViewHolder.coffee_image);
         if(coffee.getStatus().equals("1"))
             coffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
 
@@ -55,7 +54,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeViewHolder> {
             @Override
             public void onClick(View view, int position) {
                 Intent coffeeDetail = new Intent(context, CoffeeDetailPage.class);
-                coffeeDetail.putExtra(Common.INTENT_coffee_REF, position); // Hoặc sử dụng coffee.getId() nếu có
+                coffeeDetail.putExtra(Common.INTENT_coffee_REF, coffee.getId()+"");
                 context.startActivity(coffeeDetail);
 
             }

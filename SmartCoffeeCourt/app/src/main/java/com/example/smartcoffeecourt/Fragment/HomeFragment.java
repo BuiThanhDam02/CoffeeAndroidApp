@@ -1,11 +1,13 @@
 package com.example.smartcoffeecourt.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcoffeecourt.Adapter.CoffeeAdapter;
+import com.example.smartcoffeecourt.Adapter.GreatFoodAdapter;
 import com.example.smartcoffeecourt.Adapter.StallAdapter;
 import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
@@ -37,17 +41,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment {
 
     RecyclerView greatFoodRecycler, stallRecycler;
-    FirebaseDatabase database;
-    DatabaseReference foodList;
-
     List<Stall> stallList;
-
+    List<Coffee> coffeeList;
     FirebaseRecyclerAdapter<Coffee, GreatCoffeeViewHolder> adapterGreatFood;
     StallAdapter adapterStall ;
 
@@ -56,8 +55,6 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        database = FirebaseDatabase.getInstance();
-        foodList = database.getReference("Food/List");
         stallList = new ArrayList<>();
         greatFoodRecycler = root.findViewById(R.id.great_food_recycler);
         stallRecycler = root.findViewById(R.id.stall_recycler);
@@ -65,7 +62,7 @@ public class HomeFragment extends Fragment {
         stallRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         stallRecycler.setAdapter(adapterStall);
 
-
+        greatFoodRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         loadGreatFoodList();
         loadStallList();
         return root;
@@ -74,13 +71,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        adapterGreatFood.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapterGreatFood.stopListening();
     }
 
     private void loadStallList()  {
@@ -101,40 +96,26 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadGreatFoodList() {
-        FirebaseRecyclerOptions<Coffee> options = new FirebaseRecyclerOptions.Builder<Coffee>()
-                .setQuery(foodList.orderByChild("star").limitToLast(5), Coffee.class).build();
-
-        adapterGreatFood = new FirebaseRecyclerAdapter<Coffee, GreatCoffeeViewHolder>(options) {
+        Call<List<Coffee>> call  = Network.getInstance().create(ApiService.class).getGreatCoffee();
+        call.enqueue(new Callback<List<Coffee>>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            protected void onBindViewHolder(@NonNull GreatCoffeeViewHolder greatCoffeeViewHolder, int i, @NonNull Coffee coffee) {
-                if(coffee.getStatus().equals("1"))
-                    greatCoffeeViewHolder.outOfOrder_image.setImageResource(Common.convertOutOfOrderToImage());
-                else greatCoffeeViewHolder.outOfOrder_image.setImageResource(0);
-                greatCoffeeViewHolder.ratingBar.setRating(Float.parseFloat("5"));
-                greatCoffeeViewHolder.food_name.setText(coffee.getName());
-                greatCoffeeViewHolder.food_price.setText(Common.convertPriceToVND(coffee.getPrice()));
-                Picasso.with(getContext()).load(coffee.getImageLink()).into(greatCoffeeViewHolder.food_image);
-
-                greatCoffeeViewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Intent foodDetail = new Intent(getContext(), CoffeeDetailPage.class);
-                        foodDetail.putExtra(Common.INTENT_coffee_REF, adapterGreatFood.getRef(position).getKey());
-                        startActivity(foodDetail);
-                    }
-                });
+            public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
+                if(response.body() != null) {
+                    coffeeList = response.body();
+                    System.out.println(coffeeList);
+                    GreatFoodAdapter coffeeAdapter1 = new GreatFoodAdapter(coffeeList, getContext());
+                    coffeeAdapter1.notifyDataSetChanged();
+                    greatFoodRecycler.setAdapter(coffeeAdapter1);
+                }
             }
 
-            @NonNull
             @Override
-            public GreatCoffeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                greatFoodRecycler.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_item_from_left));
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.great_food_item, parent, false);
-                return new GreatCoffeeViewHolder(itemView);
+            public void onFailure(Call<List<Coffee>> call, Throwable t) {
+                System.out.println(t.fillInStackTrace());
+                Toast.makeText(getContext(), "Call Error!", Toast.LENGTH_SHORT).show();
             }
-        };
-        adapterGreatFood.notifyDataSetChanged();
-        greatFoodRecycler.setAdapter(adapterGreatFood);
+        });
     }
 
 }

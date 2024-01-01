@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,10 +54,7 @@ public class OrderFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapterOrder = new OrderAdapter(getContext(),orderList);
-        recyclerView.setAdapter(adapterOrder);
-        //loadOrder(1);
-        loadOrder(Common.user.getId());
+        loadOrder(Integer.valueOf(Common.userId));
         return root;
     }
 
@@ -66,7 +64,11 @@ public class OrderFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 if (response.isSuccessful()) {
-                    orderList.addAll(response.body());
+                    orderList = response.body();
+                    
+                    System.out.println(orderList);
+                    adapterOrder = new OrderAdapter(getContext(),orderList);
+                    recyclerView.setAdapter(adapterOrder);
                     adapterOrder.notifyDataSetChanged();
                 }
             }

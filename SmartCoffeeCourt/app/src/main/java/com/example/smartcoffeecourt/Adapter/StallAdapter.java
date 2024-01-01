@@ -20,6 +20,7 @@ import com.example.smartcoffeecourt.Fragment.CoffeeFragment;
 import com.example.smartcoffeecourt.Interface.ItemClickListener;
 import com.example.smartcoffeecourt.Model.Order;
 import com.example.smartcoffeecourt.Model.Stall;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.OrderDetail;
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.StallViewHolder;
@@ -54,7 +55,7 @@ public class StallAdapter extends RecyclerView.Adapter<StallAdapter.StallViewHol
 
         //loadImage(holder.imgStall,"http://192.168.212.147:8080/images/sup_image/" + stall.getImage());
         Picasso.with(context)
-                .load("http://172.172.10.9:8080/images/sup_image/" + stall.getImage())
+                .load(Network.getImage(stall.getImage()))
                 .into(holder.imgStall);
 
         holder.txtStall.setText(stall.getName());

@@ -23,4 +23,6 @@ public class OrderDetailDTO {
     public void setCoffeeDTOS(List<CoffeeDTO> coffeeDTOS) {
         this.coffeeDTOS = coffeeDTOS;
     }
+
+
 }
