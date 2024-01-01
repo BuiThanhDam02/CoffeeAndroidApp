@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -45,7 +46,25 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
 
     @Override
     public void getCoffeeComment() {
-        coffeeView.showCommentPage(coffeeRef);
+        Call<List<Coffee>> call = Network.getInstance().create(ApiService.class).getCoffeeComments(coffeeRef);
+        call.enqueue(new Callback<List<Coffee>>() {
+            @Override
+            public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
+                if (response.isSuccessful()){
+                    List<Coffee> coffeeList = response.body();
+                    if(coffeeList != null && !coffeeList.isEmpty()){
+                        coffeeView.showCommentPage(coffeeRef);
+                    } else {
+                        coffeeView.showToast("Không có bình luận nào");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Coffee>> call, Throwable t) {
+                System.out.println("Wrong network");
+            }
+        });
     }
 
     @Override
@@ -64,8 +83,20 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
 
     @Override
     public void saveRating(Rating rating) {
-        ratingReference.child(Common.user.getName()).setValue(rating);
-        coffeeView.showToast("Đánh giá của bạn đã được lưu lại. Cảm ơn bạn rất nhiều.");
+        Call<Coffee> call = Network.getInstance().create(ApiService.class).saveRating(rating);
+        call.enqueue(new Callback<Coffee>() {
+            @Override
+            public void onResponse(Call<Coffee> call, Response<Coffee> response) {
+                if(response.isSuccessful()){
+                    coffeeView.showToast("Đánh giá của bạn đã được lưu lại. Cảm ơn bạn rất nhiều.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Coffee> call, Throwable t) {
+                System.out.println("Wrong network");
+            }
+        });
     }
     @Override
     public void likeCoffee() {
