@@ -95,13 +95,14 @@ public class OrderController {
         return new ResponseEntity<>("Create order successfully",HttpStatus.OK);
     }
     @PostMapping("/checkout")
-    public ResponseEntity<Order> checkout(@RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<OrderDTO> checkout(@RequestBody OrderRequest orderRequest) {
         System.out.println("order request: " + orderRequest);
         Order order = new Order();
 
         order.setUser(orderRequest.getUser());
-        order.setPhone(orderRequest.getPhone());
-        order.setTotalPrice(Float.parseFloat(orderRequest.getTotal()));
+        order.setName("Order of " + orderRequest.getUser().getName());
+        order.setPhone(orderRequest.getUser().getPhone());
+        order.setTotalPrice(Float.parseFloat(orderRequest.getTotalPrice()));
         order.setStatus(Integer.parseInt(orderRequest.getStatus()));
         order.setAddress(orderRequest.getAddress());
         order.setType(Integer.parseInt(orderRequest.getType()));
@@ -113,22 +114,26 @@ public class OrderController {
             orderDetail.setCoffee(coffee);
             orderDetail.setQuantity(cartItemRequest.getQuantity());
             orderDetail.setPrice(coffee.getPrice() * cartItemRequest.getQuantity());
-            orderDetail.setName(null);
+            orderDetail.setName("OrderDetail 0f " + orderRequest.getUser().getName());
+            orderDetail.setDiscount(0.0f);
 
             orderDetail.setOrder(order);
             orderDetails.add(orderDetail);
         }
         order.setOrderDetails(orderDetails);
+        OrderDTO orderDTO = new OrderConverter().toDto(order);
 
         System.out.println("Order: " + order);
+        System.out.println("OrderDTO: " + orderDTO);
         if(!orderDetails.isEmpty()) {
             orderRepository.save(order);
             for(OrderDetail orderDetail : orderDetails) {
                 orderDetailRepository.save(orderDetail);
             }
-            return new ResponseEntity<>(order, HttpStatus.OK);
+            return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 //    @GetMapping("/all")

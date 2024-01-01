@@ -89,7 +89,7 @@ public class HomePage extends AppCompatActivity  {
         service = new Intent(HomePage.this, CompletedOrder.class);
         startService(service);
         TextView txtWelcome = headerView.findViewById(R.id.txtWelcome);
-        txtWelcome.setText(String.format("Chào %s", Common.user.getName()));
+        txtWelcome.setText(String.format("Chào %s", Common.user.getName()!=null?Common.user.getName():"Khách hàng!" ));
     }
 
     @Override

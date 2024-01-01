@@ -139,4 +139,21 @@ public class Order {
         orderDetails.remove(orderDetail);
         orderDetail.setOrder(null);
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", orderDetails=" + orderDetails +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status=" + status +
+                ", totalPrice=" + totalPrice +
+                ", type=" + type +
+                ", address='" + address + '\'' +
+                ", note='" + note + '\'' +
+                ", created_at=" + created_at +
+                '}';
+    }
 }

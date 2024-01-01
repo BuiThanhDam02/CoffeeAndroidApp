@@ -8,7 +8,6 @@ import LayoutAuthenticated from '../layouts/Authenticated'
 import NotificationBar from '../components/NotificationBar'
 import SectionMain from '../components/Section/Main'
 import SectionTitleLineWithButton from '../components/Section/TitleLineWithButton'
-import TableSampleProducts from '../components/Table/SampleProducts'
 import { getPageTitle } from '../config'
 import TableSampleSuppliers from '../components/Table/SampleSuppliers'
 
@@ -19,10 +18,11 @@ const SupplierPage = () => {
         <title>{getPageTitle('Supplier')}</title>
       </Head>
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiTableBorder} title="Supplier Tables" main>
-    
-        </SectionTitleLineWithButton>
-
+        <SectionTitleLineWithButton
+          icon={mdiTableBorder}
+          title="Supplier Tables"
+          main
+        ></SectionTitleLineWithButton>
 
         <CardBox className="mb-6" hasTable>
           <TableSampleSuppliers />
