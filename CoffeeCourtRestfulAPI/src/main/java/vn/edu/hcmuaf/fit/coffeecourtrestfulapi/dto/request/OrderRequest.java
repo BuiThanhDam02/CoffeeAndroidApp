@@ -1,6 +1,5 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request;
 
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.CartItemRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 public class OrderRequest {
     private User user;
     private String phone;
-    private String total;
+    private String totalPrice;
     private String status;
     private String address;
     private Integer supplierID;
@@ -31,12 +30,12 @@ public class OrderRequest {
         this.phone = phone;
     }
 
-    public String getTotal() {
-        return total;
+    public String getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal(String total) {
-        this.total = total;
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getStatus() {
@@ -84,7 +83,7 @@ public class OrderRequest {
         return "OrderRequest{" +
                 "user=" + user +
                 ", phone='" + phone + '\'' +
-                ", total='" + total + '\'' +
+                ", total='" + totalPrice + '\'' +
                 ", status='" + status + '\'' +
                 ", address='" + address + '\'' +
                 ", supplierID=" + supplierID +

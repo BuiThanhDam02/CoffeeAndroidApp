@@ -48,7 +48,7 @@ public class CartGroupItemAdapter extends RecyclerView.Adapter<CartGroupItemAdap
         CartItem cartItem = cartItemList.get(position);
         Locale locale = new Locale("vi", "VN");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        Integer price = (int) (Float.parseFloat(cartItem.getPrice())*(1 - Float.parseFloat(cartItem.getDiscount())/100)*Float.parseFloat(cartItem.getQuantity()));
+        Integer price = (int) (Float.parseFloat(cartItem.getPrice())*Float.parseFloat(cartItem.getQuantity()));
         holder.txtPrice.setText(fmt.format(price));
         holder.txtQuantity.setText(cartItem.getQuantity());
         holder.txtName.setText(cartItem.getName());
@@ -63,7 +63,6 @@ public class CartGroupItemAdapter extends RecyclerView.Adapter<CartGroupItemAdap
     class ViewHolder extends RecyclerView.ViewHolder{
         CartAdapter.CartGroupItemListener listen;
         TextView txtName, txtPrice ;
-
         EditText txtQuantity;
         public ViewHolder(@NonNull View itemView, CartAdapter.CartGroupItemListener listen) {
             super(itemView);

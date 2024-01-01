@@ -16,7 +16,7 @@ public class CartGroupItem {
         this.cartItemList = cartItemList;
         this.type = "0";
         for(CartItem t: cartItemList){
-            total += (int) (Float.parseFloat(t.getPrice())*(1 - Float.parseFloat(t.getDiscount())/100)*Float.parseFloat(t.getQuantity()));
+            total += (int) (Float.parseFloat(t.getPrice())*Float.parseFloat(t.getQuantity()));
         }
     }
 
