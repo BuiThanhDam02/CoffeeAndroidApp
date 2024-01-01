@@ -13,7 +13,9 @@ import com.example.smartcoffeecourt.CoffeeDetail.CoffeeDetailPage;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Interface.ItemClickListener;
 import com.example.smartcoffeecourt.Model.Coffee;
+
 import com.example.smartcoffeecourt.Network.Network;
+
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.CoffeeViewHolder;
 import com.example.smartcoffeecourt.ViewHolder.GreatCoffeeViewHolder;
@@ -49,7 +51,6 @@ public class GreatFoodAdapter extends RecyclerView.Adapter<GreatCoffeeViewHolder
         greatCoffeeViewHolder.food_name.setText(coffeeList.get(position).getName());
         greatCoffeeViewHolder.food_price.setText(Common.convertPriceToVND(Float.parseFloat(coffeeList.get(position).getPrice())));
         Picasso.with(context).load(Network.getImage(coffeeList.get(position).getImageLink())).into(greatCoffeeViewHolder.food_image);
-
         greatCoffeeViewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position) {
