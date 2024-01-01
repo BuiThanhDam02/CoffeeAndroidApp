@@ -1,4 +1,4 @@
-import { mdiBallotOutline, mdiMail, mdiUpload,mdiStar,mdiCloud,mdiPhone,mdiAlphabetLatin } from '@mdi/js'
+import { mdiBallotOutline, mdiMail, mdiUpload,mdiStar,mdiCloud,mdiHandCoin,mdiAlphabetLatin, mdiPhone } from '@mdi/js'
 import { Field, Form, Formik } from 'formik'
 import Head from 'next/head'
 import { ReactElement, useState,useEffect } from 'react'
@@ -8,29 +8,45 @@ import Divider from '../components/Divider'
 import CardBox from '../components/CardBox'
 
 import FormField from '../components/Form/Field'
-import FormFilePicker from '../components/Form/FilePicker'
 import LayoutAuthenticated from '../layouts/Authenticated'
 import SectionMain from '../components/Section/Main'
 
 import SectionTitleLineWithButton from '../components/Section/TitleLineWithButton'
 import { getPageTitle } from '../config'
 import { useRouter } from 'next/router'
-import { getSupplierByID, updateSupplier } from '../hooks/sampleData'
+import {  createSupplier, uploadSupplierImage } from '../hooks/sampleData'
 import { LocalAPI } from '../hooks/localapi'
 
-const SupplierFormPage = () => {
+const SupplierAdd = () => {
+  const [file, setFile] = useState(null)
+
   const router = useRouter();
 
+  const handleFileChange = (event) => {
+    setFile(event.currentTarget.files[0])
+    const formData = new FormData();
+    formData.append('file', event.currentTarget.files[0]);
+  
+    uploadSupplierImage({formdata: formData})
+    .then((data) => { 
+      setS(pre => {return {...pre,imageLink: data}})})
+    .catch((err) => {alert(err)});
+
+  }
+
+  const isRoundIcon  = null;
+  const showFilename = !isRoundIcon && file
+
+
   // Lấy giá trị của tham số 'id' từ URL
-  const { id } = router.query;
   const [s,setS] = useState({
-        "id": 0,
-        "name": "",
-        "phone": "",
-        "password": "",
-        "email": "",
-        "status": 0,
-        "imageLink": null,
+    "id": 0,
+    "name": "",
+    "phone": "",
+    "password": "",
+    "email": "",
+    "status": 0,
+    "imageLink": null,
 
 });
 
@@ -39,13 +55,12 @@ const handleChange =(e) => {
 };
 
 
-
 const handleSubmit =() => {
 
-  updateSupplier({supplier:s})
+  createSupplier({supplier:s})
   .then((data) => { 
     alert(data)
-    router.push(`/supplierformpage?id=${s.id}`);
+    router.push(`/supplierpage`);
   })
   .catch((err) => {
     alert(err)
@@ -53,19 +68,8 @@ const handleSubmit =() => {
     });
 };
 
-console.log(s)
-useEffect(() => {
-  getSupplierByID({id:id})
-    .then((data) => {
-      setS(data);
-      
-    })
-    .catch((error) => {
-      // Handle any errors that occur during data fetching
-      console.error('Error fetching coffee data:', error);
-    });
-    
-},[]);
+
+
    
   return (
     <>
@@ -104,11 +108,34 @@ useEffect(() => {
         style={{width: "100px", height:"100px"}}
         className="rounded-full block h-auto w-full max-w-full bg-gray-100 dark:bg-slate-800"
       />
-      
       <Divider />
-              <FormField>
-                <FormFilePicker label="Upload" color="info" icon={mdiUpload} />
-              </FormField>
+              {/* <FormField> */}
+              
+              <div className="flex items-stretch justify-start relative">
+              <label className="inline-flex">
+                <Button
+                  className={`${isRoundIcon ? 'w-12 h-12' : ''} ${showFilename ? 'rounded-r-none' : ''}`}
+                  iconSize={isRoundIcon ? 24 : undefined}
+                  label={isRoundIcon ? null : "Upload"}
+                  icon={mdiUpload}
+                  color={"info"}
+                  roundedFull={isRoundIcon}
+                  asAnchor
+                />
+                <input
+                  type="file"
+                  className="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
+                  onChange={handleFileChange}
+                  accept={"image/*"}
+                />
+              </label>
+              {showFilename && (
+                <div className="px-4 py-2 max-w-full flex-grow-0 overflow-x-hidden bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r">
+                  <span className="text-ellipsis max-w-full line-clamp-1">{file.name}</span>
+                </div>
+              )}
+            </div>
+              {/* </FormField> */}
               
             </Form>
           </Formik>
@@ -117,7 +144,7 @@ useEffect(() => {
 
       <SectionMain>
       <Buttons>
-                <Button type="submit" color="info"  label="Submit" onClick={handleSubmit} />
+                <Button type="submit" onClick={handleSubmit} color="info"  label="Submit" />
                 <Button type="reset" color="info" outline label="Cancel" />
               </Buttons>
       </SectionMain>
@@ -127,8 +154,8 @@ useEffect(() => {
   )
 }
 
-SupplierFormPage.getLayout = function getLayout(page: ReactElement) {
+SupplierAdd.getLayout = function getLayout(page: ReactElement) {
   return <LayoutAuthenticated>{page}</LayoutAuthenticated>
 }
 
-export default SupplierFormPage
+export default SupplierAdd

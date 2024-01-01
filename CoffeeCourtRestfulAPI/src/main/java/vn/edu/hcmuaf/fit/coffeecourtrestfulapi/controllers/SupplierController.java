@@ -67,7 +67,9 @@ public class SupplierController {
         }
 
     }
+
     @PostMapping ("/add")
+    @Transactional
     public ResponseEntity<String> addSupplier(@RequestBody SupplierRequest sr) {
         try{
             Supplier supp = new Supplier();
@@ -77,10 +79,13 @@ public class SupplierController {
             supp.setPassword(sr.getPassword());
             supp.setPhone(sr.getPhone());
             supp.setStatus(sr.getStatus());
+            supp.setPassword("123");
             supplierRepository.save(supp);
+            Supplier attachedSup = entityManager.merge(supp);
 
             SupplierImage si  = new SupplierImage();
-            si.setSupplierId(sr.getId());
+            si.setSupplierId(attachedSup.getId());
+            si.setSupplier(attachedSup);
             si.setImageLink(sr.getImageLink());
             supplierImageRepository.save(si);
             return new ResponseEntity<>("Create supplier successfully", HttpStatus.OK);
