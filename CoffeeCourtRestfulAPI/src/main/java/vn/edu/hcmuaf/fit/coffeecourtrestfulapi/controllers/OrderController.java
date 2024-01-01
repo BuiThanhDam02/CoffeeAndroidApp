@@ -25,7 +25,9 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.OrderRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.CartService;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.OrderService;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -70,7 +72,7 @@ public class OrderController {
         o.setUser(userRepository.findOneById(od.getOrderDTO().getUser_id()));
         o.setName(od.getOrderDTO().getName());
         o.setAddress(od.getOrderDTO().getAddress());
-        o.setCreated_at(od.getOrderDTO().getCreated_at());
+        o.setCreated_at(new Timestamp(new Date().getTime()));
         o.setPhone(od.getOrderDTO().getPhone());
         o.setTotalPrice(Float.parseFloat(od.getOrderDTO().getTotalPrice()));
         if(od.getOrderDTO().getType().equals("Đặt hàng")){

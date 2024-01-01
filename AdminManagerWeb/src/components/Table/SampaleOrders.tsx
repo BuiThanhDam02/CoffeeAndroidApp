@@ -18,7 +18,7 @@ const TableSampleOrders = () => {
 
   const ordersPaginated = orders.slice(perPage * currentPage, perPage * (currentPage + 1))
 
-  const numPages = orders.length / perPage
+  const numPages = Math.ceil(orders.length / perPage)
 
   const pagesList = []
 

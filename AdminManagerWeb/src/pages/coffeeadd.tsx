@@ -15,7 +15,8 @@ import SectionMain from '../components/Section/Main'
 import SectionTitleLineWithButton from '../components/Section/TitleLineWithButton'
 import { getPageTitle } from '../config'
 import { useRouter } from 'next/router'
-import { addCoffee, getAllSupplier, getCoffeeById, updateCoffee, uploadImage } from '../hooks/sampleData'
+import { addCoffee, getAllSupplier, getCoffeeById, updateCoffee, uploadCoffeeImage } from '../hooks/sampleData'
+import { LocalAPI } from '../hooks/localapi'
 
 const CoffeeAdd = () => {
   const [file, setFile] = useState(null)
@@ -27,7 +28,7 @@ const CoffeeAdd = () => {
     const formData = new FormData();
     formData.append('file', event.currentTarget.files[0]);
   
-     uploadImage({formdata: formData})
+    uploadCoffeeImage({formdata: formData})
     .then((data) => { 
       setC(pre => {return {...pre,imageLink: data}})})
     .catch((err) => {alert(err)});
@@ -143,7 +144,7 @@ useEffect(() => {
 
               <Divider />
               <img
-        src={c.imageLink}
+        src={LocalAPI+c.imageLink}
         alt={c.name}
         style={{width: "100px", height:"100px"}}
         className="rounded-full block h-auto w-full max-w-full bg-gray-100 dark:bg-slate-800"
