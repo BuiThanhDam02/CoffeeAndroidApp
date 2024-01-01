@@ -16,11 +16,12 @@ public class OrderConverter {
         orderDTO.setName(order.getName());
         orderDTO.setEmail(order.getUser().getEmail());
         orderDTO.setPhone(order.getUser().getPhone());
-        if (order.getType() == 1){
+        if (order.getType()==0){
             orderDTO.setType("Tại chỗ");
             orderDTO.setStatus(order.getStatus() == 0?"Chờ xác nhận":"Đã hoàn thành");
         }else{
             orderDTO.setType("Đặt hàng");
+            orderDTO.setAddress(order.getAddress());
             orderDTO.setStatus(order.getStatus() == 0?"Chờ xác nhận":order.getStatus() == 1?"Đang giao":order.getStatus() == 2?"Đã giao hàng":"Đã hủy");
         }
         orderDTO.setStatusInt(order.getStatus());

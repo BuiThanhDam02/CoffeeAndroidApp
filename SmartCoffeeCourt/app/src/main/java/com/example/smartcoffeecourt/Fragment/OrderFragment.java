@@ -65,8 +65,6 @@ public class OrderFragment extends Fragment {
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 if (response.isSuccessful()) {
                     orderList = response.body();
-                    
-                    System.out.println(orderList);
                     adapterOrder = new OrderAdapter(getContext(),orderList);
                     recyclerView.setAdapter(adapterOrder);
                     adapterOrder.notifyDataSetChanged();

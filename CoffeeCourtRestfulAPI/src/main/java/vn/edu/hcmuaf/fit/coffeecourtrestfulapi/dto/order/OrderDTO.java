@@ -131,4 +131,23 @@ public class OrderDTO {
     public void setStatusInt(Integer statusInt) {
         this.statusInt = statusInt;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user_id=" + user_id +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", status='" + status + '\'' +
+                ", statusInt=" + statusInt +
+                ", totalPrice='" + totalPrice + '\'' +
+                ", StatusBg='" + StatusBg + '\'' +
+                ", type='" + type + '\'' +
+                ", created_at=" + created_at +
+                '}';
+    }
 }

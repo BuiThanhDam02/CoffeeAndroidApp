@@ -17,6 +17,14 @@ public class CartItem {
         this.discount = discount;
     }
 
+    public CartItem(Long coffeeId,String name, String price, String quantity, String discount) {
+        this.coffeeId = coffeeId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.discount = discount;
+    }
+
     public Long getCoffeeId() {
         return coffeeId;
     }

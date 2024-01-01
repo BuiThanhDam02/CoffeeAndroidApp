@@ -15,10 +15,8 @@ import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.CoffeeRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.sql.Timestamp;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/coffee")
@@ -48,7 +46,6 @@ public class CoffeeController {
             if (!coffeeImages.isEmpty()) {
                 coffee.setImageLink(coffeeImages.get(0).getImageLink());
             }
-
             // Star
             List<CoffeeStar> coffeeStars = coffeeStarRepository.findByCoffeeId(coffee.getId());
             int totalStar = 0;
@@ -173,6 +170,7 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
             coffee.setDescription(coffeeRequest.getDescription());
             coffee.setStatus(coffeeRequest.getStatus());
             coffee.setPrice(coffeeRequest.getPrice());
+            coffee.setCreated_at(new Timestamp(new Date().getTime()));
             coffeeRepository.save(coffee);
             CoffeeImage coffeeImage = new CoffeeImage();
             coffeeImage.setCoffee(coffee);
@@ -225,10 +223,6 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
     @Transactional
     public ResponseEntity<String> deleteCoffee(@PathVariable Long id) {
         try {
-//            coffeeStarRepository.deleteByCoffeeId(id);
-//            coffeeImageRepository.deleteByCoffeeId(id);
-//            commentRepository.deleteByCoffeeId(id);
-
             coffeeRepository.deleteCoffeeById(id);
             return new ResponseEntity<>("Coffee deleted successfully", HttpStatus.OK);
         } catch (Exception e) {

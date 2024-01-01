@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 28/12/2023 10:22:02
+ Date: 01/01/2024 09:31:47
 */
 
 SET NAMES utf8mb4;
@@ -89,52 +89,53 @@ CREATE TABLE `coffee_images`  (
 -- ----------------------------
 -- Records of coffee_images
 -- ----------------------------
-INSERT INTO `coffee_images` VALUES (1, 1, 'http://localhost:8080/images/coffee/latte.jpg', 0);
-INSERT INTO `coffee_images` VALUES (2, 2, 'http://localhost:8080/images/coffee/CAPPUCCINO.jpg', 0);
-INSERT INTO `coffee_images` VALUES (3, 3, 'http://localhost:8080/images/coffee/AMERICANO.jpg', 0);
-INSERT INTO `coffee_images` VALUES (4, 4, 'http://localhost:8080/images/coffee/ESPRESSO.jpg', 0);
-INSERT INTO `coffee_images` VALUES (5, 5, 'http://localhost:8080/images/coffee/Phindi_Pitaschio.jpg', 0);
-INSERT INTO `coffee_images` VALUES (6, 6, 'http://localhost:8080/images/coffee/PHINDI_CHOCO.jpg', 0);
-INSERT INTO `coffee_images` VALUES (7, 7, 'http://localhost:8080/images/coffee/PHINDI_KEM_SUA.jpg', 0);
-INSERT INTO `coffee_images` VALUES (8, 8, 'http://localhost:8080/images/coffee/BAC_XIU._HL.jpg', 0);
-INSERT INTO `coffee_images` VALUES (9, 9, 'http://localhost:8080/images/coffee/CARAMEL_MACCHIATTO.jpg', 0);
-INSERT INTO `coffee_images` VALUES (10, 10, 'http://localhost:8080/images/coffee/MOCHA.jpg', 0);
-INSERT INTO `coffee_images` VALUES (11, 11, 'http://localhost:8080/images/coffee/CappuccinoPL.png', 0);
-INSERT INTO `coffee_images` VALUES (12, 12, 'http://localhost:8080/images/coffee/LattePL.png', 0);
-INSERT INTO `coffee_images` VALUES (13, 13, 'http://localhost:8080/images/coffee/PhinSuaDaPL.png', 0);
-INSERT INTO `coffee_images` VALUES (14, 14, 'http://localhost:8080/images/coffee/PhinDenDaPL.png', 0);
-INSERT INTO `coffee_images` VALUES (15, 15, 'http://localhost:8080/images/coffee/vanillaPL.png', 0);
-INSERT INTO `coffee_images` VALUES (16, 16, 'http://localhost:8080/images/coffee/phin-sua-tuoi-banh-flan.png', 0);
-INSERT INTO `coffee_images` VALUES (17, 17, 'http://localhost:8080/images/coffee/duong_den_sua_da.png', 0);
-INSERT INTO `coffee_images` VALUES (18, 18, 'http://localhost:8080/images/coffee/The_Coffee_House_sua_da.png', 0);
-INSERT INTO `coffee_images` VALUES (19, 19, 'http://localhost:8080/images/coffee/The_Coffee_House_sua_da_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (20, 20, 'http://localhost:8080/images/coffee/cfsua-nong.png', 0);
-INSERT INTO `coffee_images` VALUES (21, 21, 'http://localhost:8080/images/coffee/bac-siu_tch.jpg', 0);
-INSERT INTO `coffee_images` VALUES (22, 22, 'http://localhost:8080/images/coffee/bacsiunong.png', 0);
-INSERT INTO `coffee_images` VALUES (23, 23, 'http://localhost:8080/images/coffee/ca-phe-den-da_tch.jpg', 0);
-INSERT INTO `coffee_images` VALUES (24, 24, 'http://localhost:8080/images/coffee/ca-phe-den-nong_tch.jpg', 0);
-INSERT INTO `coffee_images` VALUES (25, 25, 'http://localhost:8080/images/coffee/ca_phe_sua_da_chai_fresh_250ml.png', 0);
-INSERT INTO `coffee_images` VALUES (26, 26, 'http://localhost:8080/images/coffee/duong_den_marble_latte.png', 0);
-INSERT INTO `coffee_images` VALUES (27, 27, 'http://localhost:8080/images/coffee/caramel-macchiato_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (28, 28, 'http://localhost:8080/images/coffee/caramelmacchiatonongtch.jpg', 0);
-INSERT INTO `coffee_images` VALUES (29, 29, 'http://localhost:8080/images/coffee/latte-da_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (30, 30, 'http://localhost:8080/images/coffee/latte_nong_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (31, 31, 'http://localhost:8080/images/coffee/Americano_da.png', 0);
-INSERT INTO `coffee_images` VALUES (32, 32, 'http://localhost:8080/images/coffee/Americano_nong.jpg', 0);
-INSERT INTO `coffee_images` VALUES (33, 33, 'http://localhost:8080/images/coffee/capu-da_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (34, 34, 'http://localhost:8080/images/coffee/capu-da_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (35, 35, 'http://localhost:8080/images/coffee/espressoda_da_tch.jpg', 0);
-INSERT INTO `coffee_images` VALUES (36, 36, 'http://localhost:8080/images/coffee/espresso_nong_tch.jpg', 0);
-INSERT INTO `coffee_images` VALUES (37, 37, 'http://localhost:8080/images/coffee/coldbrew-pbt_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (38, 38, 'http://localhost:8080/images/coffee/cold-brew-sua-tuoi_tch.png', 0);
-INSERT INTO `coffee_images` VALUES (39, 39, 'http://localhost:8080/images/coffee/classic-cold-brew.jpg', 0);
-INSERT INTO `coffee_images` VALUES (40, 40, 'http://localhost:8080/images/coffee/ca_phe_sua_Success100ml.jpg', 0);
-INSERT INTO `coffee_images` VALUES (41, 41, 'http://localhost:8080/images/coffee/ca_phe_den_success.jpg', 0);
-INSERT INTO `coffee_images` VALUES (42, 42, 'http://localhost:8080/images/coffee/bac_xiu_success.jpg', 0);
-INSERT INTO `coffee_images` VALUES (43, 43, 'http://localhost:8080/images/coffee/bac_xiu_success_2.jpg', 0);
-INSERT INTO `coffee_images` VALUES (44, 44, 'http://localhost:8080/images/coffee/ca_phe_sua_success.jpg', 0);
-INSERT INTO `coffee_images` VALUES (45, 45, 'http://localhost:8080/images/coffee/ca_phe_den_success_2.jpg', 0);
-INSERT INTO `coffee_images` VALUES (54, 48, 'http://localhost:8080/images/coffee/4bab552f7ed0a6-trasuaberryberry60000839.png', 0);
+INSERT INTO `coffee_images` VALUES (1, 1, '/images/coffee/latte.jpg', 0);
+INSERT INTO `coffee_images` VALUES (2, 2, '/images/coffee/CAPPUCCINO.jpg', 0);
+INSERT INTO `coffee_images` VALUES (3, 3, '/images/coffee/AMERICANO.jpg', 0);
+INSERT INTO `coffee_images` VALUES (4, 4, '/images/coffee/ESPRESSO.jpg', 0);
+INSERT INTO `coffee_images` VALUES (5, 5, '/images/coffee/Phindi_Pitaschio.jpg', 0);
+INSERT INTO `coffee_images` VALUES (6, 6, '/images/coffee/PHINDI_CHOCO.jpg', 0);
+INSERT INTO `coffee_images` VALUES (7, 7, '/images/coffee/PHINDI_KEM_SUA.jpg', 0);
+INSERT INTO `coffee_images` VALUES (8, 8, '/images/coffee/BAC_XIU._HL.jpg', 0);
+INSERT INTO `coffee_images` VALUES (9, 9, '/images/coffee/CARAMEL_MACCHIATTO.jpg', 0);
+INSERT INTO `coffee_images` VALUES (10, 10, '/images/coffee/MOCHA.jpg', 0);
+INSERT INTO `coffee_images` VALUES (11, 11, '/images/coffee/CappuccinoPL.png', 0);
+INSERT INTO `coffee_images` VALUES (12, 12, '/images/coffee/LattePL.png', 0);
+INSERT INTO `coffee_images` VALUES (13, 13, '/images/coffee/PhinSuaDaPL.png', 0);
+INSERT INTO `coffee_images` VALUES (14, 14, '/images/coffee/PhinDenDaPL.png', 0);
+INSERT INTO `coffee_images` VALUES (15, 15, '/images/coffee/vanillaPL.png', 0);
+INSERT INTO `coffee_images` VALUES (16, 16, '/images/coffee/phin-sua-tuoi-banh-flan.png', 0);
+INSERT INTO `coffee_images` VALUES (17, 17, '/images/coffee/duong_den_sua_da.png', 0);
+INSERT INTO `coffee_images` VALUES (18, 18, '/images/coffee/The_Coffee_House_sua_da.png', 0);
+INSERT INTO `coffee_images` VALUES (19, 19, '/images/coffee/The_Coffee_House_sua_da_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (20, 20, '/images/coffee/cfsua-nong.png', 0);
+INSERT INTO `coffee_images` VALUES (21, 21, '/images/coffee/bac-siu_tch.jpg', 0);
+INSERT INTO `coffee_images` VALUES (22, 22, '/images/coffee/bacsiunong.png', 0);
+INSERT INTO `coffee_images` VALUES (23, 23, '/images/coffee/ca-phe-den-da_tch.jpg', 0);
+INSERT INTO `coffee_images` VALUES (24, 24, '/images/coffee/ca-phe-den-nong_tch.jpg', 0);
+INSERT INTO `coffee_images` VALUES (25, 25, '/images/coffee/ca_phe_sua_da_chai_fresh_250ml.png', 0);
+INSERT INTO `coffee_images` VALUES (26, 26, '/images/coffee/duong_den_marble_latte.png', 0);
+INSERT INTO `coffee_images` VALUES (27, 27, '/images/coffee/caramel-macchiato_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (28, 28, '/images/coffee/caramelmacchiatonongtch.jpg', 0);
+INSERT INTO `coffee_images` VALUES (29, 29, '/images/coffee/latte-da_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (30, 30, '/images/coffee/latte_nong_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (31, 31, '/images/coffee/Americano_da.png', 0);
+INSERT INTO `coffee_images` VALUES (32, 32, '/images/coffee/Americano_nong.jpg', 0);
+INSERT INTO `coffee_images` VALUES (33, 33, '/images/coffee/capu-da_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (34, 34, '/images/coffee/capu-da_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (35, 35, '/images/coffee/espressoda_da_tch.jpg', 0);
+INSERT INTO `coffee_images` VALUES (36, 36, '/images/coffee/espresso_nong_tch.jpg', 0);
+INSERT INTO `coffee_images` VALUES (37, 37, '/images/coffee/coldbrew-pbt_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (38, 38, '/images/coffee/cold-brew-sua-tuoi_tch.png', 0);
+INSERT INTO `coffee_images` VALUES (39, 39, '/images/coffee/classic-cold-brew.jpg', 0);
+INSERT INTO `coffee_images` VALUES (40, 40, '/images/coffee/ca_phe_sua_Success100ml.jpg', 0);
+INSERT INTO `coffee_images` VALUES (41, 41, '/images/coffee/ca_phe_den_success.jpg', 0);
+INSERT INTO `coffee_images` VALUES (42, 42, '/images/coffee/bac_xiu_success.jpg', 0);
+INSERT INTO `coffee_images` VALUES (43, 43, '/images/coffee/bac_xiu_success_2.jpg', 0);
+INSERT INTO `coffee_images` VALUES (44, 44, '/images/coffee/ca_phe_sua_success.jpg', 0);
+INSERT INTO `coffee_images` VALUES (45, 45, '/images/coffee/ca_phe_den_success_2.jpg', 0);
+INSERT INTO `coffee_images` VALUES (54, 48, '/images/coffee/4bab552f7ed0a6-trasuaberryberry60000839.png', 0);
+INSERT INTO `coffee_images` VALUES (55, 49, '/images/coffee/Mint-Chocolate-Milk-Tea-w-Pearl-Iced.png', 0);
 
 -- ----------------------------
 -- Table structure for coffee_stars
@@ -220,6 +221,7 @@ INSERT INTO `coffees` VALUES (43, 4, 'Bạc Xỉu', 'Mùi thơm êm dịu, vị 
 INSERT INTO `coffees` VALUES (44, 4, 'Cà Phê Sữa Success', 'Mùi thơm dịu, vị béo của sữa hòa quyện với cà phê mang đến sự cân bằng, khơi nguồn năng lượng cho sự sáng tạo, thích hợp với khách hàng có gu cà phê sữa đá truyền thống.', 0, 55000, '2023-12-25 09:53:38');
 INSERT INTO `coffees` VALUES (45, 4, 'Cà Phê Đen Success', '\"Mùi thơm nồng, đậm đà đầy lôi cuốn, thích hợp với khách hàng có gu cà phê mạnh.\"', 0, 55000, '2023-12-25 09:53:38');
 INSERT INTO `coffees` VALUES (48, 2, 'Trà sữa Berry Berry', 'Ngon ngon lắm Trà sữa Berry Berry', 0, 60000, '2023-12-25 10:24:09');
+INSERT INTO `coffees` VALUES (49, 7, 'Mint Choco Milk Tea', 'Mint Choco Milk Tea Dòng thức uống đặc biệt kết hợp giữa trà nguyên chất với lớp milk foam béo cùng vị mặn nhẹ đặc trưng mang đến điểm nhấn sáng tạo cho một thức uống quen thuộc.', 0, 67000, '2024-01-01 09:27:37');
 
 -- ----------------------------
 -- Table structure for comments
@@ -285,13 +287,15 @@ CREATE TABLE `order_details`  (
   INDEX `coffee_id`(`coffee_id` ASC) USING BTREE,
   CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`coffee_id`) REFERENCES `coffees` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of order_details
 -- ----------------------------
 INSERT INTO `order_details` VALUES (1, 1, 1, 1, 65000, NULL, NULL);
 INSERT INTO `order_details` VALUES (2, 1, 8, 1, 25000, NULL, NULL);
+INSERT INTO `order_details` VALUES (3, 3, 1, 1, 65000, NULL, NULL);
+INSERT INTO `order_details` VALUES (4, 5, 1, 1, 65000, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for orders
@@ -311,12 +315,14 @@ CREATE TABLE `orders`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
 INSERT INTO `orders` VALUES (1, 1, 'đảm', '0377184642', 0, 90000, 0, NULL, NULL, '2023-12-25 09:55:57');
+INSERT INTO `orders` VALUES (3, 1, 'dam', '0123456789', 2, 65000, 1, NULL, NULL, '2023-12-29 09:19:19');
+INSERT INTO `orders` VALUES (5, 1, 'dam', '0123456789', 2, 65000, 1, NULL, NULL, '2023-12-29 09:19:19');
 
 -- ----------------------------
 -- Table structure for roles
@@ -351,10 +357,11 @@ CREATE TABLE `supplier_images`  (
 -- ----------------------------
 -- Records of supplier_images
 -- ----------------------------
-INSERT INTO `supplier_images` VALUES (1, 1, 'http://localhost:8080/images/sup/highlands.png');
-INSERT INTO `supplier_images` VALUES (2, 2, 'http://localhost:8080/images/sup/phuclong.png');
-INSERT INTO `supplier_images` VALUES (3, 3, 'http://localhost:8080/images/sup/thecoffeehouse.png');
-INSERT INTO `supplier_images` VALUES (4, 4, 'http://localhost:8080/images/sup/trungnguyen.png');
+INSERT INTO `supplier_images` VALUES (1, 1, '/images/sup/highlands.png');
+INSERT INTO `supplier_images` VALUES (2, 2, '/images/sup/phuclong.png');
+INSERT INTO `supplier_images` VALUES (3, 3, '/images/sup/thecoffeehouse.png');
+INSERT INTO `supplier_images` VALUES (4, 4, '/images/sup/trungnguyen.png');
+INSERT INTO `supplier_images` VALUES (6, 7, '/images/sup/gongcha.jpg');
 
 -- ----------------------------
 -- Table structure for suppliers
@@ -377,6 +384,7 @@ INSERT INTO `suppliers` VALUES (1, 'Highlands', '0987654321', '123', 'customerse
 INSERT INTO `suppliers` VALUES (2, 'Phúc Long', '0987654322', '456', 'info2@phuclong.masangroup.com', 0);
 INSERT INTO `suppliers` VALUES (3, 'The Coffee House', '0987654323', '789', 'hi@thecoffeehouse.vn', 0);
 INSERT INTO `suppliers` VALUES (4, 'Trung Nguyên', '0987654324', '123', 'trungnguyenfranchising@trungnguyenlegend.com', 0);
+INSERT INTO `suppliers` VALUES (7, 'Gongcha', '0123456789', '123', 'info@gongcha.com.vn', 0);
 
 -- ----------------------------
 -- Table structure for user_roles
