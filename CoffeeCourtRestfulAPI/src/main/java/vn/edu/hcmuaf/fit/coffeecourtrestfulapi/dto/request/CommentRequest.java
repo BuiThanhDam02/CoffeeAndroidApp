@@ -1,26 +1,21 @@
-package com.example.smartcoffeecourt.Model;
+package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request;
 
-public class Rating {
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 
+public class CommentRequest {
     private User user;
-    private Coffee coffee;
     private Long coffee_id;
     private String content;
     private float star;
 
-    public Rating() {
-    }
-
-    public Rating(Float star, String content) {
-        this.star = star;
-        this.content = content;
-    }
-
-    public Rating(User user, Long coffee_id, String content, float star) {
+    public CommentRequest(User user, Long coffee_id, String content, float star) {
         this.user = user;
         this.coffee_id = coffee_id;
         this.content = content;
         this.star = star;
+    }
+
+    public CommentRequest() {
     }
 
     public User getUser() {
@@ -31,14 +26,13 @@ public class Rating {
         this.user = user;
     }
 
-    public Coffee getCoffee() {
-        return coffee;
+    public Long getCoffee_id() {
+        return coffee_id;
     }
 
-    public void setCoffee(Coffee coffee) {
-        this.coffee = coffee;
+    public void setCoffee_id(Long coffee_id) {
+        this.coffee_id = coffee_id;
     }
-//
 
     public String getContent() {
         return content;
@@ -58,11 +52,11 @@ public class Rating {
 
     @Override
     public String toString() {
-        return "Rating{" +
+        return "CommentRequest{" +
                 "user=" + user +
-                ", coffee=" + coffee +
-                ", rateValue='" + star + '\'' +
-                ", comment='" + content + '\'' +
+                ", coffee_id=" + coffee_id +
+                ", content='" + content + '\'' +
+                ", star=" + star +
                 '}';
     }
 }

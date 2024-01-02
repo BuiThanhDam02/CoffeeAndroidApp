@@ -4,6 +4,12 @@ public class Like {
     private int user_id;
     private int coffee_id;
 
+
+    public Like(int user_id, int coffee_id) {
+        this.user_id = user_id;
+        this.coffee_id = coffee_id;
+    }
+
     public int getUser_id() {
         return user_id;
     }
