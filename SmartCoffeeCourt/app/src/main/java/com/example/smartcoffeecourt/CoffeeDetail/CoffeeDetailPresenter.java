@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -47,7 +48,7 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
 
     @Override
     public void getCoffeeComment() {
-        Call<List<Coffee>> call = Network.getInstance().create(ApiService.class).getCoffeeComments(coffeeRef);
+        Call<List<Coffee>> call = Network.getInstance().create(ApiService.class).getCoffeeCommentsById(coffeeRef);
         call.enqueue(new Callback<List<Coffee>>() {
             @Override
             public void onResponse(Call<List<Coffee>> call, Response<List<Coffee>> response) {
@@ -108,15 +109,17 @@ public class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
              @Override
              public void onResponse(Call<String> call, Response<String> response) {
                  if(response.isSuccessful()){
-                     assert response.body() != null;
-                     if(response.body().equals("Like removed successfully")){
-                         isLiked = false;
-                         coffeeView.showToast("Bạn đã xóa yêu thích sản phẩm");
-                     } else if (response.body().equals("Like added successfully")) {
-                         isLiked = true;
-                         coffeeView.showToast("Bạn đã thêm yêu thích sản phẩm");
-                     } else {
-                         coffeeView.showToast("Đã xảy ra lỗi");
+                     String responseBody = response.body();
+                     if (responseBody != null) {
+                         if (Objects.equals(responseBody, "Like removed successfully")) {
+                             isLiked = false;
+                             coffeeView.showToast("Bạn đã xóa yêu thích sản phẩm");
+                         } else if (Objects.equals(responseBody, "Like added successfully")) {
+                             isLiked = true;
+                             coffeeView.showToast("Bạn đã thêm yêu thích sản phẩm");
+                         } else {
+                             coffeeView.showToast("Đã xảy ra lỗi");
+                         }
                      }
                  }
              }

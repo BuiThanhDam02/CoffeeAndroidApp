@@ -8,9 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.smartcoffeecourt.Adapter.RatingAdapter;
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Model.Rating;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 import com.example.smartcoffeecourt.ViewHolder.CommentViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -18,23 +22,27 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CommentPage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DatabaseReference ratingReference;
-    FirebaseRecyclerAdapter<Rating, CommentViewHolder> adapter;
+    RatingAdapter adapter;
     String foodRef;
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(adapter != null) adapter.stopListening();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.startListening();
     }
 
     @Override
@@ -48,26 +56,24 @@ public class CommentPage extends AppCompatActivity {
 
         if(getIntent() != null)
             foodRef = getIntent().getStringExtra(Common.INTENT_coffee_REF);
-        if(foodRef != null && !foodRef.isEmpty())
-        {
-            ratingReference = FirebaseDatabase.getInstance().getReference("Rating/" + foodRef + "/List");
-            FirebaseRecyclerOptions<Rating> options = new FirebaseRecyclerOptions.Builder<Rating>().setQuery(ratingReference, Rating.class).build();
-            adapter = new FirebaseRecyclerAdapter<Rating, CommentViewHolder>(options) {
+        if(foodRef != null && !foodRef.isEmpty()) {
+            Call<List<Rating>> call = Network.getInstance().create(ApiService.class).getCommentsById(foodRef);
+            call.enqueue(new Callback<List<Rating>>() {
                 @Override
-                protected void onBindViewHolder(@NonNull CommentViewHolder commentViewHolder, final int position, @NonNull Rating rating) {
-                    commentViewHolder.ratingBarDetail.setRating(Float.parseFloat(rating.getRateValue()));
-                    commentViewHolder.txtUserName.setText(adapter.getRef(position).getKey());
-                    commentViewHolder.txtComment.setText(rating.getComment());
+                public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
+                    if(response.isSuccessful()){
+                        adapter = new RatingAdapter(response.body());
+                        recyclerView.setAdapter(adapter);
+                    }else{
+                        Toast.makeText(CommentPage.this, "Error loading ratings", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
-                @NonNull
                 @Override
-                public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item, parent, false);
-                    return new CommentViewHolder(view);
+                public void onFailure(Call<List<Rating>> call, Throwable t) {
+                    System.out.println("Wrong network");
                 }
-            };
-            recyclerView.setAdapter(adapter);
+            });
         }
     }
 }
