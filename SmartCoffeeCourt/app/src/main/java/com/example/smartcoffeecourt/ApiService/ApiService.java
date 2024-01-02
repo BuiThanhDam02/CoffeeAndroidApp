@@ -32,11 +32,15 @@ public interface ApiService {
     @GET("/api/coffee/get/{id}")
     Call<Coffee> getCoffeeById(@Path("id") Long id);
 
-    @POST("/api/coffee/rating")
+    @POST("")
     Call<Coffee> saveRating(@Body Rating rating);
 
     @GET("/api/comments/{id}")
-    Call<List<Coffee>> getCoffeeComments(@Path("id")String coffeeId);
+    Call<List<Rating>> getCommentsById(@Path("id")String foodId);
+
+    @GET("/api/coffee/{id}/comments")
+    Call<List<Coffee>> getCoffeeCommentsById(@Path("id")String coffeeId);
+
     @POST("/api/likes/toggleLike")
     Call<String> toggleLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
 
