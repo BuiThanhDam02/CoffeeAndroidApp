@@ -38,12 +38,12 @@ public interface ApiService {
 
     @POST("/api/comments/add")
     Call<Void> saveComment(@Body Rating rating);
+
     @POST("/api/likes/toggleLike")
     Call<LikeResponse> toggleLike(@Body Like like);
 
     @GET("/api/likes/checkLike")
     Call<LikeResponse> checkLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
-
 
     @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();

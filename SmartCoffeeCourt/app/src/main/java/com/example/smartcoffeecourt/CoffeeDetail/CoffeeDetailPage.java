@@ -71,14 +71,11 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
 
         if(getIntent() != null) {
             String coffeeRef = getIntent().getStringExtra(Common.INTENT_coffee_REF);
-            assert coffeeRef != null;
-            if (!coffeeRef.isEmpty()) {
+            if (coffeeRef != null) {
                 presenter = new CoffeeDetailPresenter(this, coffeeRef);
                 presenter.loadCoffee(btnLike);
             }
         }
-
-
 
         btnBackDetail.setOnClickListener(new View.OnClickListener() {
             @Override
