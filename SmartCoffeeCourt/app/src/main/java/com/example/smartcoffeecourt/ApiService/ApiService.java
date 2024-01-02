@@ -7,6 +7,7 @@ import com.example.smartcoffeecourt.Model.OrderDetailModel;
 import com.example.smartcoffeecourt.Model.Rating;
 import com.example.smartcoffeecourt.Model.Stall;
 import com.example.smartcoffeecourt.Model.User;
+import com.example.smartcoffeecourt.Service.LikeResponse;
 
 import java.util.List;
 
@@ -32,20 +33,17 @@ public interface ApiService {
     @GET("/api/coffee/get/{id}")
     Call<Coffee> getCoffeeById(@Path("id") Long id);
 
-    @POST("")
-    Call<Coffee> saveRating(@Body Rating rating);
+    @GET("/api/comments/getAllByCoffeeID/{id}")
+    Call<List<Rating>> getCoffeeComments(@Path("id")Long coffeeId);
 
-    @GET("/api/comments/{id}")
-    Call<List<Rating>> getCommentsById(@Path("id")String foodId);
-
-    @GET("/api/coffee/{id}/comments")
-    Call<List<Coffee>> getCoffeeCommentsById(@Path("id")String coffeeId);
+    @POST("/api/comments/add")
+    Call<Void> saveComment(@Body Rating rating);
 
     @POST("/api/likes/toggleLike")
-    Call<String> toggleLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
+    Call<LikeResponse> toggleLike(@Body Like like);
 
     @GET("/api/likes/checkLike")
-    Call<Like> checkLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
+    Call<LikeResponse> checkLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
 
     @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();

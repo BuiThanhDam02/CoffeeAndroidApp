@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.CommentRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Comment;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.*;
@@ -116,10 +117,7 @@ public class CoffeeController {
         return coffees;
     }
 
-    @GetMapping("/{id}/comments")
-    public List<Comment> getCommentsByCoffeeId(@PathVariable Long id) {
-        return commentRepository.findByCoffeeId(id);
-    }
+
 
 //    @GetMapping("/{id}/like/{userid}")
 //    public List<Comment> likeByCoffeeId(@PathVariable Long id) {
@@ -279,4 +277,6 @@ public ResponseEntity<String> addCoffee(@RequestBody CoffeeRequest coffeeRequest
         }
         return result;
     }
+
+
 }

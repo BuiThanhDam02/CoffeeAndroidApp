@@ -47,7 +47,6 @@ public class HomeFragment extends Fragment {
     RecyclerView greatFoodRecycler, stallRecycler;
     List<Stall> stallList;
     List<Coffee> coffeeList;
-    FirebaseRecyclerAdapter<Coffee, GreatCoffeeViewHolder> adapterGreatFood;
     StallAdapter adapterStall ;
 
 

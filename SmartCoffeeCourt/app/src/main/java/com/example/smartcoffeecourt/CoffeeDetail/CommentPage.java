@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.smartcoffeecourt.Adapter.RatingAdapter;
 import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Model.Rating;
@@ -28,12 +26,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CommentPage extends AppCompatActivity {
+public class CommentPage extends AppCompatActivity  {
 
     RecyclerView recyclerView;
-    DatabaseReference ratingReference;
-    RatingAdapter adapter;
-    String foodRef;
+    CommentAdapter adapter;
+    String coffeeRef;
 
     @Override
     protected void onStop() {
@@ -54,26 +51,54 @@ public class CommentPage extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        if(getIntent() != null)
-            foodRef = getIntent().getStringExtra(Common.INTENT_coffee_REF);
-        if(foodRef != null && !foodRef.isEmpty()) {
-            Call<List<Rating>> call = Network.getInstance().create(ApiService.class).getCommentsById(foodRef);
+        if(getIntent() != null) {
+            coffeeRef = getIntent().getStringExtra(Common.INTENT_coffee_REF);
+        }
+        if(coffeeRef != null && !coffeeRef.isEmpty()) {
+            Call<List<Rating>> call = Network.getInstance().create(ApiService.class).getCoffeeComments(Long.parseLong(coffeeRef));
             call.enqueue(new Callback<List<Rating>>() {
                 @Override
                 public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
-                    if(response.isSuccessful()){
-                        adapter = new RatingAdapter(response.body());
+                    if (response.isSuccessful()) {
+                        List<Rating> ratings = response.body();
+                        adapter = new CommentAdapter(ratings);
                         recyclerView.setAdapter(adapter);
-                    }else{
-                        Toast.makeText(CommentPage.this, "Error loading ratings", Toast.LENGTH_SHORT).show();
+                        System.out.println("Rating: " + ratings);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<Rating>> call, Throwable t) {
-                    System.out.println("Wrong network");
+                    System.out.println("Loix");
                 }
             });
         }
+        }
     }
-}
+    class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
+        private List<Rating> ratings;
+
+        public CommentAdapter(List<Rating> ratings) {
+            this.ratings = ratings;
+        }
+
+        @NonNull
+        @Override
+        public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item, parent, false);
+            return new CommentViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
+            Rating rating = ratings.get(position);
+            holder.ratingBarDetail.setRating(Float.parseFloat(String.valueOf(rating.getStar())));
+            holder.txtUserName.setText(rating.getUser().getName());
+            holder.txtComment.setText(rating.getContent());
+        }
+
+        @Override
+        public int getItemCount() {
+            return ratings.size();
+        }
+    }

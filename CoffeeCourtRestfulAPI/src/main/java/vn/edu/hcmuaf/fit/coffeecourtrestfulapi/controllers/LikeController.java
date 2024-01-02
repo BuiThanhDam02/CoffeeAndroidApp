@@ -1,8 +1,10 @@
 package vn.edu.hcmuaf.fit.coffeecourtrestfulapi.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.LikeRequest;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.response.LikeResponse;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Coffee;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Like;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
@@ -30,7 +32,7 @@ public class LikeController {
     }
 
     @PostMapping("/toggleLike")
-    public ResponseEntity<String> toggleLike(@RequestBody LikeRequest likeRequest){
+    public ResponseEntity<LikeResponse> toggleLike(@RequestBody LikeRequest likeRequest){
         System.out.println(likeRequest);
         Long userId = likeRequest.getUser_id();
         Long coffeeId = likeRequest.getCoffee_id();
@@ -39,7 +41,7 @@ public class LikeController {
 
         if(existingLike != null){
             likeRepository.delete(existingLike);
-            return ResponseEntity.ok("Like removed successfully");
+            return new ResponseEntity<>(new LikeResponse("Like removed successfully", true), HttpStatus.OK);
         } else{
             Like newLike = new Like();
             User user = userRepository.findById(userId).orElse(null);
@@ -47,13 +49,18 @@ public class LikeController {
             newLike.setUser(user);
             newLike.setCoffee(coffee);
             likeRepository.save(newLike);
-            return ResponseEntity.ok("Like added successfully");
+            return new ResponseEntity<>(new LikeResponse("Like added successfully", true), HttpStatus.OK);
         }
     }
 
     @GetMapping("/checkLike")
-    public Like checkLike(@RequestBody LikeRequest likeRequest){
-        return likeRepository.findByUserIdAndCoffeeId(likeRequest.getUser_id(), likeRequest.getCoffee_id());
+    public ResponseEntity<LikeResponse> checkLike(@RequestParam Long user_id, @RequestParam Long coffee_id) {
+        Like existingLike = likeRepository.findByUserIdAndCoffeeId(user_id, coffee_id);
+        if (existingLike != null) {
+            return new ResponseEntity<>(new LikeResponse("Liked", true), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new LikeResponse("Not liked", false), HttpStatus.OK);
+        }
     }
 
 }

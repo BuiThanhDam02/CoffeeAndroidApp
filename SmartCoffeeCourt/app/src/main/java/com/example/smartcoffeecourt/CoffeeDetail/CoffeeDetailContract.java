@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Rating;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -17,13 +18,13 @@ public interface CoffeeDetailContract {
         Context getContext();
     }
     interface Presenter{
-        void loadCoffee();
+        void loadCoffee(FloatingActionButton btnLike);
         void requestRatingCoffee();
         void getCoffeeComment();
         void addCoffeeToCart(String quantity);
         void saveRating(Rating rating);
-        void likeCoffee();
-        void checkLikeCoffee();
+        void likeCoffee(FloatingActionButton btnLike);
+        void checkLikeCoffee(FloatingActionButton btnLike);
         boolean getIsLikeCoffee();
     }
 }
