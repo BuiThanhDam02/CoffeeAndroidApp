@@ -30,8 +30,8 @@ public class RatingAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Rating rating = ratings.get(position);
-        holder.ratingBarDetail.setRating(Float.parseFloat(rating.getRateValue()));
-        holder.txtComment.setText(rating.getComment());
+        holder.ratingBarDetail.setRating((rating.getStar()));
+        holder.txtComment.setText(rating.getContent());
     }
 
     @Override
