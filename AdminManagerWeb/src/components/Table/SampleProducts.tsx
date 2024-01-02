@@ -7,6 +7,7 @@ import Buttons from '../Buttons'
 import CardBoxModal from '../CardBox/Modal'
 import UserAvatar from '../UserAvatar'
 import { useRouter } from 'next/router';
+import { LocalAPI } from '../../hooks/localapi'
 const TableSampleProducts = () => {
   const router = useRouter();
 
@@ -18,7 +19,7 @@ const TableSampleProducts = () => {
 
   const coffeesPaginated = coffees.slice(perPage * currentPage, perPage * (currentPage + 1))
 
-  const numPages = coffees.length / perPage
+  const numPages = Math.ceil(coffees.length / perPage)
 
   const pagesList = []
 
@@ -95,7 +96,7 @@ const TableSampleProducts = () => {
           {coffeesPaginated.map((coffee) => (
             <tr key={coffee.id}>
               <td className="border-b-0 lg:w-6 before:hidden">
-                <UserAvatar api={coffee.imageLink} username={"Howell Hand"} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
+                <UserAvatar api={LocalAPI+coffee.imageLink} username={"Howell Hand"} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
               </td>
               <td data-label="Name">{coffee.name}</td>
               <td data-label="Supplier">{coffee.supplier.name}</td>

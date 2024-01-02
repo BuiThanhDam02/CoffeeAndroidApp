@@ -1,8 +1,10 @@
 package com.example.smartcoffeecourt.ApiService;
 
 import com.example.smartcoffeecourt.Model.Coffee;
+import com.example.smartcoffeecourt.Model.Like;
 import com.example.smartcoffeecourt.Model.Order;
 import com.example.smartcoffeecourt.Model.OrderDetailModel;
+import com.example.smartcoffeecourt.Model.Rating;
 import com.example.smartcoffeecourt.Model.Stall;
 import com.example.smartcoffeecourt.Model.User;
 
@@ -20,6 +22,7 @@ import retrofit2.http.Query;
 public interface ApiService {
     @POST("/api/auth/register")
     Call<User> signUp(@Body UserRegistrationRequest user);
+
     @POST("/api/auth/login")
     Call<AuthenticationResponse> signIn(@Body UserLoginRequest user);
 
@@ -29,8 +32,16 @@ public interface ApiService {
     @GET("/api/coffee/get/{id}")
     Call<Coffee> getCoffeeById(@Path("id") Long id);
 
-    @DELETE("/api/coffee/get/{id}")
-    Call<Coffee> unlikeCoffee(@Path("id") Long id);
+    @POST("/api/coffee/rating")
+    Call<Coffee> saveRating(@Body Rating rating);
+
+    @GET("/api/comments/{id}")
+    Call<List<Coffee>> getCoffeeComments(@Path("id")String coffeeId);
+    @POST("/api/likes/toggleLike")
+    Call<String> toggleLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
+
+    @GET("/api/likes/checkLike")
+    Call<Like> checkLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
 
     @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();

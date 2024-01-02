@@ -19,15 +19,19 @@ public class LikeController {
     // Code xử lý yêu thích tại đây
     @Autowired
     private LikeRepository likeRepository;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private CoffeeRepository coffeeRepository;
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<Like> getAllLikes() {
         return likeRepository.findAll();
     }
 
+    @PostMapping("/toggleLike")
     public ResponseEntity<String> toggleLike(@RequestBody LikeRequest likeRequest){
+        System.out.println(likeRequest);
         Long userId = likeRequest.getUser_id();
         Long coffeeId = likeRequest.getCoffee_id();
 
@@ -44,8 +48,12 @@ public class LikeController {
             newLike.setCoffee(coffee);
             likeRepository.save(newLike);
             return ResponseEntity.ok("Like added successfully");
-
         }
+    }
+
+    @GetMapping("/checkLike")
+    public Like checkLike(@RequestBody LikeRequest likeRequest){
+        return likeRepository.findByUserIdAndCoffeeId(likeRequest.getUser_id(), likeRequest.getCoffee_id());
     }
 
 }

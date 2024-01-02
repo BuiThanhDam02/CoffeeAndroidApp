@@ -4,8 +4,13 @@ import { log } from 'console'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 const API = axios.create({ baseURL: 'http://localhost:8080/api/' })
 /// here upload
-export const uploadImage = async ({ formdata }) => {
-  const { data } = await API.post('admin/upload', formdata)
+export const uploadCoffeeImage = async ({ formdata }) => {
+  const { data } = await API.post('admin/upload/coffee', formdata)
+  console.log(data)
+  return data
+}
+export const uploadSupplierImage = async ({ formdata }) => {
+  const { data } = await API.post('admin/upload/supplier', formdata)
   console.log(data)
   return data
 }
@@ -52,6 +57,10 @@ export const updateSupplier = async ({ supplier }) => {
   const { data } = await API.put(`supplier/update/${supplier.id}`, supplier)
   return data
 }
+export const createSupplier = async ({ supplier }) => {
+  const { data } = await API.post(`supplier/add`, supplier)
+  return data
+}
 // here order
 export const getAllOrder = async () => {
   const { data } = await API.get('order/getAll')
@@ -68,7 +77,7 @@ export const addOrder = async ({ order }) => {
 
   return data
 }
-
+// user
 export const getAllClient = async () => {
   const { data } = await API.get('user/all')
   console.log(data)

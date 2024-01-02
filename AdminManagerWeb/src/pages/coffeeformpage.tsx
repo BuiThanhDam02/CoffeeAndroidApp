@@ -16,6 +16,7 @@ import SectionTitleLineWithButton from '../components/Section/TitleLineWithButto
 import { getPageTitle } from '../config'
 import { useRouter } from 'next/router'
 import { getAllSupplier, getCoffeeById, updateCoffee } from '../hooks/sampleData'
+import { LocalAPI } from '../hooks/localapi'
 
 const CoffeeFormPage = () => {
   const router = useRouter();
@@ -139,7 +140,7 @@ useEffect(() => {
 
               <Divider />
               <img
-        src={c.imageLink}
+        src={LocalAPI+c.imageLink}
         alt={c.name}
         style={{width: "100px", height:"100px"}}
         className="rounded-full block h-auto w-full max-w-full bg-gray-100 dark:bg-slate-800"

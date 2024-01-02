@@ -67,17 +67,17 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
             assert coffeeRef != null;
             if (!coffeeRef.isEmpty()) {
                 presenter = new CoffeeDetailPresenter(this, coffeeRef);
-//                presenter.checkLikeCoffee();
                 presenter.loadCoffee();
+                presenter.checkLikeCoffee();
             }
         }
-//        if (presenter.getIsLikeCoffee()==true){
-//            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_red_24));
-//
-//        }else{
-//            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_24));
-//
-//        }
+        if (presenter.getIsLikeCoffee()==true){
+            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_red_24));
+
+        }else{
+            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_24));
+
+        }
 
 
         btnBackDetail.setOnClickListener(new View.OnClickListener() {
