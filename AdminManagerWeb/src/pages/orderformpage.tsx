@@ -15,8 +15,9 @@ import SectionMain from '../components/Section/Main'
 import SectionTitleLineWithButton from '../components/Section/TitleLineWithButton'
 import { getPageTitle } from '../config'
 import { useRouter } from 'next/router'
-import { getAllSupplier, getCoffeeById, getOrderDetailById, updateCoffee } from '../hooks/sampleData'
+import { getAllSupplier, getCoffeeById, getOrderDetailById, updateCoffee, updateOrder } from '../hooks/sampleData'
 import UserAvatar from '../components/UserAvatar'
+import { LocalAPI } from '../hooks/localapi'
 
 const OrderFormPage = () => {
   const router = useRouter();
@@ -50,36 +51,40 @@ const OrderFormPage = () => {
         }]
 });
 
-// const handleChange =(e) => {
-//   setC(pre=> {return{...pre,[e.target.name]:e.target.value}})
-// };
+const handleChange =(e) => {
+  setO(
+    (pre) => {
+      return{
+        ...pre,["orderDTO"]:{...pre.orderDTO,[e.target.name]:e.target.value}
+      }
+    }
+    )
+  };
 
-// const handleSupChange =(e) => {
-//   setC(pre=> {return{...pre,[e.target.name]:{['id']:e.target.value}}})
-// };
+const handleStatusChange =(e) => {
+  setO(
+    (pre) => {
+      return{
+        ...pre,["orderDTO"]:{...pre.orderDTO,['statusInt']:e.target.value}
+      }
+    }
+    )
 
-// const handleSubmit =() => {
-//   const data = {
-//     "id": c.id,
-//     "supplierId":c.supplier.id,
-//     "name":c.name,
-//     "description":c.description,
-//     "status":c.status,
-//     "price":c.price,
-//     "imageLink": c.imageLink,
-//   }
+};
+console.log(o)
 
+const handleSubmit =() => {
 
-//   updateCoffee({coffee:data})
-//   .then((data) => { 
-//     alert(data)
-//     router.push(`/coffeeformpage?id=${c.id}`);
-//   })
-//   .catch((err) => {
-//     alert(err)
+  updateOrder({order:o, id:o.orderDTO.id})
+  .then((data) => { 
+    alert("update order status successfully!!")
+    router.push(`/orderformpage?id=${id}`);
+  })
+  .catch((err) => {
+    alert(err)
 
-//     });
-// };
+    });
+};
 
 
 useEffect(() => {
@@ -125,19 +130,40 @@ useEffect(() => {
                 
               <FormField label="ID - Name - Email" icons={[ mdiMail,mdiAlphabetLatin,mdiMail]}>
               <Field type="text" name="id" placeholder="id" value={Order.id} />
-                <Field type="text" name="name" placeholder="Name" value={Order.name}   />
-                <Field type="text" name="email" placeholder="Email" value={Order.email}   />
+                <Field type="text" name="name" placeholder="Name" value={Order.name}  onChange={handleChange} />
+                <Field type="text" name="email" placeholder="Email" value={Order.email}  onChange={handleChange} />
               </FormField>
               <FormField label="total Price - Status - Phone" icons={[mdiHandCoin, mdiCloud,mdiPhone]}>
               <Field type="text" name="price" placeholder="price" value={Order.totalPrice} />
-                <Field type="text" name="status" placeholder="status" value={Order.status}   />
-                <Field type="text" name="phone" placeholder="phone" value={Order.phone} />
+                {/* <Field type="text" name="status" placeholder="status" value={Order.status}   /> */}
+                
+                <Field name="status" id="status" component="select"  onChange={handleStatusChange}>
+                {Order.type === 'Đặt hàng'?
+                <>
+                  <option value="-1" selected={Order.statusInt==-1?true:false} >{'Đã hủy'}</option>
+                  <option value="0" selected={Order.statusInt==0?true:false} >{'Chờ xác nhận'}</option>
+                  <option value="1" selected={Order.statusInt==1?true:false} >{'Đang giao hàng'}</option>
+                  <option value="2" selected={Order.statusInt==2?true:false} >{'Đã giao hàng'}</option>
+                </>
+                  
+                :  <>
+                  <option value="-1" selected={Order.statusInt==-1?true:false} >{'Đã hủy'}</option>
+                <option value="0" selected={Order.statusInt==0?true:false}>{'Chờ xác nhận'}</option>
+                <option value="1" selected={Order.statusInt==1?true:false}>{'Đã hoàn thành'}</option>
+              </>
+                }
+                
+                </Field>
+
+                <Field type="text" name="phone" placeholder="phone" value={Order.phone} onChange={handleChange} />
               </FormField>
-             
+          
+                
+               
               <Divider />
 
               <FormField label="Address" hasTextareaHeight>
-                <Field name="address" type="text"  placeholder="address" value ={Order.address} />
+                <Field name="address" type="text"  placeholder="address" value ={Order.address} onChange={handleChange} />
               </FormField>
 
               <Divider />
@@ -160,7 +186,7 @@ useEffect(() => {
           {CoffeeDetail.map((coffee) => (
             <tr key={coffee.id}>
               <td className="border-b-0 lg:w-6 before:hidden">
-                <UserAvatar api={coffee.imageLink} username={"Howell Hand"} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
+                <UserAvatar api={LocalAPI+coffee.imageLink} username={"Howell Hand"} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
               </td>
               <td data-label="Name">{coffee.name}</td>
               <td data-label="Supplier">{coffee.supplierName}</td>
@@ -195,7 +221,7 @@ useEffect(() => {
 
       <SectionMain>
       <Buttons>
-                <Button type="submit"  color="info"  label="Submit" />
+                <Button type="submit"  color="info"  label="Submit"  onClick={handleSubmit}/>
                 <Button type="reset" color="info" outline label="Cancel" />
               </Buttons>
       </SectionMain>

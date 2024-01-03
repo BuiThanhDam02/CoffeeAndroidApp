@@ -64,6 +64,11 @@ public class OrderController {
         List<OrderDetail> orderDetails = orderDetailRepository.findOneOrderId(id);
         return orderDetailConverter.toDto(orderDetails);
     }
+    @GetMapping("/detail/{id}")
+    public OrderDetailDTO getByOrderId(@PathVariable Long id) {
+        List<OrderDetail> orderDetails = orderDetailRepository.findOneOrderId(id);
+        return orderDetailConverter.toDto(orderDetails);
+    }
     @Transactional
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestBody OrderDetailDTO od) {
@@ -151,8 +156,14 @@ public class OrderController {
     @Transactional
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id){
-        orderRepository.updateStatus(id);
+        orderRepository.updateStatus(id,-1);
     }
 
+    @Transactional
+    @PutMapping("/update/{id}")
+    public void update(@PathVariable long id , @RequestBody OrderDetailDTO orderDetailDTO){
+            orderRepository.updateStatus(id,orderDetailDTO.getOrderDTO().getStatusInt());
+
+    }
 
 }
