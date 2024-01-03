@@ -23,7 +23,7 @@ public class Comment {
 
     private String content;
 
-    private Integer star;
+    private float star;
 
     private Integer status;
     private Timestamp created_at;
@@ -77,11 +77,11 @@ public class Comment {
         this.content = content;
     }
 
-    public Integer getStar() {
+    public float getStar() {
         return star;
     }
 
-    public void setStar(Integer star) {
+    public void setStar(float star) {
         this.star = star;
     }
 

@@ -13,12 +13,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Cart;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Rating;
 import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
+import com.example.smartcoffeecourt.Service.LikeResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.stepstone.apprating.AppRatingDialog;
@@ -27,6 +29,10 @@ import com.stepstone.apprating.listener.RatingDialogListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogListener, CoffeeDetailContract.View{
 
@@ -62,23 +68,14 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
         btnComment = findViewById(R.id.btnComment);
         ratingBar = findViewById(R.id.ratingBar);
 
+
         if(getIntent() != null) {
             String coffeeRef = getIntent().getStringExtra(Common.INTENT_coffee_REF);
-            assert coffeeRef != null;
-            if (!coffeeRef.isEmpty()) {
+            if (coffeeRef != null) {
                 presenter = new CoffeeDetailPresenter(this, coffeeRef);
-//                presenter.checkLikeCoffee();
-                presenter.loadCoffee();
+                presenter.loadCoffee(btnLike);
             }
         }
-//        if (presenter.getIsLikeCoffee()==true){
-//            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_red_24));
-//
-//        }else{
-//            btnLike.setImageDrawable(getResources().getDrawable(R.drawable.baseline_favorite_24));
-//
-//        }
-
 
         btnBackDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +126,7 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.likeCoffee();
+                presenter.likeCoffee(btnLike);
             }
         });
         imgAddCart.setOnClickListener(new View.OnClickListener() {
@@ -146,8 +143,15 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
 
     @Override
     public void onPositiveButtonClicked(int valueRating, @NotNull String comments) {
-        Rating rating = new Rating(String.valueOf(valueRating), comments);
-        presenter.saveRating(rating);
+        if(getIntent() != null) {
+            String coffeeRef = getIntent().getStringExtra(Common.INTENT_coffee_REF);
+            assert coffeeRef != null;
+            if (!coffeeRef.isEmpty()) {
+                Rating rating = new Rating(Common.user, Long.parseLong(coffeeRef),comments, Float.parseFloat(String.valueOf(valueRating)));
+                presenter.saveRating(rating);
+            }
+        }
+
     }
 
 
@@ -178,6 +182,7 @@ public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogL
 
     @Override
     public void showCommentPage(String coffeeRef) {
+        System.out.println("CoffeeRef: " + coffeeRef);
         Intent commentIntent = new Intent(CoffeeDetailPage.this, CommentPage.class);
         commentIntent.putExtra(Common.INTENT_coffee_REF, coffeeRef);
         startActivity(commentIntent);
