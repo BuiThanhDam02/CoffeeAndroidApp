@@ -86,15 +86,6 @@ public class Database {
 
     public void addToCart (CartItem cartItem, Integer supplierID) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-//        @SuppressLint("DefaultLocale") String query = String.format("INSERT INTO CartItem(SupplierID,CoffeeId, Name, Price, Quantity, Discount) VALUES('%d', '%s', '%s', '%s', '%s', '%s');",
-//                supplierID,
-//                cartItem.getCoffeeId(),
-//                cartItem.getName(),
-//                cartItem.getPrice(),
-//                cartItem.getQuantity(),
-//                cartItem.getDiscount());
-//        db.execSQL(query);
-
         Cursor c = db.rawQuery("SELECT * FROM CartItem WHERE CoffeeId = ?",
                 new String[]{String.valueOf(cartItem.getCoffeeId())});
         if(c.getCount() > 0) {
@@ -102,7 +93,7 @@ public class Database {
             @SuppressLint("Range") int currentQuantity = c.getInt(c.getColumnIndex("Quantity"));
             int newQuantity = currentQuantity + Integer.parseInt(cartItem.getQuantity());
 
-            updateCartItemQuantity(db, supplierID, cartItem, newQuantity);
+            updateCartItemQuantity(db, cartItem, newQuantity);
         } else {
             insertCartItem(db, supplierID, cartItem);
         }
@@ -119,7 +110,7 @@ public class Database {
     public void deleteItem(Integer supplierID){
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        @SuppressLint("DefaultLocale") String query = String.format("DELETE FROM CartItem WHERE SupplierID = %d", supplierID);
+        @SuppressLint("DefaultLocale") String query = String.format("DELETE FROM CartItem;", supplierID);
         db.execSQL(query);
     }
     public int getCountCart() {
@@ -137,18 +128,14 @@ public class Database {
         return count;
     }
 
-    public void changeQuantity(CartItem cartItem, int supplierID, int newQuantity) {
+    public void changeQuantity(CartItem cartItem, int newQuantity) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        String query = String.format("UPDATE CartItem SET Quantity = %d WHERE SupplierID = %d AND Name = '%s';",
-                newQuantity,
-                supplierID,
-                cartItem.getName());
-                db.execSQL(query);
+        updateCartItemQuantity(db, cartItem, newQuantity);
 
     }
 
-    private void updateCartItemQuantity(SQLiteDatabase db, Integer supplierId, CartItem cartItem, int newQuantity) {
+    private void updateCartItemQuantity(SQLiteDatabase db, CartItem cartItem, int newQuantity) {
         String query = "UPDATE CartItem SET Quantity = ? WHERE CoffeeId = ?";
         db.execSQL(query, new Object[]{newQuantity, cartItem.getCoffeeId()});
     }

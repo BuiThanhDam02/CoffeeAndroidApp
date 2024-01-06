@@ -111,7 +111,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
 
     @Override
     public void onDeleteOrder(int position) {
-        new Database(this).deleteItem(cartGroupItemList.get(position).getSupplierID());
+        new Database(this).deleteItem(0);
         cartGroupItemList.remove(position);
         loadCart();
     }
@@ -119,9 +119,10 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
     @Override
     public void onChangeQuantity(int position, int newQuantity) {
        Database db = new Database(this);
-       db.changeQuantity(cartGroupItemList.get(0).getCartItemList().get(position),
-               cartGroupItemList.get(0).getSupplierID(),
-               newQuantity);
+//       db.changeQuantity(cartGroupItemList.get(0).getCartItemList().get(position),
+//               cartGroupItemList.get(0).getSupplierID(),
+//               newQuantity);
+        db.changeQuantity(cartGroupItemList.get(0).getCartItemList().get(position), newQuantity);
         cartGroupItemList = db.getCart();
         loadCart();
     }
