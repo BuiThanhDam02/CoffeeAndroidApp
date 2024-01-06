@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Admin;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Order;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 
@@ -22,8 +21,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Order r SET r.status = -1 WHERE r.id = :orderId")
-    void updateStatus(@Param("orderId") Long orderId);
+    @Query("UPDATE Order r SET r.status = :status WHERE r.id = :orderId")
+    void updateStatus(@Param("orderId") Long orderId , @Param("status") int status);
+
 
     List<Order> findAllByStatus(int i);
 

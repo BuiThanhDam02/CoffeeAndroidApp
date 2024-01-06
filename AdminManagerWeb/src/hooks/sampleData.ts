@@ -77,6 +77,11 @@ export const addOrder = async ({ order }) => {
 
   return data
 }
+export const updateOrder = async ({ id,order }) => {
+  const { data } = await API.put(`order/update/${id}`, order)
+
+  return data
+}
 // user
 export const getAllClient = async () => {
   const { data } = await API.get('user/all')
