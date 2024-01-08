@@ -42,54 +42,63 @@ public class ProfileFragment  extends Fragment {
         updateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Click!", Toast.LENGTH_SHORT).show();
                 if(!checkEmail(editTextEmail.getText().toString())){
-                    System.out.println("email k dung");
-                    Toast.makeText(getContext(), "Email không đúng!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Email không đúng định dạng!", Toast.LENGTH_LONG).show();
                     return;
-                }
-                if(!checkPhone(editTextPhone.getText().toString())){
-                    System.out.println("sdt k dung");
-                    Toast.makeText(getActivity(), "SĐT không đúng!", Toast.LENGTH_LONG).show();
+                } else if(!checkPhone(editTextPhone.getText().toString())){
+                    Toast.makeText(getActivity(), "SĐT không đúng định dạng!", Toast.LENGTH_LONG).show();
                     return;
+                } else {
+                    User user = new User();
+                    user.setId(Integer.parseInt(Common.userId));
+                    user.setEmail(String.valueOf(editTextEmail.getText()));
+                    user.setPhone(String.valueOf(editTextPhone.getText()));
+                    user.setAddress(String.valueOf(editTextAddress.getText()));
+                    user.setUsername(String.valueOf(editTextUserName.getText()));
+                    updateUser(user);
                 }
-                User user = new User();
-                user.setEmail(String.valueOf(editTextEmail.getText()));
-                user.setPhone(String.valueOf(editTextPhone.getText()));
-                user.setAddress(String.valueOf(editTextAddress.getText()));
-                user.setUsername(String.valueOf(editTextUserName.getText()));
-                updateUser(user);
+
             }
         });
         return root;
     }
 
-    private void loadUserProfile(Long userId){
-        Call<User> call = Network.getInstance().create(ApiService.class).getUserProfile(userId);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    userProfile = response.body();
-                    editTextEmail.setText(userProfile.getEmail());
-                    editTextPhone.setText(userProfile.getPhone());
-                    editTextUserName.setText(userProfile.getUsername());
-                    editTextAddress.setText(userProfile.getAddress());
-                }
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                System.out.println("wrong network");           }
-        });
+    private void loadUserProfile(){
+        userProfile = Common.user;
+        editTextEmail.setText(userProfile.getEmail());
+        editTextPhone.setText(userProfile.getPhone());
+        editTextUserName.setText(userProfile.getUsername());
+        editTextAddress.setText(userProfile.getAddress());
     }
 
     private void updateUser(User user){
-        // code của tình :v
+        Call<User> call = Network.getInstance().create(ApiService.class).updateUser(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()) {
+                    User userUpdate = response.body();
+                    System.out.println("user update: " + userUpdate);
+                    if(userUpdate != null){
+                        Common.user = userUpdate;
+                        userProfile = Common.user;
+                        Toast.makeText(getContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getContext(), "Email đã có người sử dụng!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(getContext(), "Network Error!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
     public void onStart() {
-        loadUserProfile(Long.valueOf(Common.userId));
+        loadUserProfile();
         super.onStart();
     }
 
@@ -106,7 +115,7 @@ public class ProfileFragment  extends Fragment {
    }
 
     private boolean checkPhone(String phone){
-        String PHONE_NUMBER_REGEX = "^(03|05|07|08)[0-9]{8}$";
+        String PHONE_NUMBER_REGEX = "^(03|05|07|08|09)[0-9]{8}$";
         Pattern pattern = Pattern.compile(PHONE_NUMBER_REGEX);
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();

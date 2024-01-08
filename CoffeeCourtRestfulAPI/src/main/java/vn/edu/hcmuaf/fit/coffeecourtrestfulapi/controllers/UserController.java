@@ -5,8 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Role;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.RoleName;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.ChangePasswordRequest;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.UserUpdateRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.RoleRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.UserRepository;
@@ -82,6 +82,44 @@ public class UserController {
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
 
+    }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody UserUpdateRequest userUpdateRequest) {
+
+        User exitstingUserWithEmail = userService.findByEmail(userUpdateRequest.getEmail());
+
+        if(exitstingUserWithEmail!=null &&  exitstingUserWithEmail.getId()!=userUpdateRequest.getId()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        }else {
+            User user = userRepository.findOneById(userUpdateRequest.getId());
+            user.setEmail(userUpdateRequest.getEmail());
+            user.setName(userUpdateRequest.getName());
+            user.setPhone(userUpdateRequest.getPhone());
+            user.setAddress(userUpdateRequest.getAddress());
+
+            userRepository.save(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<User> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        System.out.println(changePasswordRequest);
+        User user = userRepository.findOneById(changePasswordRequest.getId());
+        System.out.println(user);
+        if(user != null) {
+            if(user.getPassword().equals(userService.hashPassword(changePasswordRequest.getOldPassword()))) {
+                user.setPassword(userService.hashPassword(changePasswordRequest.getNewPassword()));
+                userRepository.save(user);
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.smartcoffeecourt.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcoffeecourt.Adapter.OrderAdapter;
 import com.example.smartcoffeecourt.ApiService.ApiService;
+import com.example.smartcoffeecourt.ApiService.ChangePasswordRequest;
+import com.example.smartcoffeecourt.Authentication.ForgotPasswordPage;
+import com.example.smartcoffeecourt.Authentication.SignInPage;
 import com.example.smartcoffeecourt.Common;
+import com.example.smartcoffeecourt.HomePage;
 import com.example.smartcoffeecourt.Model.Order;
+import com.example.smartcoffeecourt.Model.User;
 import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
 
@@ -43,30 +49,42 @@ public class ChangePassFragment  extends Fragment {
         btnChangePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!newPassConfirm.equals(newPass)){
-
+                if(!newPassConfirm.getText().toString().equals(newPass.getText().toString())){
                     Toast.makeText(getActivity(), "Mật khẩu không khớp!", Toast.LENGTH_LONG).show();
-                    return;
+                } else {
+                    changePass(new ChangePasswordRequest(Long.parseLong(Common.userId),oldPass.getText().toString(), newPass.getText().toString()));
                 }
 
-                if(checkOldPass()){
-                    Toast.makeText(getActivity(), "Mật khẩu cũ không đúng!", Toast.LENGTH_LONG).show();
-                    return;
-                }
             }
         });
 
         return root;
     }
 
-    private void changePass(Integer userId) {
-        // code của tình
+    private void changePass(ChangePasswordRequest changePasswordRequest) {
+        Call<User> call = Network.getInstance().create(ApiService.class).changePassword(changePasswordRequest);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+                    User user = response.body();
+                    if(user != null) {
+                        Common.user = user;
+                        Toast.makeText(getActivity(), "Đổi mật khẩu thành công!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Không đúng mật khẩu cũ!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(getActivity(), "Network Error!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    private boolean checkOldPass(){
-        // code của tình
-        return oldPass.getText().toString().equals("mat khau cũ trong db");
-    }
+
 
     @Override
     public void onStart() {
