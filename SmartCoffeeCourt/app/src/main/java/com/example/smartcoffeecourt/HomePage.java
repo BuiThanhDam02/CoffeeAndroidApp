@@ -64,7 +64,7 @@ public class HomePage extends AppCompatActivity  {
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_food, R.id.nav_order, R.id.nav_sign_out)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_food, R.id.nav_order,R.id.nav_profile,R.id.nav_changePass,R.id.nav_sign_out)
                .setDrawerLayout(drawer).build();
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -80,7 +80,7 @@ public class HomePage extends AppCompatActivity  {
                     Paper.book().destroy();
                     finish();
                 }
-                if (id == R.id.nav_order){
+                if (id == R.id.nav_order || id == R.id.nav_profile || id == R.id.nav_changePass ){
                     btnCart.hide();
                 }
                 else btnCart.show();
