@@ -140,7 +140,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
 
         AlertDialog orderDialog;
         final String[] list;
-        list = new String[]{"Tiền mặt", "Paypal", "QR Code"};
+        list = new String[]{"Tiền mặt", "Paypal"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this.getContext());
         mBuilder.setTitle("Thanh toán bằng ???");
         mBuilder.setIcon(R.drawable.ic_baseline_shopping_cart_24);
@@ -167,8 +167,6 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
                 } else if(index == 1) {
                     Intent btnContinue = new Intent(Cart.this, PaymentPage.class);
                     startActivity(btnContinue);
-                } else {
-                    System.out.println("QR Code");
                 }
             }
         });
