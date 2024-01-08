@@ -2,26 +2,30 @@ package com.example.smartcoffeecourt;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcoffeecourt.Adapter.CartAdapter;
 import com.example.smartcoffeecourt.ApiService.ApiService;
+import com.example.smartcoffeecourt.Authentication.SignInPage;
 import com.example.smartcoffeecourt.Database.Database;
 import com.example.smartcoffeecourt.Model.CartGroupItem;
 import com.example.smartcoffeecourt.Model.CartItem;
 import com.example.smartcoffeecourt.Model.Order;
 import com.example.smartcoffeecourt.Network.Network;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +60,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmOrder();
+                showPaymentDialog();
             }
         });
 
@@ -65,10 +69,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
     private void confirmOrder() {
         for(CartGroupItem t: cartGroupItemList){
             Order order =  new Order(Common.user, t);
-
             order.setAddress(txtAddress.getText().toString());
-
-            System.out.println("Order này: " + order);
             Call<Order> call = Network.getInstance().create(ApiService.class).checkout(order);
             call.enqueue(new Callback<Order>() {
                 @Override
@@ -87,7 +88,6 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
             });
         }
         new Database(getBaseContext()).cleanCart();
-//        Toast.makeText(Cart.this, "Đơn hàng đã được xác nhận", Toast.LENGTH_SHORT).show();
         finish();
     }
     private void loadCart() {
@@ -119,16 +119,55 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
     @Override
     public void onChangeQuantity(int position, int newQuantity) {
        Database db = new Database(this);
-//       db.changeQuantity(cartGroupItemList.get(0).getCartItemList().get(position),
-//               cartGroupItemList.get(0).getSupplierID(),
-//               newQuantity);
-        db.changeQuantity(cartGroupItemList.get(0).getCartItemList().get(position), newQuantity);
-        cartGroupItemList = db.getCart();
-        loadCart();
+       db.changeQuantity(cartGroupItemList.get(0).getCartItemList().get(position), newQuantity);
+       cartGroupItemList = db.getCart();
+       loadCart();
     }
 
     @Override
     public Context getContext() {
         return this;
+    }
+
+    private void showPaymentDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Chọn phương thức thanh toán");
+
+        AlertDialog orderDialog;
+        final String[] list;
+        list = new String[]{"Tiền mặt", "Paypal", "QR Code"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this.getContext());
+        mBuilder.setTitle("Thanh toán bằng ???");
+        mBuilder.setIcon(R.drawable.ic_baseline_shopping_cart_24);
+        mBuilder.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+//                if(i == 1) {
+//                    confirmOrder();
+//                } else if(i == 2) {
+//                    Intent btnContinue = new Intent(Cart.this, PaymentPage.class);
+//                    startActivity(btnContinue);
+//                } else {
+//                    System.out.println("QR Code");
+//                }
+            }
+        });
+        mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int index = ((AlertDialog)dialogInterface).getListView().getCheckedItemPosition();
+                System.out.println("index: " + index);
+                if(index == 0) {
+                    confirmOrder();
+                } else if(index == 1) {
+                    Intent btnContinue = new Intent(Cart.this, PaymentPage.class);
+                    startActivity(btnContinue);
+                } else {
+                    System.out.println("QR Code");
+                }
+            }
+        });
+        orderDialog = mBuilder.create();
+        orderDialog.show();
     }
 }

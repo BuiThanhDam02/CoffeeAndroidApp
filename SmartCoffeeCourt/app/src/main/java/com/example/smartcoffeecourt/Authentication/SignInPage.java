@@ -44,8 +44,6 @@ public class SignInPage extends AppCompatActivity {
     Button btnSignIn;
     EditText editPassword, editEmail;
     CheckBox checkBoxRemember;
-    FirebaseAuth mAuth;
-    DatabaseReference userReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +55,6 @@ public class SignInPage extends AppCompatActivity {
         editPassword = (EditText)findViewById(R.id.editTextPassword);
         editEmail = (EditText)findViewById(R.id.editTextEmail);
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
-
-        mAuth = FirebaseAuth.getInstance();
-        userReference = FirebaseDatabase.getInstance().getReference("User/List");
         textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,20 +107,25 @@ public class SignInPage extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
-                System.out.println("dang nhap ok");
-                Common.user = response.body().getUser();
-                Common.userId = response.body().getUser().getId().toString();
-                mDialog.dismiss();
-                if(checkBoxRemember.isChecked()){
-                    Paper.book().write(Common.TOKEN,response.body().getToken());
-                    Paper.book().write(Common.USER_UID,Common.userId);
-                    Paper.book().write(Common.EMAIL_KEY,email);
-                    Paper.book().write(Common.PASSWORD_KEY,password);
+                if(response.isSuccessful()) {
+                    Common.user = response.body().getUser();
+                    Common.userId = response.body().getUser().getId().toString();
+                    mDialog.dismiss();
+                    if(checkBoxRemember.isChecked()){
+                        Paper.book().write(Common.TOKEN,response.body().getToken());
+                        Paper.book().write(Common.USER_UID,Common.userId);
+                        Paper.book().write(Common.EMAIL_KEY,email);
+                        Paper.book().write(Common.PASSWORD_KEY,password);
+                    }
+
+                    Intent homePageIntent = new Intent(SignInPage.this, HomePage.class);
+                    startActivity(homePageIntent);
+                    finish();
+                } else {
+                    mDialog.dismiss();
+                    Toast.makeText(SignInPage.this, "Authentication bị lỗi. Tài khoản hoặc mật khẩu không đúng!!!", Toast.LENGTH_SHORT).show();
                 }
 
-                Intent homePageIntent = new Intent(SignInPage.this, HomePage.class);
-                startActivity(homePageIntent);
-                finish();
 
             }
 
