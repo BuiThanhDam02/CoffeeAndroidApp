@@ -38,9 +38,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
+        System.out.println("Coi thử: " + orderList.get(position));
         holder.idOrder.setText(String.valueOf(orderList.get(position).getId()));
-        holder.statusOrder.setText(Common.convertCodeToStatus(orderList.get(position).getStatus()));
+        holder.statusOrder.setText(orderList.get(position).getStatus());
         holder.totalPrice.setText(Common.convertPriceToVND(Float.valueOf(orderList.get(position).getTotal())));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
