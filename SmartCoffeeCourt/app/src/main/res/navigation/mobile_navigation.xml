@@ -22,6 +22,19 @@
         android:name="com.example.smartcoffeecourt.Fragment.OrderFragment"
         android:label="@string/orders"
         tools:layout="@layout/fragment_order" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.smartcoffeecourt.Fragment.ProfileFragment"
+        android:label="Thông tin cá nhân"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_changePass"
+        android:name="com.example.smartcoffeecourt.Fragment.ChangePassFragment"
+        android:label="Đổi mật khẩu"
+        tools:layout="@layout/fragment_change_pass" />
+
     <fragment
         android:id="@+id/nav_sign_out"
         android:name="com.example.smartcoffeecourt.Fragment.HomeFragment"
