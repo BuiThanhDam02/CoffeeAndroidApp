@@ -23,6 +23,18 @@
             android:title="@string/orders" />
 
         <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:iconTint="@android:color/white"
+            android:title="Thông tin cá nhân" />
+
+        <item
+            android:id="@+id/nav_changePass"
+            android:icon="@drawable/ic_vpn_key_black_24dp"
+            android:iconTint="@android:color/white"
+            android:title="Đổi mật khẩu" />
+
+        <item
             android:id="@+id/nav_sign_out"
             android:icon="@drawable/ic_baseline_exit_to_app_24"
             android:iconTint="@android:color/white"
