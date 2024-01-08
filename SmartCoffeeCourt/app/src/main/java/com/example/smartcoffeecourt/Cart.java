@@ -69,7 +69,12 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartGroupItem
     private void confirmOrder() {
         for(CartGroupItem t: cartGroupItemList){
             Order order =  new Order(Common.user, t);
-            order.setAddress(txtAddress.getText().toString());
+            order.setType(t.getType());
+            if(order.getType().equals("0")) {
+                order.setAddress("Tại cửa hàng");
+            } else {
+                order.setAddress(txtAddress.getText().toString());
+            }
             Call<Order> call = Network.getInstance().create(ApiService.class).checkout(order);
             call.enqueue(new Callback<Order>() {
                 @Override

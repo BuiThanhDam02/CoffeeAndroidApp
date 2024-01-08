@@ -45,6 +45,9 @@ public interface ApiService {
     @GET("/api/likes/checkLike")
     Call<LikeResponse> checkLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
 
+    @POST("/api/user/forgotPassword")
+    Call<Void> forgotPassword(@Query("email") String email);
+
     @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();
 
