@@ -1,5 +1,6 @@
 package com.example.smartcoffeecourt.Authentication;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.smartcoffeecourt.ApiService.ApiService;
+import com.example.smartcoffeecourt.CoffeeDetail.CoffeeDetailPage;
+import com.example.smartcoffeecourt.CoffeeDetail.CommentPage;
+import com.example.smartcoffeecourt.HomePage;
+import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
+import com.example.smartcoffeecourt.WelcomePage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import static android.view.View.VISIBLE;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ForgotPasswordPage extends AppCompatActivity {
 
@@ -51,25 +62,35 @@ public class ForgotPasswordPage extends AppCompatActivity {
         btnSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                sendEmail();
+                forgotPassword();
             }
         });
     }
 
-    private void sendEmail() {
+    private void forgotPassword(){
         String email = editTextEmail.getText().toString();
         if(email.isEmpty()) return;
         progressBar.setVisibility(VISIBLE);
-        firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+        Call<Void> forgotPassword = Network.getInstance().create(ApiService.class).forgotPassword(email);
+        forgotPassword.enqueue(new Callback<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                progressBar.setVisibility(View.GONE);
-                if(task.isSuccessful()){
-                    Toast.makeText(ForgotPasswordPage.this, "Vui lòng kiểm tra email để đặt lại mật khẩu", Toast.LENGTH_LONG).show();
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(ForgotPasswordPage.this, "Mật khẩu mới đã được gửi về Email!", Toast.LENGTH_LONG).show();
+                    Intent btnContinue = new Intent(ForgotPasswordPage.this, SignInPage.class);
+                    startActivity(btnContinue);
                 }
-                else{
-                    Toast.makeText(ForgotPasswordPage.this, "Email không đúng", Toast.LENGTH_LONG).show();
+                else {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(ForgotPasswordPage.this, "Email không đúng!", Toast.LENGTH_LONG).show();
                 }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(ForgotPasswordPage.this, "Network Error!", Toast.LENGTH_LONG).show();
             }
         });
     }
