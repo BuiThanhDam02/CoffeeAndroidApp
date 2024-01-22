@@ -1,4 +1,4 @@
-package com.example.smartcoffeecourt.Service;
+package com.example.smartcoffeecourt.ApiService;
 
 public class LikeResponse {
     private String message;

@@ -13,14 +13,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.smartcoffeecourt.ApiService.ApiService;
 import com.example.smartcoffeecourt.Cart;
 import com.example.smartcoffeecourt.Common;
 import com.example.smartcoffeecourt.Model.Coffee;
 import com.example.smartcoffeecourt.Model.Rating;
 import com.example.smartcoffeecourt.Network.Network;
 import com.example.smartcoffeecourt.R;
-import com.example.smartcoffeecourt.Service.LikeResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.stepstone.apprating.AppRatingDialog;
@@ -29,10 +27,6 @@ import com.stepstone.apprating.listener.RatingDialogListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CoffeeDetailPage extends AppCompatActivity implements RatingDialogListener, CoffeeDetailContract.View{
 

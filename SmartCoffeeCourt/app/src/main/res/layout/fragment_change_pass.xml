@@ -38,8 +38,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:fontFamily="@font/helveticanowtextextmedium"
-
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
         android:textColor="#6D6868"
@@ -116,8 +115,7 @@
         android:ems="10"
         android:maxLength="15"
         android:fontFamily="@font/helveticanowtextextmedium"
-
-        android:inputType="text|number"
+        android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
         android:textColor="#6D6868"
