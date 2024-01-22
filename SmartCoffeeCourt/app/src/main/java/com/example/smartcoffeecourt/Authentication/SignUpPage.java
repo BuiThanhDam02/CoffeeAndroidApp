@@ -34,15 +34,11 @@ public class SignUpPage extends AppCompatActivity {
     TextView textSignIn;
     Button btnSignUp;
 
-//    FirebaseAuth mAuth;
-//    DatabaseReference userReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-//        mAuth = FirebaseAuth.getInstance();
-//        userReference = FirebaseDatabase.getInstance().getReference("User/List");
         editUserName = (EditText)findViewById(R.id.editTextUserName);
         editPhone = (EditText)findViewById(R.id.editTextPhone);
         editEmail = (EditText)findViewById(R.id.editTextEmail);

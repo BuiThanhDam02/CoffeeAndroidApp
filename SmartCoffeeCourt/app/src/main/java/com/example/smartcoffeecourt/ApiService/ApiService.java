@@ -7,16 +7,14 @@ import com.example.smartcoffeecourt.Model.OrderDetailModel;
 import com.example.smartcoffeecourt.Model.Rating;
 import com.example.smartcoffeecourt.Model.Stall;
 import com.example.smartcoffeecourt.Model.User;
-import com.example.smartcoffeecourt.Service.LikeResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -44,6 +42,15 @@ public interface ApiService {
 
     @GET("/api/likes/checkLike")
     Call<LikeResponse> checkLike(@Query("user_id") int userId, @Query("coffee_id") int coffeeId);
+
+    @POST("/api/user/forgotPassword")
+    Call<Void> forgotPassword(@Query("email") String email);
+
+    @PUT("/api/user/updateUser")
+    Call<User> updateUser(@Body User user);
+
+    @PUT("/api/user/changePassword")
+    Call<User> changePassword(@Body ChangePasswordRequest changePasswordRequest);
 
     @GET("/api/supplier/all")
     Call<List<Stall>> getAllStall();

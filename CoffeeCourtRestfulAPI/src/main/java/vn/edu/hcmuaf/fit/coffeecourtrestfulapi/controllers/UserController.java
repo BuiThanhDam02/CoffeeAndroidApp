@@ -5,16 +5,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.Role;
-import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.RoleName;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.ChangePasswordRequest;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.dto.request.UserUpdateRequest;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.models.User;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.RoleRepository;
 import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.repositories.UserRepository;
+import vn.edu.hcmuaf.fit.coffeecourtrestfulapi.services.UserService;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.*;
+
+
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -24,6 +28,8 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/all")
     public List<User> getAllUser() {
@@ -60,4 +66,101 @@ public class UserController {
         }
     }
 
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<Void> forgotPassword(@RequestParam String email) {
+        User user = userRepository.findByEmail(email);
+        System.out.println("user: " + user);
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        String newPassword = generateRandomPassword();
+
+        String content = "Cập lại mật khẩu: " + "\t" + newPassword;
+        sendMail(user.getEmail(), "Forgot Email", content);
+        user.setPassword(userService.hashPassword(newPassword));
+        userService.saveUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody UserUpdateRequest userUpdateRequest) {
+
+        User exitstingUserWithEmail = userService.findByEmail(userUpdateRequest.getEmail());
+
+        if(exitstingUserWithEmail!=null &&  exitstingUserWithEmail.getId()!=userUpdateRequest.getId()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        }else {
+            User user = userRepository.findOneById(userUpdateRequest.getId());
+            user.setEmail(userUpdateRequest.getEmail());
+            user.setName(userUpdateRequest.getName());
+            user.setPhone(userUpdateRequest.getPhone());
+            user.setAddress(userUpdateRequest.getAddress());
+
+            userRepository.save(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<User> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        System.out.println(changePasswordRequest);
+        User user = userRepository.findOneById(changePasswordRequest.getId());
+        System.out.println(user);
+        if(user != null) {
+            if(user.getPassword().equals(userService.hashPassword(changePasswordRequest.getOldPassword()))) {
+                user.setPassword(userService.hashPassword(changePasswordRequest.getNewPassword()));
+                userRepository.save(user);
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    private String generateRandomPassword(){
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+
+        StringBuilder newPassword = new StringBuilder();
+
+        for (int i = 0; i < 8; i++) {
+            newPassword.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        return newPassword.toString();
+    }
+
+    private boolean sendMail(String to, String subject, String text) {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("thaha8788@gmail.com", "vcfkhctyluiorzpw");
+            }
+        });
+        try {
+            Message message = new MimeMessage(session);
+            message.setHeader("Content-Type", "text/plain; charset=UTF-8");
+            message.setFrom(new InternetAddress("thaha8788@gmail.com"));
+            message.setReplyTo(InternetAddress.parse("thaha8788@gmail.com", false));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(text);
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
